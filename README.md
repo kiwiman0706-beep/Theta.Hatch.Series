@@ -1,8 +1,30 @@
 # Theta.Hatch.Series
 
-Theta.xxx.Hatch シリーズの作品一覧です（2026-10-26 時点）。開始日の古い順。
+Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイドライン（仕様・デザイン・鍵）の正本です。
+
+## 最新ガイドラインの要点（2026-10-26 時点）
+
+新しいアプリを作るときは、まず「このガイドラインに合わせるか」を決めます。合わせる場合の要点は次のとおりです（詳しくはリンク先）。
+
+| # | 分野 | 要点 | 詳しく |
+| --- | --- | --- | --- |
+| 1 | 名前 | 表示名は `Theta <名前> Hatch`。applicationId・appId は `jp.yaegaki.theta.<名前>`。版番号は全プラットフォームで同じ、タグは `v<版>` | [spec §2](spec/THETA_HATCH_SPEC.md) |
+| 2 | データ | 正本は利用者の Google ドライブの **Theta Vault**（Obsidian で開ける Markdown＋添付）。1件＝1ファイル、`id` で同一性、削除は `.theta/trash/` へ、大量欠落では削除しない | [Vault 仕様](spec/THETA_VAULT_SPEC.md) |
+| 3 | 原則 | ローカルファースト（オフラインで動き、同期は後から）。独自サーバーを持たない。消さない・戻せる | [spec §1](spec/THETA_HATCH_SPEC.md) |
+| 4 | プラットフォーム | UI は1つ（HTML/CSS/JS）を共有し、Android（APK＋ホーム画面ウィジェット）・Windows/Mac（Electron）・Web（PWA、iPhone）で動かす。端末機能はブリッジ `Native.call` / `window.onNative` で差し替え | [spec §4](spec/THETA_HATCH_SPEC.md) |
+| 5 | デザイン | 見た目は Home.Hatch の**スキン**に揃える：`system`（既定）・`dark`・`light`・`pop`・`alert`・`scifi`。色は直接書かず役割（accent・widget・launch…）から取る。書体は Oswald＋Share Tech Mono | [design](design/README.md) |
+| 6 | 設定の共有 | シリーズ共通の設定は Vault の `.theta/settings.json`（スキン `ui.skin`、Gemini のモデル、Google アカウントなど）。項目ごとに「シリーズに合わせる／このアプリだけ」を選べる。初回起動で引き継ぎを聞く | [設定の引き継ぎ](spec/THETA_SHARED_SETTINGS.md) |
+| 7 | 秘密 | API キー・トークンはクラウドにも Git にも置かない。端末内で暗号化。同じ端末の別アプリへは、利用者の承認で貸し借り（同じ署名鍵のアプリ同士） | [設定の引き継ぎ §4](spec/THETA_SHARED_SETTINGS.md) |
+| 8 | 署名鍵 | Android は**シリーズ共通の鍵**（Meishi の鍵、SHA-1 `A1:13:EA:…:28:BA`）。CI の Secret 名は `ANDROID_KEYSTORE_B64`・`ANDROID_KEYSTORE_PASSWORD`・`ANDROID_KEY_ALIAS`・`ANDROID_KEY_PASSWORD`。`tools/sync-secrets` で全リポジトリへ配る | [secrets](secrets/README.md) |
+| 9 | AI・Google | Gemini は利用者自身の API キー。Google Cloud はシリーズで1プロジェクト、新しいアプリは Android 用 OAuth クライアント（パッケージ名＋共通の SHA-1）を足すだけ。設定手順はアプリ内のガイドで案内 | [Google 連携](spec/THETA_GOOGLE_SETUP.md) |
+| 10 | リリース | GitHub Actions の `release.yml` で全プラットフォームを1つの Release に。Web 版は `pages.yml` で GitHub Pages。アプリ内で自動更新。リポジトリは公開（アプリが Release を読むため） | [spec §6](spec/THETA_HATCH_SPEC.md) |
+| 11 | 連携 | デスクトップ版は DeskHatch のドロワーとして表示できるように。テレビへは Theta Link（LAN 内で発見・ペアリング） | [spec §7・§8](spec/THETA_HATCH_SPEC.md) |
+| 12 | 品質 | Vault の往復テスト、2台の同期テスト、320〜768px 幅ではみ出さない、JS エラー0。実機で確かめていないことは `TESTING.md` に「未確認」と書く | [spec §9](spec/THETA_HATCH_SPEC.md) |
+| 13 | 新しいアプリの手順 | 各アプリの `CLAUDE.md` にこのリポジトリを参照する一文を入れる。完成したら下の作品一覧に追加し、`tools/repos.txt` に足して Secret を配る | [FOR_APP_REPOS](docs/FOR_APP_REPOS.md) |
 
 ## 作品一覧
+
+2026-10-26 時点。開始日の古い順。
 
 | # | 作品 | 概要 | 対応プラットフォーム | 最新版 | GitHub | Claude スレッド | 開始日 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
