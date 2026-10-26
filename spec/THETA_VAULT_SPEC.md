@@ -116,6 +116,16 @@ greetings:
 - **Obsidianで新しくノートを作ってもよい**：`Meishi/People/` に `name:` などを書いたノートを置くと、次の同期で名刺として取り込み、`id` を書き足す。
 - 会社名は `[[会社名]]` リンクにして、Obsidianのグラフ・バックリンクで「会社ごとの人」を見られるようにする（会社ノートは任意。無くても動く）。
 
+### Obsidian での一覧（Bases）
+
+Obsidian で開いたときに「一覧」や「ギャラリー」で見られるよう、各アプリは自分のフォルダに **Obsidian Bases** のファイル（`.base`、Obsidian 1.9 以降の標準機能）を置く。プラグインは不要。
+
+- 置き場所と名前：`<アプリ>/<一覧の名前>.base`（例 `Meishi/名刺.base`、`Mensetsu/応募者.base`）。
+- 中身：自分のフォルダのノートだけを出す絞り込み（`file.inFolder("<アプリ>/…")`）、表（`table`）とカード（`cards`）の表示、項目の日本語の表示名。
+- 画像のあるアプリはカードに画像を出す：パスの項目は `link()` で包む（例 `formulas: card: link(note.pages[0])`）。
+- **無いときだけ作る**。利用者が Obsidian で表示を変えたら、それが優先（アプリは上書きしない）。アプリの版で中身を直したいときは、名前を変えた新しいファイルにする。
+- 見本：`samples/theta-vault/`（`tools/make_sample_vault.py` で作る）。
+
 ## 4. 同期
 
 - **変更の検出はファイル内容のハッシュ**（Google Driveのmd5。前回同期時の値と比較）。端末ごとの記録はVaultの外（アプリのローカル領域 `vault-sync.json`）に置く。Google Driveの独自属性には頼らない（PCの「Googleドライブ」アプリ経由でObsidianが書き換えても正しく検出するため）。

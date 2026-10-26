@@ -1,0 +1,36 @@
+filters:
+  and:
+    - file.inFolder("Mensetsu/Applicants")
+formulas:
+  photo: link(note.portrait)
+properties:
+  note.category:
+    displayName: 職種
+  note.position:
+    displayName: 募集
+  note.stage:
+    displayName: 選考
+  note.rating:
+    displayName: 評価
+  note.interview:
+    displayName: 面接日時
+views:
+  - type: table
+    name: 選考状況
+    groupBy:
+      property: note.stage
+      direction: ASC
+    order:
+      - file.name
+      - note.category
+      - note.position
+      - note.interview
+      - note.rating
+  - type: cards
+    name: 顔写真
+    image: formula.photo
+    imageFit: cover
+    order:
+      - file.name
+      - note.category
+      - note.stage

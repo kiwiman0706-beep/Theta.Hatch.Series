@@ -1,0 +1,32 @@
+filters:
+  and:
+    - file.inFolder("Memo")
+    - 'note.theta == "memo/note@1"'
+    - "!note.archived"
+    - "!note.trashed"
+properties:
+  note.title:
+    displayName: タイトル
+  note.tags:
+    displayName: ラベル
+  note.updated:
+    displayName: 更新
+views:
+  - type: cards
+    name: メモ
+    order:
+      - file.name
+      - note.tags
+      - note.updated
+    sort:
+      - property: note.pinned
+        direction: DESC
+      - property: note.updated
+        direction: DESC
+  - type: table
+    name: 一覧
+    order:
+      - file.name
+      - note.tags
+      - note.pinned
+      - note.updated

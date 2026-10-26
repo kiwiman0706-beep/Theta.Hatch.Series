@@ -1,0 +1,54 @@
+filters:
+  and:
+    - file.inFolder("Meishi/People")
+formulas:
+  card: link(note.pages[0])
+properties:
+  note.kana:
+    displayName: よみ
+  note.company:
+    displayName: 会社
+  note.department:
+    displayName: 部署
+  note.title:
+    displayName: 役職
+  note.met:
+    displayName: 会った日
+  note.tags:
+    displayName: タグ
+views:
+  - type: cards
+    name: 名刺
+    image: formula.card
+    imageFit: contain
+    imageAspectRatio: 0.6
+    order:
+      - file.name
+      - note.title
+      - note.met
+    sort:
+      - property: note.met
+        direction: DESC
+  - type: table
+    name: 一覧
+    order:
+      - file.name
+      - note.kana
+      - note.company
+      - note.department
+      - note.title
+      - note.tags
+      - note.met
+    sort:
+      - property: note.kana
+        direction: ASC
+  - type: table
+    name: 会社ごと
+    groupBy:
+      property: note.company
+      direction: ASC
+    order:
+      - file.name
+      - note.department
+      - note.title
+      - note.met

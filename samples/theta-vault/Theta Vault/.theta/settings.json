@@ -1,0 +1,12 @@
+{
+  "spec": 1,
+  "updated": "2026-10-26T09:00:00Z",
+  "series": {
+    "ui.skin": {
+      "value": "system",
+      "by": "home",
+      "at": "2026-10-26T09:00:00Z"
+    }
+  },
+  "apps": {}
+}

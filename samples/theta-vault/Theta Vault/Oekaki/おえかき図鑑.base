@@ -1,0 +1,31 @@
+filters:
+  and:
+    - file.inFolder("Oekaki/drawings")
+formulas:
+  picture: link("Oekaki/" + note.image)
+properties:
+  note.title:
+    displayName: なまえ
+  note.artist:
+    displayName: かいた ひと
+  note.roles:
+    displayName: やくわり
+views:
+  - type: cards
+    name: ずかん
+    image: formula.picture
+    imageFit: contain
+    order:
+      - note.title
+      - note.artist
+      - note.roles
+  - type: cards
+    name: かいた ひとごと
+    image: formula.picture
+    imageFit: contain
+    groupBy:
+      property: note.artist
+      direction: ASC
+    order:
+      - note.title
+      - note.roles

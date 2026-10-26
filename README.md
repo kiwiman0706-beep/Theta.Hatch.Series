@@ -9,7 +9,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | # | 分野 | 要点 | 詳しく |
 | --- | --- | --- | --- |
 | 1 | 名前 | 表示名は `Theta <名前> Hatch`。applicationId・appId は `jp.yaegaki.theta.<名前>`。版番号は全プラットフォームで同じ、タグは `v<版>` | [spec §2](spec/THETA_HATCH_SPEC.md) |
-| 2 | データ | 正本は利用者の Google ドライブの **Theta Vault**（Obsidian で開ける Markdown＋添付）。1件＝1ファイル、`id` で同一性、削除は `.theta/trash/` へ、大量欠落では削除しない | [Vault 仕様](spec/THETA_VAULT_SPEC.md) |
+| 2 | データ | 正本は利用者の Google ドライブの **Theta Vault**（Obsidian で開ける Markdown＋添付）。1件＝1ファイル、`id` で同一性、削除は `.theta/trash/` へ、大量欠落では削除しない。Obsidian で一覧・ギャラリーが見られるよう、各アプリは自分のフォルダに `.base`（Obsidian Bases）を置く。見本は [`samples/theta-vault`](samples/README.md) | [Vault 仕様](spec/THETA_VAULT_SPEC.md) |
 | 3 | 原則 | ローカルファースト（オフラインで動き、同期は後から）。独自サーバーを持たない。消さない・戻せる | [spec §1](spec/THETA_HATCH_SPEC.md) |
 | 4 | プラットフォーム | UI は1つ（HTML/CSS/JS）を共有し、Android（APK＋ホーム画面ウィジェット）・Windows/Mac（Electron）・Web（PWA、iPhone）で動かす。端末機能はブリッジ `Native.call` / `window.onNative` で差し替え | [spec §4](spec/THETA_HATCH_SPEC.md) |
 | 5 | デザイン | 見た目は Home.Hatch の**スキン**に揃える：`system`（既定）・`dark`・`light`・`pop`・`alert`・`scifi`。色は直接書かず役割（accent・widget・launch…）から取る。書体は Oswald＋Share Tech Mono | [design](design/README.md) |
@@ -65,6 +65,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | [`design/`](design/README.md) | デザインガイドラインとスキン（Home.Hatch の dark・light・pop・alert・scifi）、HUD キット |
 | [`secrets/`](secrets/README.md) | 共通の署名鍵・Secret の名前と置き場所（鍵そのものは入れない） |
 | [`tools/`](tools/) | スキンの生成（`gen_skins.py`）、Secret を全リポジトリへ配る（`sync-secrets.ps1` / `.sh`） |
+| [`samples/`](samples/README.md) | Obsidian で開ける見本の Theta Vault（架空のデータ・一覧用の `.base` 付き） |
 | [`catalog/apps.json`](catalog/apps.json) | アプリ一覧（機械が読む用）：今と目標のリポジトリ名・ID、自動更新の有無。Home の Hatch ドロワーの正本 |
 | [`docs/MIGRATION.md`](docs/MIGRATION.md) | 名前・ID・リポジトリ・鍵を揃える手順と影響 |
 | [`docs/FOR_APP_REPOS.md`](docs/FOR_APP_REPOS.md) | 各アプリ・各スレッドからここを参照させる方法 |
