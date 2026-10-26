@@ -1,0 +1,10 @@
+# 鍵・秘密は入れない（secrets/README.md）
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.b64
+.env
+*.env
+local.properties

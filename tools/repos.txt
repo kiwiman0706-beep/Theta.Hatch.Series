@@ -1,0 +1,14 @@
+# 共通の Secret を配るリポジトリ（1 行 1 つ、# から後は無視）。Android の APK を作るアプリ
+kiwiman0706-beep/MeishiApp
+kiwiman0706-beep/dsbooks
+kiwiman0706-beep/Theta.Item.Hatch
+kiwiman0706-beep/Theta.Kamigata.Hatch
+kiwiman0706-beep/Theta.DoorPhoto.Hatch
+kiwiman0706-beep/Theta.Label.Hatch
+kiwiman0706-beep/Theta.Device.Hatch
+kiwiman0706-beep/Theta.Travel.Hatch
+kiwiman0706-beep/Theta.Oekaki.Hatch
+kiwiman0706-beep/Theta.Mensetsu.Hatch
+kiwiman0706-beep/Theta.Home.Hatch
+kiwiman0706-beep/Theta.Memo.Hatch
+kiwiman0706-beep/Theta.KidsHome.Hatch

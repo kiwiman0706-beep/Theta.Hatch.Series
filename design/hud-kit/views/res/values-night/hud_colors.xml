@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Theta Hatch HUD：ダーク（黒地にオレンジ 1 色） -->
+<resources>
+    <color name="hud_bg">#FF0A0A0B</color>
+    <color name="hud_panel">#FF111113</color>
+    <color name="hud_raised">#FF19191C</color>
+    <color name="hud_fg">#FFEDEDED</color>
+    <color name="hud_muted">#FFA3A3A3</color>
+    <color name="hud_faint">#FF858585</color>
+    <color name="hud_line">#FF333336</color>
+    <color name="hud_accent">#FFFF6B1A</color>
+    <color name="hud_on_accent">#FF0A0A0B</color>
+    <color name="hud_zebra">#0FFFFFFF</color>
+    <bool name="hud_light_bars">false</bool>
+</resources>

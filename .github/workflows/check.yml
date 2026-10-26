@@ -1,0 +1,15 @@
+name: check
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: スキンの生成ファイルが skins.json と一致する
+        run: python tools/gen_skins.py --check
+      - name: 鍵が入っていない
+        run: |
+          if git ls-files | grep -Ei '\.(jks|keystore|p12|pfx|pem)$'; then echo "::error::鍵ファイルはコミットしない"; exit 1; fi

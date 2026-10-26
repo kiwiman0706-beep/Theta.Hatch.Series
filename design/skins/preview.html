@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theta Hatch スキン見本</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theta-skins.css">
+<style>
+  body { margin: 0; padding: 16px; background: #888; font: 15px/1.6 system-ui, "Noto Sans JP", sans-serif; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: var(--bg); color: var(--fg); border: var(--line-width) solid var(--line); border-radius: var(--radius); padding: 14px; }
+  .hazard { height: var(--hazard); background: repeating-linear-gradient(-45deg, var(--accent) 0 6px, transparent 6px 12px); margin-bottom: 10px; }
+  .label { font: 10px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--faint); }
+  .title { font: 400 24px var(--display); margin: 2px 0 8px; }
+  .row { display: flex; justify-content: space-between; padding: 6px 8px; font-family: var(--mono); font-size: 13px; }
+  .row:nth-child(odd) { background: var(--zebra); }
+  .row b { font-weight: normal; }
+  .g0 { color: var(--accent); } .g1 { color: var(--widget); } .g2 { color: var(--launch); }
+  .btns { display: flex; gap: 8px; margin-top: 12px; }
+  .btn { font: 13px var(--mono); color: var(--fg); background: var(--raised); border: var(--line-width) solid var(--line); padding: 8px 14px;
+    border-radius: var(--radius); }
+  [data-theta-skin]:not([data-theta-skin="pop"]) .btn { clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .chips { display: flex; gap: 6px; margin-top: 10px; }
+  .chips span { width: 22px; height: 22px; border: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+  const skins = { dark: "ダーク", light: "ライト", pop: "POP（カラフル）", alert: "ALERT（警報画面）", scifi: "SCI-FI（操作卓）" };
+  const grid = document.getElementById("grid");
+  for (const [id, name] of Object.entries(skins)) {
+    grid.insertAdjacentHTML("beforeend", `
+      <div class="card theta-backdrop" data-theta-skin="${id}">
+        <div class="hazard"></div>
+        <div class="label">ui.skin = ${id}</div>
+        <div class="title">${name}</div>
+        <div class="row"><span class="g0">■ フォルダ</span><b>accent</b></div>
+        <div class="row"><span class="g1">■ ウィジェット</span><b>widget</b></div>
+        <div class="row"><span class="g2">■ 起動</span><b>launch</b></div>
+        <div class="row"><span style="color:var(--muted)">補足の文字</span><b style="color:var(--faint)">faint</b></div>
+        <div class="btns"><button class="btn primary theta-pop-shadow">保存</button><button class="btn theta-pop-shadow">やめる</button></div>
+        <div class="chips">${["bg","panel","raised","fg","accent","accent2","accent3"].map(k => `<span title="${k}" style="background:var(--${k})"></span>`).join("")}</div>
+      </div>`);
+  }
+</script>
+</body>
+</html>

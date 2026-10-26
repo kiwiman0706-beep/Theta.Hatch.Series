@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Theta Hatch HUD（Android の View / XML で作っているアプリ用）。
+  AndroidManifest の application か activity に android:theme="@style/Theme.Hatch.Hud"。
+  文字の部品には style="@style/Hud.Label" などを付ける。書体は res/font に置いた Oswald・Share Tech Mono。
+-->
+<resources>
+    <style name="Theme.Hatch.Hud" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/hud_bg</item>
+        <item name="android:colorBackground">@color/hud_bg</item>
+        <item name="android:colorPrimary">@color/hud_accent</item>
+        <item name="android:colorAccent">@color/hud_accent</item>
+        <item name="android:textColorPrimary">@color/hud_fg</item>
+        <item name="android:textColorSecondary">@color/hud_muted</item>
+        <item name="android:statusBarColor">@color/hud_bg</item>
+        <item name="android:navigationBarColor">@color/hud_bg</item>
+        <!-- 明るい地ではステータスバーの文字を黒に（values-night では false） -->
+        <item name="android:windowLightStatusBar">@bool/hud_light_bars</item>
+        <item name="android:windowLightNavigationBar">@bool/hud_light_bars</item>
+        <item name="android:fontFamily">@font/share_tech_mono</item>
+        <item name="android:buttonStyle">@style/Hud.Button</item>
+    </style>
+
+    <!-- 大きな見出し・時計（Oswald の細字） -->
+    <style name="Hud.Display" parent="">
+        <item name="android:fontFamily">@font/oswald_light</item>
+        <item name="android:textColor">@color/hud_fg</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <!-- 小さな英字ラベル：等幅・字間広め・灰（例 SYS.TIME、ITEMS） -->
+    <style name="Hud.Label" parent="">
+        <item name="android:fontFamily">@font/share_tech_mono</item>
+        <item name="android:textColor">@color/hud_faint</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:letterSpacing">0.2</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- 計器の値（数字・状態） -->
+    <style name="Hud.Value" parent="">
+        <item name="android:fontFamily">@font/share_tech_mono</item>
+        <item name="android:textColor">@color/hud_fg</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- 本文 -->
+    <style name="Hud.Body" parent="">
+        <item name="android:textColor">@color/hud_fg</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- 注記 -->
+    <style name="Hud.Note" parent="">
+        <item name="android:textColor">@color/hud_faint</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- ボタン：細い線の枠、左上を落とした角。主ボタンは Hud.Button.Primary -->
+    <style name="Hud.Button" parent="android:Widget.Material.Button.Borderless">
+        <item name="android:background">@drawable/hud_button</item>
+        <item name="android:textColor">@color/hud_fg</item>
+        <item name="android:fontFamily">@font/share_tech_mono</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+    </style>
+
+    <style name="Hud.Button.Primary">
+        <item name="android:background">@drawable/hud_button_primary</item>
+        <item name="android:textColor">@color/hud_on_accent</item>
+    </style>
+</resources>

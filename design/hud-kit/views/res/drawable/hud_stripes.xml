@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 斜線の帯（区切り・飾り）。高さ 8dp ほどの View の背景に。横に繰り返す -->
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/hud_stripe_tile"
+    android:tileMode="repeat" />

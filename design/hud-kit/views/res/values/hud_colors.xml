@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Theta Hatch HUD：ライト（明るい地）。ダークは values-night/hud_colors.xml -->
+<resources>
+    <color name="hud_bg">#FFF4F3EE</color>
+    <color name="hud_panel">#FFFFFFFF</color>
+    <color name="hud_raised">#FFE9E8E2</color>
+    <color name="hud_fg">#FF121212</color>
+    <color name="hud_muted">#FF474747</color>
+    <color name="hud_faint">#FF5E5E5E</color>
+    <color name="hud_line">#FFBDBCB4</color>
+    <color name="hud_accent">#FFB8400C</color>
+    <color name="hud_on_accent">#FFFFFFFF</color>
+    <color name="hud_zebra">#0D000000</color>
+    <bool name="hud_light_bars">true</bool>
+</resources>

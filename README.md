@@ -34,7 +34,12 @@ Theta.xxx.Hatch シリーズの作品一覧です（2026-10-26 時点）。開�
 - 多くの作品は README に「実機での確認はまだ」と書かれています。
 - Claude スレッドは、各リポジトリを開発した主なスレッドです。
 
-## 今後の予定（このリポジトリの役割）
+## このリポジトリの中身
 
-- **デザインガイドライン・共通仕様**: MeishiApp にある共通仕様をこのリポジトリへ移し、各作品はここを参照するようにする。
-- **共通の秘密鍵**（Gemini API キーなど）: 鍵そのものは Git に入れない（private リポジトリでも、履歴に残ると消しにくく、clone した全端末・全スレッドに広がるため）。ここには「どの鍵を、どの名前で、どこに置くか」の一覧だけを書き、値は GitHub Actions Secrets や各端末の暗号化ストレージに置く方針を想定しています。
+| 場所 | 中身 |
+| --- | --- |
+| [`spec/`](spec/) | シリーズ共通仕様（[Hatch](spec/THETA_HATCH_SPEC.md)・[Vault](spec/THETA_VAULT_SPEC.md)・[設定の引き継ぎ](spec/THETA_SHARED_SETTINGS.md)・[Google 連携](spec/THETA_GOOGLE_SETUP.md)）。MeishiApp/docs から移設 |
+| [`design/`](design/README.md) | デザインガイドラインとスキン（Home.Hatch の dark・light・pop・alert・scifi）、HUD キット |
+| [`secrets/`](secrets/README.md) | 共通の署名鍵・Secret の名前と置き場所（鍵そのものは入れない） |
+| [`tools/`](tools/) | スキンの生成（`gen_skins.py`）、Secret を全リポジトリへ配る（`sync-secrets.ps1` / `.sh`） |
+| [`docs/FOR_APP_REPOS.md`](docs/FOR_APP_REPOS.md) | 各アプリ・各スレッドからここを参照させる方法 |

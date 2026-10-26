@@ -1,0 +1,79 @@
+/*
+  Theta Hatch HUD — Web 版（モックアップ・WebView・説明ページ用）
+  <html data-theme="dark|light"> か、OS の設定（prefers-color-scheme）に従う。
+  書体は Google Fonts：
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+*/
+:root {
+  --bg: #F4F3EE; --panel: #FFFFFF; --raised: #E9E8E2;
+  --fg: #121212; --muted: #474747; --faint: #5E5E5E; --line: #BDBCB4;
+  --accent: #B8400C; --on-accent: #FFFFFF; --zebra: rgba(0,0,0,.05);
+  --display: "Oswald", "Noto Sans JP", sans-serif;
+  --mono: "Share Tech Mono", ui-monospace, "Noto Sans JP", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0A0A0B; --panel: #111113; --raised: #19191C;
+    --fg: #EDEDED; --muted: #A3A3A3; --faint: #858585; --line: #333336;
+    --accent: #FF6B1A; --on-accent: #0A0A0B; --zebra: rgba(255,255,255,.06);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0A0A0B; --panel: #111113; --raised: #19191C;
+  --fg: #EDEDED; --muted: #A3A3A3; --faint: #858585; --line: #333336;
+  --accent: #FF6B1A; --on-accent: #0A0A0B; --zebra: rgba(255,255,255,.06);
+}
+
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.6 system-ui, "Noto Sans JP", sans-serif; }
+
+/* 小さな英字ラベル（SYS.TIME など）。前に四角を付けるなら .hud-label.bullet */
+.hud-label { font: 10px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--faint); }
+.hud-label.bullet::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 6px; background: var(--accent); vertical-align: middle; }
+
+/* 大きな見出し・時計 */
+.hud-display { font: 300 52px/1.05 var(--display); letter-spacing: .02em; color: var(--fg); }
+.hud-title { font: 400 22px var(--display); color: var(--fg); }
+
+/* 計器の読み：ラベル＋値 */
+.hud-readout { display: inline-flex; flex-direction: column; gap: 2px; margin-right: 18px; }
+.hud-readout b { font: 16px var(--mono); font-weight: normal; color: var(--fg); }
+.hud-readout.alert b { color: var(--accent); }
+
+/* 区画：線の枠＋四隅のかぎ括弧 */
+.hud-panel { position: relative; border: 1px solid var(--line); background: var(--panel); padding: 12px; }
+.hud-panel::before, .hud-panel::after { content: ""; position: absolute; width: 10px; height: 10px; border: 1.5px solid var(--accent); }
+.hud-panel::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+.hud-panel::after { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+.hud-panel > .head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.hud-panel > .head .code { font: 11px var(--mono); letter-spacing: .2em; color: var(--accent); }
+
+/* ボタン：左上を落とした角 */
+.hud-btn { font: 13px var(--mono); color: var(--fg); background: transparent; border: 1px solid var(--line);
+  min-height: 40px; padding: 10px 16px; clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px); cursor: pointer; }
+.hud-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.hud-btn:disabled { color: var(--faint); }
+
+/* 入力欄 */
+.hud-field { font: 15px system-ui, sans-serif; color: var(--fg); background: var(--raised); border: 1px solid var(--line);
+  padding: 12px 16px; clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px); width: 100%; box-sizing: border-box; }
+
+/* 一覧：縞模様、行の間は詰める */
+.hud-list > * { min-height: 48px; padding: 8px 10px; display: flex; align-items: center; gap: 14px; }
+.hud-list > *:nth-child(even) { background: var(--zebra); }
+
+/* 種類の札 */
+.hud-badge { font: 11px var(--mono); color: var(--muted); border: 1px solid var(--line); width: 46px; text-align: center; padding: 4px 0; }
+.hud-badge.on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+
+/* 飾り：斜線の帯・目盛り */
+.hud-stripes { height: 8px; background: repeating-linear-gradient(-45deg, var(--accent) 0 3px, transparent 3px 7px); }
+.hud-ticks { height: 6px; background:
+  repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 6px) bottom / 100% 50% no-repeat,
+  repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 30px); }
+
+/* 端のタブ（横書きを 90 度倒す） */
+.hud-tab { width: 40px; border: 1px solid var(--line); padding: 4px 0 10px; text-align: center; }
+.hud-tab .num { font: 9px var(--mono); color: var(--faint); }
+.hud-tab .label { font: 13px var(--mono); letter-spacing: .12em; writing-mode: vertical-rl; color: var(--fg); }
+.hud-tab.on { background: var(--accent); border-color: var(--accent); }
+.hud-tab.on .num, .hud-tab.on .label { color: var(--on-accent); }

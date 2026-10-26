@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 線の枠、左上を 8dp 落とした角（Chamfer）。押したときは少し明るく -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <layer-list>
+            <item><shape><solid android:color="@color/hud_raised" /></shape></item>
+            <item android:drawable="@drawable/hud_chamfer_line" />
+        </layer-list>
+    </item>
+    <item android:drawable="@drawable/hud_chamfer_line" />
+</selector>

@@ -1,0 +1,44 @@
+{
+  "name": "Theta Hatch HUD",
+  "source": "Theta Home Hatch 0.15.0-alpha（app/src/main/java/jp/yaegaki/theta/home/ui/Theme.kt）",
+  "color": {
+    "dark": {
+      "bg": "#0A0A0B", "panel": "#111113", "raised": "#19191C",
+      "fg": "#EDEDED", "muted": "#A3A3A3", "faint": "#858585", "line": "#333336",
+      "accent": "#FF6B1A", "onAccent": "#0A0A0B",
+      "widget": "#EDEDED", "launch": "#7A7A7E", "zebra": "rgba(255,255,255,0.06)"
+    },
+    "light": {
+      "bg": "#F4F3EE", "panel": "#FFFFFF", "raised": "#E9E8E2",
+      "fg": "#121212", "muted": "#474747", "faint": "#5E5E5E", "line": "#BDBCB4",
+      "accent": "#B8400C", "onAccent": "#FFFFFF",
+      "widget": "#121212", "launch": "#6A6A6A", "zebra": "rgba(0,0,0,0.05)"
+    }
+  },
+  "font": {
+    "display": "Oswald (Light 300 / Regular 400 / SemiBold 600) — 見出し・時計・大きな数字",
+    "mono": "Share Tech Mono — ラベル・数字・ボタン・コード",
+    "japanese": "端末の書体（指定しない）"
+  },
+  "type": {
+    "clock": "Oswald Light 52–72sp",
+    "title": "Oswald 18–30sp",
+    "label": "Share Tech Mono 10–11sp, letter-spacing 1.5–2sp, UPPERCASE, faint",
+    "value": "Share Tech Mono 13–16sp, fg（問題のときだけ accent）",
+    "body": "15sp fg",
+    "note": "12sp faint, line-height 19sp"
+  },
+  "shape": {
+    "corner": "0（角丸なし）",
+    "chamfer": "ボタン・入力欄は左上だけ 8dp 斜めに落とす",
+    "border": "1dp line",
+    "cornerBrackets": "区画の四隅に accent のかぎ括弧（長さ 8–12dp、太さ 1.5dp）"
+  },
+  "space": { "screen": "14dp（狭い）/ 28dp（広い）", "row": "minHeight 48dp, padding 10×8dp", "gap": "6 / 8 / 10 / 18dp" },
+  "decoration": {
+    "stripes": "斜線の帯（accent か line）、間隔 7dp",
+    "ticks": "目盛り（line）、6dp ごと、5 本に 1 本長い",
+    "squareBullet": "見出しの前に 6dp の accent の四角",
+    "zebra": "一覧は奇数行に zebra を敷く（行の間に隙間を作らない）"
+  }
+}

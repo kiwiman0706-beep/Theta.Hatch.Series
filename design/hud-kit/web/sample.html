@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Theta Hatch HUD</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hud.css">
+<style>main{display:flex;gap:16px;max-width:520px;margin:0 auto;padding:16px}.col{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}.rail{display:flex;flex-direction:column;gap:5px}</style>
+</head>
+<body>
+<main>
+  <div class="col">
+    <div class="hud-label bullet">SYS.EQUIPMENT</div>
+    <div class="hud-display">EQUIPMENT</div>
+    <div class="hud-ticks"></div>
+    <input class="hud-field" placeholder="SEARCH  検索">
+    <div>
+      <span class="hud-readout"><span class="hud-label">ITEMS</span><b>042</b></span>
+      <span class="hud-readout"><span class="hud-label">CHECKED</span><b>039</b></span>
+      <span class="hud-readout alert"><span class="hud-label">MISSING</span><b>003</b></span>
+    </div>
+    <section class="hud-panel">
+      <div class="head"><span class="code">[ LIST ]</span><span class="hud-label">持ち物</span></div>
+      <div class="hud-list">
+        <div><span class="hud-badge on">CAM</span>カメラ</div>
+        <div><span class="hud-badge">TRI</span>三脚</div>
+        <div><span class="hud-badge">PWR</span>充電器</div>
+        <div><span class="hud-badge">MEM</span>SD カード</div>
+      </div>
+    </section>
+    <div><button class="hud-btn primary">確認する</button> <button class="hud-btn">書き出す</button></div>
+    <div class="hud-stripes"></div>
+  </div>
+  <nav class="rail">
+    <div class="hud-tab on"><div class="num">01</div><div class="label">LIST</div></div>
+    <div class="hud-tab"><div class="num">02</div><div class="label">CHECK</div></div>
+  </nav>
+</main>
+</body>
+</html>
