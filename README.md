@@ -17,10 +17,11 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 7 | 秘密 | API キー・トークンはクラウドにも Git にも置かない。端末内で暗号化。同じ端末の別アプリへは、利用者の承認で貸し借り（同じ署名鍵のアプリ同士） | [設定の引き継ぎ §4](spec/THETA_SHARED_SETTINGS.md) |
 | 8 | 署名鍵 | Android は**シリーズ共通の鍵**（Meishi の鍵、SHA-1 `A1:13:EA:…:28:BA`）。CI の Secret 名は `ANDROID_KEYSTORE_B64`・`ANDROID_KEYSTORE_PASSWORD`・`ANDROID_KEY_ALIAS`・`ANDROID_KEY_PASSWORD`。`tools/sync-secrets` で全リポジトリへ配る | [secrets](secrets/README.md) |
 | 9 | AI・Google | Gemini は利用者自身の API キー。Google Cloud はシリーズで1プロジェクト、新しいアプリは Android 用 OAuth クライアント（パッケージ名＋共通の SHA-1）を足すだけ。設定手順はアプリ内のガイドで案内 | [Google 連携](spec/THETA_GOOGLE_SETUP.md) |
-| 10 | リリース | GitHub Actions の `release.yml` で全プラットフォームを1つの Release に。Web 版は `pages.yml` で GitHub Pages。アプリ内で自動更新。リポジトリは公開（アプリが Release を読むため） | [spec §6](spec/THETA_HATCH_SPEC.md) |
+| 10 | リリース・**自動更新（必須）** | GitHub Actions の `release.yml` で全プラットフォームを1つの Release に。Web 版は `pages.yml`。**全アプリにアプリ内自動更新**：Android は Releases を12時間ごとに確認、Wi-Fi で取得、SHA-256・パッケージ名・署名を照合して PackageInstaller で更新（Android 12+ は確認なし）。リポジトリは公開 | [spec §6・§6.1](spec/THETA_HATCH_SPEC.md) |
 | 11 | 連携 | デスクトップ版は DeskHatch のドロワーとして表示できるように。テレビへは Theta Link（LAN 内で発見・ペアリング） | [spec §7・§8](spec/THETA_HATCH_SPEC.md) |
 | 12 | 品質 | Vault の往復テスト、2台の同期テスト、320〜768px 幅ではみ出さない、JS エラー0。実機で確かめていないことは `TESTING.md` に「未確認」と書く | [spec §9](spec/THETA_HATCH_SPEC.md) |
 | 13 | 新しいアプリの手順 | 各アプリの `CLAUDE.md` にこのリポジトリを参照する一文を入れる。完成したら下の作品一覧に追加し、`tools/repos.txt` に足して Secret を配る | [FOR_APP_REPOS](docs/FOR_APP_REPOS.md) |
+| 14 | 移行 | 名前・ID・リポジトリ名・署名鍵を揃える作業中。各アプリの今と目標は `catalog/apps.json`。鍵と ID は同じ版で変え、「橋渡し版」で自動更新からデータの書き出し→新アプリへ移る | [MIGRATION](docs/MIGRATION.md) |
 
 ## 作品一覧
 
@@ -64,4 +65,6 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | [`design/`](design/README.md) | デザインガイドラインとスキン（Home.Hatch の dark・light・pop・alert・scifi）、HUD キット |
 | [`secrets/`](secrets/README.md) | 共通の署名鍵・Secret の名前と置き場所（鍵そのものは入れない） |
 | [`tools/`](tools/) | スキンの生成（`gen_skins.py`）、Secret を全リポジトリへ配る（`sync-secrets.ps1` / `.sh`） |
+| [`catalog/apps.json`](catalog/apps.json) | アプリ一覧（機械が読む用）：今と目標のリポジトリ名・ID、自動更新の有無。Home の Hatch ドロワーの正本 |
+| [`docs/MIGRATION.md`](docs/MIGRATION.md) | 名前・ID・リポジトリ・鍵を揃える手順と影響 |
 | [`docs/FOR_APP_REPOS.md`](docs/FOR_APP_REPOS.md) | 各アプリ・各スレッドからここを参照させる方法 |

@@ -78,13 +78,38 @@ v2：Meishiで実績のできたもの（Google Drive同期・Google連絡先・
 
 - GitHub Actions（`release.yml`）：手動実行（またはタグ）→ 版の一致確認 → テスト（単体・UI・Web）→ Android APK（Secretの鍵で署名）・Windows（NSIS＋zip）・Mac（dmg＋zip、Appleシリコン/Intel、アドホック署名）→ 1つのGitHub Release。再実行でファイルを追加・置換。
 - Web版（`pages.yml`）：push でビルドして GitHub Pages へ（Pagesの Source を「GitHub Actions」に）。
-- **自動更新**：
+- **自動更新（必須）**：シリーズのアプリはすべて、利用者が Releases ページを見に行かなくても新しい版に上がること。共通の決まりは §6.1。
   - Windows：`electron-updater`（GitHub）でバックグラウンド取得、次の起動で入れ替え。
   - Mac：Appleの開発者署名が無い間は通知とダウンロードページ。
-  - Android：最新ReleaseのAPKを（Wi-Fiで）取得しSHA-256を確認、PackageInstallerでアプリ内更新。Android 12以降は2回目から無確認（`UPDATE_PACKAGES_WITHOUT_USER_ACTION`、画面を離れたときに）。
+  - Android：§6.1 のとおり（実装の見本は Theta.Memo.Hatch の `UpdateCheck.java`・`UpdateInstaller.java`）。
   - Web：Service Workerが版ごとにキャッシュを入れ替え。
 - リポジトリは公開（非公開だとアプリがReleaseを読めない）。
 - 新しい版で増えた処理を既存データに当てはめる「**過去のデータを最新の状態にする**」をメニューに1つ（件数と費用の目安を出してからまとめて実行）。
+
+### 6.1 Android の自動更新（必須）
+
+**確認**
+- 起動時と、その後は最大 12 時間に 1 回、`https://api.github.com/repos/kiwiman0706-beep/<リポジトリ>/releases/latest` を見る（draft・prerelease は除く）。タグ `v<版>` と今の版を比べる。
+- Release に付ける Android の APK は **1 つだけ**（名前は `Theta<名前>Hatch-<版>.apk`）。
+
+**取得と確認**
+- Wi-Fi のときは先に取得しておく（モバイル回線では「取得」ボタンを出すだけ）。
+- GitHub が付ける各ファイルの `digest`（`sha256:…`）と照合する。合わなければ入れない。
+- 入れる前に、取得した APK の **パッケージ名と署名が自分と同じか** を確かめる（`getPackageArchiveInfo`）。
+  - 同じ → 更新として入れる。
+  - パッケージ名が違う → 更新ではなく「移行」（`docs/MIGRATION.md`）。勝手に入れず、移行の画面を出す。
+  - 署名だけ違う → 入れられない（上書きが失敗する）。理由と Releases ページへのボタンを出す。
+
+**入れる**
+- `PackageInstaller` でアプリ内から入れる。権限 `REQUEST_INSTALL_PACKAGES`（初回は利用者が許可）。
+- Android 12 以降は `UPDATE_PACKAGES_WITHOUT_USER_ACTION` を宣言し、2 回目からは確認なしで、画面を離れたときに入れ替える。
+
+**画面**
+- 設定に「今の版」「更新を確認」「自動で更新する（オン／オフ、既定オン）」。新しい版があるときはホームに帯を出し、変更点（Release の本文）を見られる。
+- 失敗したときは理由と「Releases ページを開く」ボタン。
+
+**ホームからの更新**
+- Theta Home Hatch の「Hatch」ドロワーは、シリーズの全アプリを入れる・更新する入口。対象の一覧（パッケージ名・リポジトリ）は、このリポジトリの `catalog/apps.json` を正本にする。
 
 ## 7. DeskHatch との統合
 

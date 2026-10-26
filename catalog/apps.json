@@ -1,0 +1,93 @@
+{
+  "spec": 1,
+  "updated": "2026-10-26",
+  "owner": "kiwiman0706-beep",
+  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。",
+  "apps": [
+    {
+      "id": "book", "name": "Theta Book Hatch", "nickname": "DSBooks",
+      "current": { "repo": "dsbooks", "packageName": "jp.shinwakai.dsbooks.preview" },
+      "target": { "repo": "Theta.Book.Hatch", "packageName": "jp.yaegaki.theta.book" },
+      "platforms": ["android", "windows", "mac"], "autoUpdate": "unknown", "vault": false
+    },
+    {
+      "id": "meishi", "name": "Theta Meishi Hatch",
+      "current": { "repo": "MeishiApp", "packageName": "jp.yaegaki.meishiclaude" },
+      "target": { "repo": "Theta.Meishi.Hatch", "packageName": "jp.yaegaki.meishiclaude" },
+      "platforms": ["android", "windows", "mac", "web"], "autoUpdate": true, "vault": true,
+      "remark": "共通鍵で署名済み。ID を変えると鍵は同じでも入れ直しになるので、ID はそのまま"
+    },
+    {
+      "id": "item", "name": "Theta Item Hatch", "nickname": "おもいでクローゼット",
+      "current": { "repo": "Theta.Item.Hatch", "packageName": "jp.omoide.closet" },
+      "target": { "repo": "Theta.Item.Hatch", "packageName": "jp.yaegaki.theta.item" },
+      "platforms": ["android"], "autoUpdate": false, "vault": false
+    },
+    {
+      "id": "kamigata", "name": "Theta Kamigata Hatch", "nickname": "くるりヘア",
+      "current": { "repo": "Theta.Kamigata.Hatch", "packageName": "jp.yaegaki.kururihair" },
+      "target": { "repo": "Theta.Kamigata.Hatch", "packageName": "jp.yaegaki.theta.kamigata" },
+      "platforms": ["android"], "autoUpdate": false, "vault": false
+    },
+    {
+      "id": "doorphoto", "name": "Theta DoorPhoto Hatch", "nickname": "おもいで年表",
+      "current": { "repo": "Theta.DoorPhoto.Hatch", "packageName": "jp.yaegaki.omoide" },
+      "target": { "repo": "Theta.DoorPhoto.Hatch", "packageName": "jp.yaegaki.theta.doorphoto" },
+      "platforms": ["android"], "autoUpdate": false, "vault": false
+    },
+    {
+      "id": "label", "name": "Theta Label Hatch", "nickname": "声でテプラ",
+      "current": { "repo": "Theta.Label.Hatch", "packageName": "jp.yaegaki.tepravoice" },
+      "target": { "repo": "Theta.Label.Hatch", "packageName": "jp.yaegaki.theta.label" },
+      "platforms": ["android"], "autoUpdate": false, "vault": false
+    },
+    {
+      "id": "device", "name": "Theta Device Hatch", "nickname": "機器台帳",
+      "current": { "repo": "Theta.Device.Hatch", "packageName": "jp.yaegaki.equipment" },
+      "target": { "repo": "Theta.Device.Hatch", "packageName": "jp.yaegaki.theta.device" },
+      "platforms": ["android"], "autoUpdate": false, "vault": false
+    },
+    {
+      "id": "travel", "name": "Theta Travel Hatch", "nickname": "TravelHatch",
+      "current": { "repo": "Theta.Travel.Hatch", "packageName": "jp.theta.travelhatch" },
+      "target": { "repo": "Theta.Travel.Hatch", "packageName": "jp.yaegaki.theta.travel" },
+      "platforms": ["android"], "autoUpdate": false, "vault": false
+    },
+    {
+      "id": "oekaki", "name": "Theta Oekaki Hatch", "nickname": "おえかきハッチ",
+      "current": { "repo": "Theta.Oekaki.Hatch", "packageName": "jp.theta.oekakihatch" },
+      "target": { "repo": "Theta.Oekaki.Hatch", "packageName": "jp.yaegaki.theta.oekaki" },
+      "platforms": ["android", "web"], "autoUpdate": false, "vault": true
+    },
+    {
+      "id": "mensetsu", "name": "Theta Mensetsu Hatch",
+      "current": { "repo": "Theta.Mensetsu.Hatch", "packageName": "jp.yaegaki.theta.mensetsu" },
+      "target": { "repo": "Theta.Mensetsu.Hatch", "packageName": "jp.yaegaki.theta.mensetsu" },
+      "platforms": ["android", "windows", "mac", "web"], "autoUpdate": "desktop-only", "vault": true
+    },
+    {
+      "id": "home", "name": "Theta Home Hatch",
+      "current": { "repo": "Theta.Home.Hatch", "packageName": "jp.yaegaki.theta.home" },
+      "target": { "repo": "Theta.Home.Hatch", "packageName": "jp.yaegaki.theta.home" },
+      "platforms": ["android"], "autoUpdate": true, "vault": false
+    },
+    {
+      "id": "memo", "name": "Theta Memo Hatch",
+      "current": { "repo": "Theta.Memo.Hatch", "packageName": "jp.yaegaki.theta.memo" },
+      "target": { "repo": "Theta.Memo.Hatch", "packageName": "jp.yaegaki.theta.memo" },
+      "platforms": ["android"], "autoUpdate": true, "vault": true
+    },
+    {
+      "id": "kidshome", "name": "Theta KidsHome Hatch", "nickname": "キッズホーム",
+      "current": { "repo": "Theta.KidsHome.Hatch", "packageName": "com.theta.kidshome" },
+      "target": { "repo": "Theta.KidsHome.Hatch", "packageName": "jp.yaegaki.theta.kidshome" },
+      "platforms": ["android"], "autoUpdate": true, "vault": false
+    },
+    {
+      "id": "desk", "name": "DeskHatch", "series": false,
+      "current": { "repo": "deskhatch", "packageName": null },
+      "target": { "repo": "deskhatch", "packageName": null },
+      "platforms": ["windows", "mac"], "autoUpdate": true, "vault": false
+    }
+  ]
+}

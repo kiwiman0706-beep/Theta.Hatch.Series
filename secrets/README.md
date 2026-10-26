@@ -54,8 +54,8 @@ GitHub Actions の Secret は **リポジトリごと** です。あるリポジ
 | Travel | `jp.theta.travelhatch` | `TRAVEL_*` の環境変数 | 変数名を揃える |
 | Item | `jp.omoide.closet` | `OMOIDE_*` の環境変数（個人の鍵） | 変数名を揃える |
 | Device | `jp.yaegaki.equipment` | `release-signing.jks`（ローカルにあれば） | 変数名を揃える |
-| DoorPhoto・Label・Kamigata | DoorPhoto は `jp.yaegaki.omoide`、ほかは未確認 | 個別（ソースが archives 内で未確認） | 確認して揃える |
-| Book（dsbooks） | — | 未確認（非公開リポジトリ） | 確認して揃える |
+| DoorPhoto・Label・Kamigata | `jp.yaegaki.omoide`・`jp.yaegaki.tepravoice`・`jp.yaegaki.kururihair` | 個別（ソースが archives 内で未確認） | 確認して揃える |
+| Book（dsbooks） | `jp.shinwakai.dsbooks.preview` | 未確認（非公開リポジトリ） | 確認して揃える |
 
 ### 注意：鍵を変えると、入っているアプリは上書きできない
 
