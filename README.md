@@ -67,5 +67,5 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | [`tools/`](tools/) | スキンの生成（`gen_skins.py`）、Secret を全リポジトリへ配る（`sync-secrets.ps1` / `.sh`） |
 | [`samples/`](samples/README.md) | Obsidian で開ける見本の Theta Vault（架空のデータ・一覧用の `.base` 付き） |
 | [`catalog/apps.json`](catalog/apps.json) | アプリ一覧（機械が読む用）：今と目標のリポジトリ名・ID、自動更新の有無。Home の Hatch ドロワーの正本 |
-| [`docs/MIGRATION.md`](docs/MIGRATION.md) | 名前・ID・リポジトリ・鍵を揃える手順と影響 |
+| [`docs/MIGRATION.md`](docs/MIGRATION.md) | 名前・ID・リポジトリ・鍵を揃える手順と影響（各スレッドに送るプロンプトは [`PROMPT_MIGRATION.md`](docs/PROMPT_MIGRATION.md)） |
 | [`docs/FOR_APP_REPOS.md`](docs/FOR_APP_REPOS.md) | 各アプリ・各スレッドからここを参照させる方法 |
