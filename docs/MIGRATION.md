@@ -1,6 +1,6 @@
 # 名前・ID・リポジトリ・署名鍵を揃える（移行）
 
-目標：全アプリを `Theta <名前> Hatch`／`jp.yaegaki.theta.<名前>`／リポジトリ `Theta.<名前>.Hatch`／シリーズ共通の署名鍵／アプリ内自動更新（spec §6.1）に揃える。
+目標：全アプリを `Theta <名前> Hatch`／`app.thetahatch.<名前>`／リポジトリ `Theta.<名前>.Hatch`／シリーズ共通の署名鍵／アプリ内自動更新（spec §6.1）に揃える。
 各アプリの今と目標は [`catalog/apps.json`](../catalog/apps.json)。
 
 ## 1. 変えるものと影響
@@ -20,11 +20,11 @@
 
 | アプリ | リポジトリ名 | ID | 鍵 | 自動更新 | データ |
 | --- | --- | --- | --- | --- | --- |
-| Meishi | `MeishiApp` → `Theta.Meishi.Hatch` | そのまま | 済み | あり | Vault |
+| Meishi | `MeishiApp` → `Theta.Meishi.Hatch` | 変える | 済み | あり | Vault |
 | Book | `dsbooks` → `Theta.Book.Hatch` | 変える | 変える | 要確認 | 要確認 |
-| Memo | — | — | 済み | あり | Vault |
-| Mensetsu | — | — | Secret を入れる | **Android に追加** | Vault |
-| Home | — | — | 変える | あり（Hatch ドロワーを catalog に） | 設定の書き出しあり |
+| Memo | — | 変える | 済み | あり | Vault |
+| Mensetsu | — | 変える | Secret を入れる | **Android に追加** | Vault |
+| Home | — | 変える | 変える | あり（Hatch ドロワーを catalog に） | 設定の書き出しあり |
 | KidsHome | — | 変える | 変える（公開鍵を廃止） | あり | 要確認 |
 | Oekaki | — | 変える | 変える | **追加** | Vault |
 | Travel・Item・Kamigata・DoorPhoto・Label・Device | — | 変える | 変える | **追加** | **端末内の可能性。書き出し・読み込みを用意** |
@@ -43,7 +43,7 @@
 4. Google Cloud に新しい ID の Android 用 OAuth クライアントを追加（Google 連携があるアプリ）
 5. このリポジトリの `catalog/apps.json`（current を target に）・README の一覧・`tools/repos.txt` を直す。Home の Hatch ドロワーにも反映
 
-ID・鍵を変えないアプリ（Meishi・Memo・Mensetsu・Home）は、共通鍵での署名と自動更新（§6.1）を満たすだけ。Home は鍵を変えるので、上の手順で「設定を書き出す／読み込む」を使う。
+ID は全アプリ変わる（`app.thetahatch.<名前>`、2026-10-27 決定）。Meishi・Memo は鍵がすでに共通なので、橋渡し版の自動更新で新しいアプリへ移るだけ（データは Vault から戻る）。
 
 ## 4. 進める順番（案）
 

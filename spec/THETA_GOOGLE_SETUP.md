@@ -18,7 +18,7 @@ Google Cloud の設定は **シリーズで1つのプロジェクト** にまと
 | OAuth同意画面（アプリ名・サポートメール・対象＝外部） | 共通 | 最初の1回 | 済み（名前は下の「おすすめ」参照） |
 | テストユーザー（kiwiman0706@gmail.com） | 共通 | 最初の1回 | 済み |
 | データアクセス（スコープ）の登録 | 共通 | 任意。新しい種類の許可（例：カレンダー）を使うアプリが出たら足す | — |
-| **Android用OAuthクライアント（パッケージ名＋SHA-1）** | **アプリごと** | **アプリを増やすたび** | `jp.yaegaki.meishiclaude` 済み |
+| **Android用OAuthクライアント（パッケージ名＋SHA-1）** | **アプリごと** | **アプリを増やすたび** | `jp.yaegaki.meishiclaude`（移行前）済み。移行後の ID は `catalog/apps.json` |
 | Web用OAuthクライアント（JavaScript生成元） | 共通 | Web版を最初に作るとき1回 | Web版で作成（GitHub Pages の生成元） |
 | Windows/Mac版 | 不要 | — | Googleドライブ for デスクトップのフォルダを使うため OAuth なし |
 | Gemini APIキー | 別物 | — | Google AI Studio で作るキー。OAuth とは関係なし |
@@ -63,7 +63,7 @@ Google Cloud の設定は **シリーズで1つのプロジェクト** にまと
 
   他のアプリもこの鍵で署名すれば同じ値になります。ただし、**そのアプリの開発スレッドで別の鍵を作っていたり、デバッグ版だったりすると違う値になります**。その場合は、ガイドに出る値で登録すれば動きます。
   シリーズで揃える場合は、新しいアプリのビルドにも Meishi の鍵を渡してください（APIキーの貸し借り（`SeriesProvider`）は、同じ鍵で署名したアプリ同士でしか動きません）。
-- パッケージ名は新しいアプリなら `jp.yaegaki.theta.<名前>` です（Meishi だけは歴史的事情で `jp.yaegaki.meishiclaude`）。
+- パッケージ名は `app.thetahatch.<名前>` です（全アプリの一覧は `catalog/apps.json` の target）。移行前のアプリは古い ID のまま動いているので、移行が済むまでは古い ID の登録も残します。
 - Android Studio から直接入れた**デバッグ版**は、パソコンのデバッグ用の鍵で署名されるため SHA-1 が違います。デバッグ版で Google ログインを試すときだけ、そのSHA-1でもう1つクライアントを作ります（GitHub のリリース版だけ使うなら不要）。
 
 ### 2. Android用OAuthクライアントを作る

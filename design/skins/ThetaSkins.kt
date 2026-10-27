@@ -1,6 +1,6 @@
 // 生成ファイル：tools/gen_skins.py で design/skins/skins.json から作る。手で直さない。
 // Theta.Home.Hatch の ui/Theme.kt と同じ Palette。アプリに入れるときは package を合わせる。
-package jp.yaegaki.theta.skin
+package app.thetahatch.skin
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp

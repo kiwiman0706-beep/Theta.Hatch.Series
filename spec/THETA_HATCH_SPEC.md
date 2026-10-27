@@ -21,8 +21,8 @@ v2：Meishiで実績のできたもの（Google Drive同期・Google連絡先・
 | 表示名 | `Theta <名前> Hatch` | Theta Meishi Hatch |
 | Vault内のフォルダ | 英語1語 | `Meishi/` |
 | frontmatterの種類 | `<アプリ>/<種類>@<版>` | `meishi/person@1` |
-| Android applicationId | 新規は `jp.yaegaki.theta.<名前>`（Meishiは既存の `jp.yaegaki.meishiclaude` を維持） | `jp.yaegaki.theta.recipe` |
-| デスクトップ appId | `jp.yaegaki.theta.<名前>` | `jp.yaegaki.theta.meishi` |
+| Android applicationId | `app.thetahatch.<名前>`（小文字の英語1語。個人名は入れない）。既存のアプリも移行で揃える（`docs/MIGRATION.md`） | `app.thetahatch.recipe` |
+| デスクトップ appId | `app.thetahatch.<名前>` | `app.thetahatch.meishi` |
 | Web版 | `https://<user>.github.io/<リポジトリ>/`（同じオリジンに並べる） | `https://kiwiman0706-beep.github.io/MeishiApp/` |
 | 版番号 | Android・デスクトップ・Webで同じ（`0.15.4`）。タグ `v<版>` | v0.15.4 |
 | 署名鍵（Android） | **シリーズで共通の鍵**（設定の引き継ぎ§4・Google連携のSHA-1のため）。個人保管、リポジトリには入れず、CIには共通名のSecret（`ANDROID_KEYSTORE_B64` など）で渡す。`secrets/README.md` | |

@@ -81,7 +81,7 @@ Theta Hatch の設定を引き継ぎますか？         （Meishi Hatch で設�
 
 | 端末 | しくみ |
 | --- | --- |
-| Android | 各アプリが `ContentProvider`（authority `<applicationId>.theta`）を公開し、権限 `jp.yaegaki.theta.permission.SHARE`（`protectionLevel="signature"`）で守る。**同じ署名鍵**のアプリだけが読める。新しいアプリは `<queries>` で `jp.yaegaki.theta.HATCH` アクションを宣言したアプリを探し、引き継ぎ画面で「Meishi Hatch のAPIキーを使う」を選ばれたときだけ `content://<id>.theta/secret/gemini.key` を読む。提供側は、読まれたことを通知などで知らせる。 |
+| Android | 各アプリが `ContentProvider`（authority `<applicationId>.theta`）を公開し、権限 `app.thetahatch.permission.SHARE`（`protectionLevel="signature"`）で守る。**同じ署名鍵**のアプリだけが読める。新しいアプリは `<queries>` で `app.thetahatch.HATCH` アクションを宣言したアプリを探し、引き継ぎ画面で「Meishi Hatch のAPIキーを使う」を選ばれたときだけ `content://<id>.theta/secret/gemini.key` を読む。提供側は、読まれたことを通知などで知らせる。 |
 | Windows / Mac | 将来はデスクトップを1つの「Theta Hatch」ホスト（トレイ常駐、各アプリはその中のモジュール。DeskHatch連携と同じ形）にまとめ、設定と鍵を1か所に持つ。それまでは各アプリの設定画面に「他のTheta Hatchアプリから読み込む」を置き、`<ユーザーの設定フォルダ>/ThetaHatch/shared-secrets.json`（ユーザーだけが読める権限）を経由して、利用者の操作でコピーする。 |
 | Web（PWA） | シリーズのWeb版を同じオリジン（`https://<user>.github.io/`）で配信すると、IndexedDB の共通データベース `theta-hatch-series` を全アプリが読める。秘密はそこに置き、各アプリは利用者の承認で読む。 |
 
