@@ -25,7 +25,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 
 ## 作品一覧
 
-2026-10-26 時点。開始日の古い順。
+2026-10-28 時点。開始日の古い順。
 
 | # | 作品 | 概要 | 対応プラットフォーム | 最新版 | GitHub | Claude スレッド | 開始日 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -42,13 +42,15 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 11 | **Theta.Home.Hatch** | 背景（デスクトップ）にファイラーを置き、画面端のタブでドロワーやウィジェットを切り替える Android ホームアプリ。狭い画面では予定・天気のダッシュボード | Android 10+（Galaxy Z Fold5、iPlay 60/80、Titan 2 想定） | 0.27.0-alpha | [Theta.Home.Hatch](https://github.com/kiwiman0706-beep/Theta.Home.Hatch) | [Theta.Home.Hatch](https://claude.ai/code/session_01GMSgoGarRChJJQLGtjAFKY) | 2026-10-22 |
 | 12 | **Theta.Memo.Hatch** | Google Keep 風の付箋メモ。データは Obsidian 形式（Theta Vault）で Google Drive に保存し、リッチテキスト・表・手書き・音声・ファイル添付、Keep からの取り込みに対応 | Android（PC・Mac は Drive＋Obsidian で読み書き） | 0.1.0 | [Theta.Memo.Hatch](https://github.com/kiwiman0706-beep/Theta.Memo.Hatch) | [アプリ開発](https://claude.ai/code/session_01H9m1j4wPmRzXQbzu7zWADS) | 2026-10-23 |
 | 13 | **Theta.KidsHome.Hatch**<br>（キッズホーム） | 子ども用タブレット向けのかわいいホーム画面。アプリ・おえかき・でんわ・時計・天気、動画ロック、おうちの人からの呼びかけ | Android（タブレット、ALLDOCUBE iPlay60 など） | 0.4.0 | [Theta.KidsHome.Hatch](https://github.com/kiwiman0706-beep/Theta.KidsHome.Hatch) | [子供用ホーム画面アプリ](https://claude.ai/code/session_01NhS3xRwFVfssMDMXfSoJEv) | 2026-10-24 |
+| 14 | **Theta.Hitsudan.Hatch**<br>（筆談・翻訳表示） | 診察室で医師の言葉を音声認識し、外国語の患者には翻訳、耳の不自由な患者には日本語のまま、手元の電子ペーパー（M5PaperS3）やタブレットに大きな文字で表示。医師が確認してから送る。操作はログに残る | Windows / Mac（PC のサーバー）＋ブラウザ（タブレット）＋ M5PaperS3 | — | [Theta.Hitsudan.Hatch](https://github.com/kiwiman0706-beep/Theta.Hitsudan.Hatch) | [音声認識翻訳表示システム](https://claude.ai/code/session_01B9UWzs14Mh99ti9U7GyxZV) | 2026-10-27 |
+| 15 | **Theta.Music.Hatch**<br>（Theta Music） | Tailscale 経由で NAS の音楽を再生するプレーヤー（Flutter）。WebDAV か Synology Audio Station に接続。iPod classic 風と Home.Hatch 風（6 テーマ）のスキン。ライブラリを Obsidian の Markdown に書き出し | Android | 1.0.0 | [Theta.Music.Hatch](https://github.com/kiwiman0706-beep/Theta.Music.Hatch)（private） | [NAS音楽再生アプリ](https://claude.ai/code/session_012DXkc2Wd5iBmicj8ba39vG) | 2026-10-27 |
 
 ### 関連（Theta.xxx.Hatch の名前ではないもの）
 
 | 作品 | 概要 | 対応プラットフォーム | 最新版 | GitHub | Claude スレッド | 開始日 |
 | --- | --- | --- | --- | --- | --- | --- |
 | **DeskHatch** | 画面最上部に常駐するランチャーバー。ボタンで真下にドロワーが開き、Gmail・カレンダー等の Web アプリ、ファイル、クリップ、各種ツールを置ける。共通仕様 §7 で Hatch 各作品との統合先 | Windows / Mac | 0.1.72-beta.2 | [deskhatch](https://github.com/kiwiman0706-beep/deskhatch) | [Deskhatch2](https://claude.ai/code/session_018tmaD8HpkoGTEfY5qob4Dd) | 2026-09-15 |
-| **Theta.Hatch.Suite** | 今日、別スレッドで作った作品一覧（この README と同じ内容） | — | — | [Theta.Hatch.Suite](https://github.com/kiwiman0706-beep/Theta.Hatch.Suite) | [series overview](https://claude.ai/code/session_01Xuw9YGgEFk7uAVjKZTRiUo) | 2026-10-26 |
+| **Theta.Hatch.Suite** | 2026-10-26 に別スレッドで作った作品一覧（この README の元。アーカイブ候補） | — | — | [Theta.Hatch.Suite](https://github.com/kiwiman0706-beep/Theta.Hatch.Suite) | [series overview](https://claude.ai/code/session_01Xuw9YGgEFk7uAVjKZTRiUo) | 2026-10-26 |
 
 ## メモ
 

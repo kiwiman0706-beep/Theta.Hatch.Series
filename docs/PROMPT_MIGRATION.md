@@ -21,7 +21,10 @@ Theta Hatch シリーズ全体で、アプリ ID・リポジトリ名・署名�
   | --- | --- |
   | Meishi・Memo・Mensetsu・Home・Book | `app.thetahatch.meishi`・`.memo`・`.mensetsu`・`.home`・`.book` |
   | Item・Kamigata・DoorPhoto・Label・Device | `app.thetahatch.item`・`.kamigata`・`.doorphoto`・`.label`・`.device` |
-  | Travel・Oekaki・KidsHome | `app.thetahatch.travel`・`.oekaki`・`.kidshome` |
+  | Travel・Oekaki・KidsHome・Music | `app.thetahatch.travel`・`.oekaki`・`.kidshome`・`.music` |
+  | Hitsudan（Android 版なし） | デスクトップの appId を作るなら `app.thetahatch.hitsudan` |
+
+  Android 版の無いアプリは、署名鍵と Android の自動更新は対象外。当てはまる所だけ進めてください。
 
 - **署名鍵**：全アプリ共通の鍵（Meishi の鍵）で署名します。SHA-1 は `A1:13:EA:34:83:60:56:32:E7:F5:94:4E:4E:8C:20:55:DD:AE:28:BA`。
   - 鍵そのものは、このリポジトリの GitHub Actions Secret に入れてあります（入っていなければ私が入れます）。名前は `ANDROID_KEYSTORE_B64`（鍵ファイルの Base64）・`ANDROID_KEYSTORE_PASSWORD`・`ANDROID_KEY_ALIAS`・`ANDROID_KEY_PASSWORD`。release.yml はこの 4 つで署名するように揃えてください。

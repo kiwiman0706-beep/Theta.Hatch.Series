@@ -1,6 +1,6 @@
 {
   "spec": 1,
-  "updated": "2026-10-27",
+  "updated": "2026-10-28",
   "owner": "kiwiman0706-beep",
   "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。",
   "apps": [
@@ -243,6 +243,48 @@
       ],
       "autoUpdate": true,
       "vault": false
+    },
+    {
+      "id": "hitsudan",
+      "name": "Theta Hitsudan Hatch",
+      "nickname": "筆談・翻訳表示",
+      "current": {
+        "repo": "Theta.Hitsudan.Hatch",
+        "packageName": null
+      },
+      "target": {
+        "repo": "Theta.Hitsudan.Hatch",
+        "packageName": null,
+        "appId": "app.thetahatch.hitsudan"
+      },
+      "platforms": [
+        "windows",
+        "mac",
+        "web",
+        "m5paper"
+      ],
+      "autoUpdate": false,
+      "vault": false,
+      "remark": "Android 版なし（PC の Python サーバー＋ブラウザ＋M5PaperS3）。署名鍵・Android の自動更新は対象外"
+    },
+    {
+      "id": "music",
+      "name": "Theta Music Hatch",
+      "nickname": "Theta Music",
+      "current": {
+        "repo": "Theta.Music.Hatch",
+        "packageName": "com.thetahatch.theta_music"
+      },
+      "target": {
+        "repo": "Theta.Music.Hatch",
+        "packageName": "app.thetahatch.music"
+      },
+      "platforms": [
+        "android"
+      ],
+      "autoUpdate": false,
+      "vault": false,
+      "remark": "Flutter。リポジトリが private（自動更新には公開が必要）。鍵は key.properties かデバッグ鍵。Obsidian 書き出しは NAS 上の Vault（Theta Vault 外、Dataview 使用）"
     },
     {
       "id": "desk",

@@ -12,3 +12,4 @@ kiwiman0706-beep/Theta.Mensetsu.Hatch
 kiwiman0706-beep/Theta.Home.Hatch
 kiwiman0706-beep/Theta.Memo.Hatch
 kiwiman0706-beep/Theta.KidsHome.Hatch
+kiwiman0706-beep/Theta.Music.Hatch
