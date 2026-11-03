@@ -1,8 +1,8 @@
 {
   "spec": 1,
-  "updated": "2026-10-28",
+  "updated": "2026-11-03",
   "owner": "kiwiman0706-beep",
-  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。",
+  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。",
   "apps": [
     {
       "id": "book",
@@ -22,7 +22,13 @@
         "mac"
       ],
       "autoUpdate": "unknown",
-      "vault": false
+      "vault": false,
+      "integrations": {
+        "obsidianVault": "partial",
+        "googleDrive": "no",
+        "synology": "yes",
+        "secureSignIn": "partial"
+      }
     },
     {
       "id": "meishi",
@@ -43,7 +49,13 @@
       ],
       "autoUpdate": true,
       "vault": true,
-      "remark": "共通鍵で署名済み。ID は変わるので一度入れ直し（データは Vault から戻る）"
+      "remark": "共通鍵で署名済み。ID は変わるので一度入れ直し（データは Vault から戻る）",
+      "integrations": {
+        "obsidianVault": "yes",
+        "googleDrive": "yes",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "item",
@@ -61,7 +73,13 @@
         "android"
       ],
       "autoUpdate": false,
-      "vault": false
+      "vault": false,
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "yes",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "kamigata",
@@ -79,7 +97,13 @@
         "android"
       ],
       "autoUpdate": false,
-      "vault": false
+      "vault": false,
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "no",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "doorphoto",
@@ -97,7 +121,13 @@
         "android"
       ],
       "autoUpdate": false,
-      "vault": false
+      "vault": false,
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "planned",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "label",
@@ -115,7 +145,13 @@
         "android"
       ],
       "autoUpdate": false,
-      "vault": false
+      "vault": false,
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "no",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "device",
@@ -133,7 +169,13 @@
         "android"
       ],
       "autoUpdate": false,
-      "vault": false
+      "vault": false,
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "no",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "travel",
@@ -151,7 +193,13 @@
         "android"
       ],
       "autoUpdate": false,
-      "vault": false
+      "vault": false,
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "no",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "oekaki",
@@ -170,7 +218,13 @@
         "web"
       ],
       "autoUpdate": false,
-      "vault": true
+      "vault": true,
+      "integrations": {
+        "obsidianVault": "partial",
+        "googleDrive": "yes",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "mensetsu",
@@ -190,7 +244,13 @@
         "web"
       ],
       "autoUpdate": "desktop-only",
-      "vault": true
+      "vault": true,
+      "integrations": {
+        "obsidianVault": "yes",
+        "googleDrive": "yes",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "home",
@@ -207,7 +267,13 @@
         "android"
       ],
       "autoUpdate": true,
-      "vault": false
+      "vault": false,
+      "integrations": {
+        "obsidianVault": "planned",
+        "googleDrive": "yes",
+        "synology": "yes",
+        "secureSignIn": "yes"
+      }
     },
     {
       "id": "memo",
@@ -224,7 +290,13 @@
         "android"
       ],
       "autoUpdate": true,
-      "vault": true
+      "vault": true,
+      "integrations": {
+        "obsidianVault": "yes",
+        "googleDrive": "yes",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "kidshome",
@@ -242,7 +314,13 @@
         "android"
       ],
       "autoUpdate": true,
-      "vault": false
+      "vault": false,
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "no",
+        "synology": "planned",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "hitsudan",
@@ -265,7 +343,13 @@
       ],
       "autoUpdate": false,
       "vault": false,
-      "remark": "Android 版なし（PC の Python サーバー＋ブラウザ＋M5PaperS3）。署名鍵・Android の自動更新は対象外"
+      "remark": "Android 版なし（PC の Python サーバー＋ブラウザ＋M5PaperS3）。署名鍵・Android の自動更新は対象外",
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "no",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "music",
@@ -284,7 +368,83 @@
       ],
       "autoUpdate": false,
       "vault": false,
-      "remark": "Flutter。リポジトリが private（自動更新には公開が必要）。鍵は key.properties かデバッグ鍵。Obsidian 書き出しは NAS 上の Vault（Theta Vault 外、Dataview 使用）"
+      "remark": "Flutter。リポジトリが private（自動更新には公開が必要）。鍵は key.properties かデバッグ鍵。Obsidian 書き出しは NAS 上の Vault（Theta Vault 外、Dataview 使用）",
+      "integrations": {
+        "obsidianVault": "partial",
+        "googleDrive": "no",
+        "synology": "yes",
+        "secureSignIn": "yes"
+      }
+    },
+    {
+      "id": "photo",
+      "name": "Theta Photo Hatch",
+      "current": {
+        "repo": "Theta.Photo.Hatch",
+        "packageName": "photo.theta.theta_photo_hatch"
+      },
+      "target": {
+        "repo": "Theta.Photo.Hatch",
+        "packageName": "app.thetahatch.photo"
+      },
+      "platforms": [
+        "android"
+      ],
+      "autoUpdate": false,
+      "vault": false,
+      "remark": "Flutter。Windows・Mac は予定",
+      "integrations": {
+        "obsidianVault": "planned",
+        "googleDrive": "no",
+        "synology": "partial",
+        "secureSignIn": "no"
+      }
+    },
+    {
+      "id": "mitene",
+      "name": "Theta Mitene Hatch",
+      "status": "concept",
+      "current": {
+        "repo": "Theta.Mitene.Hatch",
+        "packageName": null
+      },
+      "target": {
+        "repo": "Theta.Mitene.Hatch",
+        "packageName": "app.thetahatch.mitene"
+      },
+      "platforms": [],
+      "autoUpdate": false,
+      "vault": false,
+      "remark": "構想中（リポジトリは空）",
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "no",
+        "synology": "planned",
+        "secureSignIn": "no"
+      }
+    },
+    {
+      "id": "movie",
+      "name": "Theta Movie Hatch",
+      "status": "concept",
+      "current": {
+        "repo": "Theta.Movie.Hatch",
+        "packageName": null
+      },
+      "target": {
+        "repo": "Theta.Movie.Hatch",
+        "packageName": "app.thetahatch.movie"
+      },
+      "platforms": [],
+      "autoUpdate": false,
+      "vault": false,
+      "remark": "構想中（リポジトリは空）",
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "no",
+        "synology": "planned",
+        "secureSignIn": "no"
+      }
     },
     {
       "id": "desk",
@@ -303,7 +463,13 @@
         "mac"
       ],
       "autoUpdate": true,
-      "vault": false
+      "vault": false,
+      "integrations": {
+        "obsidianVault": "partial",
+        "googleDrive": "partial",
+        "synology": "no",
+        "secureSignIn": "no"
+      }
     }
   ]
 }
