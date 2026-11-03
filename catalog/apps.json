@@ -2,7 +2,7 @@
   "spec": 1,
   "updated": "2026-11-03",
   "owner": "kiwiman0706-beep",
-  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。",
+  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。",
   "apps": [
     {
       "id": "book",
@@ -18,6 +18,7 @@
       },
       "platforms": [
         "android",
+        "androidtv",
         "windows",
         "mac"
       ],
@@ -28,7 +29,9 @@
         "googleDrive": "no",
         "synology": "yes",
         "secureSignIn": "partial"
-      }
+      },
+      "settingsExport": "partial",
+      "remark": "ブランチが分かれている：claude/vigilant-ramanujan-4v5vsv（1.0.0、デスクトップ版あり）と ccr-fbd7a73d-mp81q5（0.8.7-preview、Android のみ）"
     },
     {
       "id": "meishi",
@@ -55,7 +58,8 @@
         "googleDrive": "yes",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "partial"
     },
     {
       "id": "item",
@@ -79,7 +83,8 @@
         "googleDrive": "yes",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "partial"
     },
     {
       "id": "kamigata",
@@ -103,7 +108,8 @@
         "googleDrive": "no",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "partial"
     },
     {
       "id": "doorphoto",
@@ -127,7 +133,8 @@
         "googleDrive": "planned",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "partial"
     },
     {
       "id": "label",
@@ -151,7 +158,8 @@
         "googleDrive": "no",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "no"
     },
     {
       "id": "device",
@@ -175,7 +183,8 @@
         "googleDrive": "no",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "partial"
     },
     {
       "id": "travel",
@@ -199,7 +208,8 @@
         "googleDrive": "no",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "partial"
     },
     {
       "id": "oekaki",
@@ -224,7 +234,8 @@
         "googleDrive": "yes",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "partial"
     },
     {
       "id": "mensetsu",
@@ -250,7 +261,8 @@
         "googleDrive": "yes",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "partial"
     },
     {
       "id": "home",
@@ -273,7 +285,8 @@
         "googleDrive": "yes",
         "synology": "yes",
         "secureSignIn": "yes"
-      }
+      },
+      "settingsExport": "yes"
     },
     {
       "id": "memo",
@@ -296,7 +309,8 @@
         "googleDrive": "yes",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "no"
     },
     {
       "id": "kidshome",
@@ -311,7 +325,8 @@
         "packageName": "app.thetahatch.kidshome"
       },
       "platforms": [
-        "android"
+        "android",
+        "androidtv"
       ],
       "autoUpdate": true,
       "vault": false,
@@ -320,7 +335,8 @@
         "googleDrive": "no",
         "synology": "planned",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "yes"
     },
     {
       "id": "hitsudan",
@@ -349,7 +365,8 @@
         "googleDrive": "no",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "no"
     },
     {
       "id": "music",
@@ -374,7 +391,8 @@
         "googleDrive": "no",
         "synology": "yes",
         "secureSignIn": "yes"
-      }
+      },
+      "settingsExport": "no"
     },
     {
       "id": "photo",
@@ -398,7 +416,8 @@
         "googleDrive": "no",
         "synology": "partial",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "no"
     },
     {
       "id": "mitene",
@@ -421,7 +440,8 @@
         "googleDrive": "no",
         "synology": "planned",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "no"
     },
     {
       "id": "movie",
@@ -444,7 +464,8 @@
         "googleDrive": "no",
         "synology": "planned",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "no"
     },
     {
       "id": "desk",
@@ -469,7 +490,8 @@
         "googleDrive": "partial",
         "synology": "no",
         "secureSignIn": "no"
-      }
+      },
+      "settingsExport": "yes"
     }
   ]
 }
