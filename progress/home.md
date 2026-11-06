@@ -1,8 +1,8 @@
 # Theta Home Hatch（home）の移行メモ
 
-- 更新：2026-11-06
+- 更新：2026-11-07
 - スレッド：https://claude.ai/code/session_01GMSgoGarRChJJQLGtjAFKY
-- 状態：作業中
+- 状態：作業中（1.0.0 を CI で公開中。実機の確認はこれから）
 
 ## 今と目標
 
@@ -103,6 +103,17 @@
 ### EXPORT・IMPORT のファイルの受け渡し
 
 上の「ファイルの受け渡しの約束（案）」を、よければ `docs/MIGRATION.md` §3 か spec §6.1 に足してほしい（Meishi・Chirashi・Book の橋渡し版と新しい版が同じ形にするため）。
+
+### 設定のハブの返し方（Home 1.0.0 の形。よければ THETA_SHARED_SETTINGS §4.0 に）
+
+- `query /info` → 列 `key`・`value`・`by`・`at`（1 項目 1 行。`at` は ISO 8601、記録が無い項目は空）
+- `query /secret/<キー>` → 列 `key`・`value`（`gemini.key`・`nas.password`・`nas.deviceToken`。無ければ 0 行、ほかのキーは null）
+- `update /info`（ContentValues：キー → 値の文字列）→ 受け付けた数。`key`・`token`・`secret`・`password` を含む名前は受け付けない。知らない項目も預かって `info` で返す
+- 書いたアプリは呼び出し元のパッケージ名から catalog の id で記録
+
+### 橋渡し版の見分け方
+
+Home は公開版を新しい順に取得して、古い ID・入っているものと同じ署名の APK を橋渡し版とみなしている（1 つずつ取得して確かめるので重い）。catalog の `migration` に `bridgeVersion`（例 `"0.9.1"`）を足してもらえれば、そのタグだけを見るようにする。
 
 ### スキン 5 つ（0.36 で Home に足したもの）を skins.json に
 
@@ -256,13 +267,22 @@
 ## 進み具合
 
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
-- [ ] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
-- [ ] appid：アプリ ID を新しい ID に
-- [ ] signing：共通鍵の Secret で署名
-- [ ] update：更新をハブに頼む形に（ハブはハブ機能）
-- [ ] settings：共通設定をハブから受け取る（ハブは配る側）
-- [ ] rename：改名後の名前に合わせて URL・リンクを直した
+- [x] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
+- [x] appid：アプリ ID を新しい ID に
+- [x] signing：共通鍵の Secret で署名
+- [x] update：更新をハブに頼む形に（ハブはハブ機能）
+- [x] settings：共通設定をハブから受け取る（ハブは配る側）
+- [x] rename：改名後の名前に合わせて URL・リンクを直した
 - [ ] release：新しい版を Releases に出した
+
+## 1.0.0 でしたこと（2026-11-07）
+
+- ID `app.thetahatch.home`・Kotlin のパッケージも同じ。署名は CI（`release.yml`、Secret の共通鍵。署名者の SHA-256・パッケージ・版を確かめてから公開）
+- 更新のハブ：`hub/Catalog.kt`（同梱の apps.json＋ネット）・`hub/Verify.kt`（照合）・`hub/UpdateHub.kt`（確認・取得・PackageInstaller・受け持ち・UPDATE_BUSY・通知）・`hub/UpdateWorker.kt`（12 時間）・`hub/UpdateActivity.kt`（`app.thetahatch.action.UPDATE`）
+- 移行：`hub/Migration.kt`、Hatch の一覧の上に段階ごとのボタン。古い Home（`jp.yaegaki.theta.home`）は「古いアプリを削除」
+- 設定のハブ：`hub/SettingsProvider.kt`（`app.thetahatch.home.theta`、権限 `app.thetahatch.permission.SHARE` signature）、設定 → SERIES
+- Memo・Book・Music は新旧どちらの ID でも連携
+- 試験：`HubTest`（catalog・照合・橋渡し・受け持ち・digest・移行の段階・設定のハブ）
 
 ## 実機で確かめること
 
