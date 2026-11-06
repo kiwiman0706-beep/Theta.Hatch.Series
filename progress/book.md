@@ -1,0 +1,92 @@
+# Theta Book Hatch（book）の移行メモ
+
+- 更新：2026-11-07
+- スレッド：https://claude.ai/code/session_01VBri9A5SpavPKRqvCQZARs
+- 状態：計画OK待ち
+
+## 今と目標
+
+| | 今（DSBooks Claude 1.0.0、ブランチ `claude/vigilant-ramanujan-4v5vsv`） | 目標 |
+| --- | --- | --- |
+| リポジトリ名 | `Theta.Book.Hatch`（旧 `dsbooks`、改名済み・private） | 同じ。hub が Releases を読めるよう public に（決めてほしいこと 2） |
+| アプリ ID | `jp.shinwakai.dsbooks.claude`（**catalog の current は `…dsbooks.preview` だが、これは ChatGPT 版**。利用者が使っているのは `.claude` のはず → 決めてほしいこと 1）。Java の名前空間は `jp.shinwakai.dsbooks.preview`、build.sh が包装時に改名 | `app.thetahatch.book`（表示名 Theta Book Hatch） |
+| 署名 | Claude 版の鍵（alias `dsbooks-claude`、SHA-256 `27c01a80…d16490`）。手元でビルド・署名 → `release-upload.yml` が Release に載せる | 共通鍵（Secret の 4 つ、別名 thetahatch）。`release.yml` が CI でビルド・署名 |
+| 更新 | アプリ内の更新なし。Release は prerelease、APK 名 `DSBooks-<版>.apk` | ハブに頼む（`app.thetahatch.action.UPDATE`、ハブが無ければ Releases を開く）。インストール権限なし。タグ `v<版>`、prerelease にしない、APK は 1 つ `ThetaBookHatch-<版>.apk` |
+| 共通設定 | 自分で持つ（NAS：接続先・アカウント・パスワード・SID は端末内で暗号化、Gemini キー（0.9.6〜）は localStorage） | ハブ（`app.thetahatch.home.theta`）から受け取る：スキン・Gemini キー／モデル・NAS（接続先・アカウント・パスワード・デバイストークン）。ハブが無ければ今どおり |
+| データの置き場所 | 本は NAS（File Station API、原本は触らない）。読書位置・栞・メモは端末＋NAS の `_DSBooksSync/` に端末別 JSON。書誌は NAS 上の Obsidian 互換 Markdown | 読書の記録（位置・栞・メモ・読了）を **Theta Vault**（`Theta Book Hatch/` に 1 冊＝1 ファイル）へ。置き場所は NAS（今の接続を使う）と Drive。本そのものは NAS のまま |
+| 対応 OS | Android・Android TV、Windows／Mac（Python＋pywebview、DeskHatch のドロワー対応）。姉妹アプリ Theta.Jisui.Viewer（Android・Windows・Mac）も同じリポジトリ | 同じ。版番号を全プラットフォームで揃え、1 つの Release に |
+| スキン | 独自（木目の本棚＋濃緑のバー） | `ui.skin` の 6 つ（`theta-skins.css`）。本棚の木目は「本棚の見た目」として残すか相談（決めてほしいこと 6） |
+
+## 方針
+
+### 移行（Home がまとめて行う。docs/MIGRATION.md §3、Book はデータの移行が必要）
+
+1. **橋渡し版 1.0.1**（古い ID `jp.shinwakai.dsbooks.claude`・古い鍵のまま。手で上書き、または Home が入れる）
+   - `app.thetahatch.action.EXPORT` を受ける画面と、設定に「新しいアプリへ移る」
+2. **新しい版 1.1.0**（`app.thetahatch.book`・共通鍵・CI ビルド）
+   - `app.thetahatch.action.IMPORT` を受ける画面と、初回起動の「前の DSBooks から読み込む」
+3. 古い ChatGPT 版（`jp.shinwakai.dsbooks.preview`、別の鍵・別のブランチ `ccr-fbd7a73d-mp81q5`）は、このスレッドでは橋渡し版を作れない（鍵が無い）。入っていれば、読書データの書き出し（0.5.x からある JSON）→ 新しい版で読み込み、を手で
+
+### EXPORT／IMPORT の取り決め（案。Meishi・Chirashi と揃えたいので、Series 側で決めてほしい）
+
+- **EXPORT**（橋渡し版）：`Intent("app.thetahatch.action.EXPORT")` を `startActivityForResult` で起動
+  - 画面で中身（本の数・栞やメモの数・含めるもの）を見せ、利用者が「書き出す」を押したときだけ作る
+  - 結果は `RESULT_OK` と、zip の `content://`（FileProvider、`FLAG_GRANT_READ_URI_PERMISSION`、`ClipData` 付き）
+  - extra に `packageName`（自分）、`format`（`theta-export-1`）、`versionName`、`sha256`
+  - 呼び出し元は `getCallingPackage()` がハブ（`app.thetahatch.home`／`app.thetahatch.kidshome`、移行中は古い ID も）のときだけ受ける。それ以外から呼ばれても書き出さず、手で保存する画面（ファイルの保存先を選ぶ）にする
+  - ハブはすぐに自分の領域へコピーする
+- **IMPORT**（新しい版）：`Intent("app.thetahatch.action.IMPORT")`、data に zip の `content://`（読み取り許可付き）
+  - 画面で中身を見せて「読み込む」→ 結果 `RESULT_OK`（失敗は `RESULT_CANCELED` と extra `error`）
+  - すでにデータがある場合は、上書きせずに足す（bookId・位置は新しい方を残す）
+  - 手で選んだ zip（ファイルを開く）からも同じ処理
+- **zip の中身**（`manifest.json` に形式・元のアプリ・版・作成日時・ファイル一覧と SHA-256）
+  - `storage.json`：`dsbooks.*` の全項目（本棚の一覧・bookId・読書位置・栞・メモ・読了・表示設定・NAS の共有フォルダとスキャン範囲・同期の設定・ダウンロードの対応表）
+  - `nas.json`：接続先とアカウントだけ。**パスワード・SID・Gemini キーは入れない**（ハブから受け取るか、再入力）
+  - `local/`：端末にだけある本（取り込んだ本・AI で作ったダイジェスト）。大きいので、含めるかは画面で選ぶ（既定：ダイジェストだけ含める）
+  - NAS からダウンロードした本は入れない（新しい版で NAS から取り直す。bookId でつながる）
+
+### 改名・ID 変更で直すところ
+
+- `build.sh`：`APP_ID`（→ `app.thetahatch.book`）、鍵の変数（`DSBOOKS_KEYSTORE…` → `ANDROID_KEYSTORE_B64` など 4 つ、別名を直接書かない）、出力名
+- Manifest：表示名、FileProvider の authority（`<appId>.files`、build.sh が照合）、`.jisui` の intent-filter、`<queries>` にハブ 2 つ
+- Java：`MainActivity` の `getPackageName()` 判定（ビューアは `com.theta.jisui…`）、Secure SignIn・Tailscale の起動はそのまま
+- JS：localStorage のキー（`dsbooks.*`）は**変えない**（読み込みでそのまま使う）。表示名の「DSBooks」→「Theta Book Hatch」
+- ワークフロー：`release-upload.yml`（手元で署名）→ `release.yml`（CI で SDK を入れてビルド・共通鍵で署名・`v<版>`・prerelease なし）。デスクトップ版（Windows／Mac）も同じ Release に。`release-desktop*.yml`・`release-jisui-viewer.yml` を統合
+- リポジトリ内の古い名前：README・docs・AGENTS.md・CHANGELOG のリンク（`dsbooks` → `Theta.Book.Hatch`）、`docs/FULLOCR_BUNDLING.md`（Release のタグ名）
+- DeskHatch のプリセット（`expect: {app: 'dsbooks'}`、exe のパス）：デスクトップ版の改名と合わせて DeskHatch 側に依頼
+
+### Windows・Mac
+
+- 今ある（Python＋pywebview、ポート 47817、DeskHatch のドロワー対応）。spec の Electron ではないが、同じ HTML/CSS/JS を共有しているので、そのまま続けたい（決めてほしいこと 5）
+- デスクトップは Home のハブが無いので、設定は今どおりアプリで入力
+
+## 決めてほしいこと
+
+- [ ] 1. 端末に入っているのは `jp.shinwakai.dsbooks.claude`（Claude 版）か、`jp.shinwakai.dsbooks.preview`（ChatGPT 版）か。両方なら、移すのは Claude 版でよいか。catalog の current も直す必要あり
+- [ ] 2. リポジトリを public にしてよいか（ハブが Releases を読むため。鍵・フォント・本の本文は入っていない）
+- [ ] 3. ブランチは `claude/vigilant-ramanujan-4v5vsv` を本線（デフォルト）にしてよいか。`ccr-fbd7a73d-mp81q5`（0.8.7-preview）は残すだけ
+- [ ] 4. Theta.Jisui.Viewer（`com.theta.jisuiviewer`）の扱い：別のリポジトリ（例 `Theta.Jisui.Hatch`、ID `app.thetahatch.jisui`）に分けるか、Book の Release に同梱するか（Release の APK は 1 つの決まりなので、分けるのがおすすめ）
+- [ ] 5. デスクトップ版は pywebview のままでよいか（Electron にしない）
+- [ ] 6. スキン：本棚の木目を残す（スキンはバー・ボタン・読書画面に当てる）か、スキンに完全に揃えるか
+- [ ] 7. 橋渡し版の書き出しに、端末にだけある本（取り込んだ本）を含めるか（容量が大きくなる）
+- [ ] 8. 版番号：Android・Windows・Mac を揃えて新しい版を `1.1.0` からでよいか
+- [ ] 9. EXPORT／IMPORT の取り決め（上の案）を Series の spec に入れてもらえるか（Meishi・Chirashi と同じ形に）
+
+## 進み具合
+
+<!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
+- [ ] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
+- [ ] appid：アプリ ID を新しい ID に
+- [ ] signing：共通鍵の Secret で署名
+- [ ] update：更新をハブに頼む形に（ハブはハブ機能）
+- [ ] settings：共通設定をハブから受け取る（ハブは配る側）
+- [ ] rename：改名後の名前に合わせて URL・リンクを直した
+- [ ] release：新しい版を Releases に出した
+
+## 実機で確かめること
+
+- [ ] 橋渡し版（1.0.1）が今の DSBooks Claude に上書きできる
+- [ ] Home から EXPORT → zip を受け取れる。ハブ以外から呼ぶと手で保存する画面になる
+- [ ] 新しい版を入れ、Home から IMPORT → 本棚・読書位置・栞・メモ・NAS の接続先が戻る（パスワードはハブから or 再入力）
+- [ ] NAS の本を開くと、保存済みだった本は取り直しになり、位置はそのまま
+- [ ] ハブの「更新する」で Releases から更新される
