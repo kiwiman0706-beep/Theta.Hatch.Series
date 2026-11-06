@@ -32,7 +32,7 @@ def main():
         out.append(f"| {a['name']}{status} | `{new_id}` | `{old_id}` | `{tgt['repo']}` | `{cur['repo']}` | {'・'.join(changes) or 'なし'} |")
     out += [
         "",
-        "- Google Cloud の Android 用 OAuth クライアントには「新しいアプリ ID」＋共通の SHA-1 を登録する（`secrets/README.md`）。",
+        f"- Google Cloud（プロジェクト `{d.get('googleCloudProject', '—')}`）の Android 用 OAuth クライアントに、上の「新しいアプリ ID」21 個（DeskHatch を含む）を共通の SHA-1 で登録済み（2026-11-06）。",
         "- Android 版の無いアプリ（Hitsudan・File・DeskHatch）の ID は、デスクトップ版などを作るときに使う。",
     ]
     (ROOT / "docs" / "APP_IDS.md").write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")

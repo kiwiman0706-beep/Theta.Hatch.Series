@@ -32,7 +32,10 @@
       },
       "settingsExport": "partial",
       "remark": "ブランチが分かれている：claude/vigilant-ramanujan-4v5vsv（1.0.0、デスクトップ版あり）と ccr-fbd7a73d-mp81q5（0.8.7-preview、Android のみ）",
-      "thread": "session_01VBri9A5SpavPKRqvCQZARs"
+      "thread": "session_01VBri9A5SpavPKRqvCQZARs",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "meishi",
@@ -61,7 +64,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "partial",
-      "thread": "session_016tfKWDzu24Zp9FBxh4cjKS"
+      "thread": "session_016tfKWDzu24Zp9FBxh4cjKS",
+      "googleOAuth": {
+        "registered": "2026-10-22（名前を変更）"
+      }
     },
     {
       "id": "item",
@@ -87,7 +93,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "partial",
-      "thread": "session_01QGzXdJYduLXUGSNC9NMCDu"
+      "thread": "session_01QGzXdJYduLXUGSNC9NMCDu",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "kamigata",
@@ -113,7 +122,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "partial",
-      "thread": "session_01De2aFah9Lcgtf5wm3XZKDX"
+      "thread": "session_01De2aFah9Lcgtf5wm3XZKDX",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "doorphoto",
@@ -139,7 +151,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "partial",
-      "thread": "session_01EBZjKxFPPAcMuVaRQmJaEM"
+      "thread": "session_01EBZjKxFPPAcMuVaRQmJaEM",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "label",
@@ -165,7 +180,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "no",
-      "thread": "session_01SsMo5spj81EiVV3fsBYJwr"
+      "thread": "session_01SsMo5spj81EiVV3fsBYJwr",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "device",
@@ -191,7 +209,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "partial",
-      "thread": "session_01MfF9qvjEzW47oy37eYGX2f"
+      "thread": "session_01MfF9qvjEzW47oy37eYGX2f",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "travel",
@@ -217,7 +238,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "partial",
-      "thread": "session_01AvSnwTjAMGxxrwossSH8b5"
+      "thread": "session_01AvSnwTjAMGxxrwossSH8b5",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "oekaki",
@@ -244,7 +268,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "partial",
-      "thread": "session_01LmiStbYTVdJCtU26X4VDQh"
+      "thread": "session_01LmiStbYTVdJCtU26X4VDQh",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "mensetsu",
@@ -272,7 +299,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "partial",
-      "thread": "session_01UZcNkbW2pixSpi59267B3r"
+      "thread": "session_01UZcNkbW2pixSpi59267B3r",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "home",
@@ -298,7 +328,10 @@
       },
       "settingsExport": "yes",
       "thread": "session_01GMSgoGarRChJJQLGtjAFKY",
-      "updateHub": true
+      "updateHub": true,
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "memo",
@@ -323,7 +356,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "no",
-      "thread": "session_01H9m1j4wPmRzXQbzu7zWADS"
+      "thread": "session_01H9m1j4wPmRzXQbzu7zWADS",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "kidshome",
@@ -351,7 +387,10 @@
       },
       "settingsExport": "yes",
       "thread": "session_01NhS3xRwFVfssMDMXfSoJEv",
-      "updateHub": true
+      "updateHub": true,
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "hitsudan",
@@ -382,7 +421,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "no",
-      "thread": "session_01B9UWzs14Mh99ti9U7GyxZV"
+      "thread": "session_01B9UWzs14Mh99ti9U7GyxZV",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "music",
@@ -409,7 +451,10 @@
         "secureSignIn": "yes"
       },
       "settingsExport": "no",
-      "thread": "session_012DXkc2Wd5iBmicj8ba39vG"
+      "thread": "session_012DXkc2Wd5iBmicj8ba39vG",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "photo",
@@ -435,7 +480,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "no",
-      "thread": "session_012DXkby1gTG6FFj5k36BF48"
+      "thread": "session_012DXkby1gTG6FFj5k36BF48",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "mitene",
@@ -460,7 +508,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "no",
-      "thread": "session_012DXkc1gdp42YFc5gM1nwUj"
+      "thread": "session_012DXkc1gdp42YFc5gM1nwUj",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "movie",
@@ -485,7 +536,10 @@
         "secureSignIn": "no"
       },
       "settingsExport": "no",
-      "thread": "session_012DXkbxgRpZwVsU9fra6sF1"
+      "thread": "session_012DXkbxgRpZwVsU9fra6sF1",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "file",
@@ -512,7 +566,10 @@
         "secureSignIn": "no"
       },
       "remark": "試作（ブラウザのデモ）",
-      "thread": "session_012DXkbxcLWLwFVYWM9tVHxb"
+      "thread": "session_012DXkbxcLWLwFVYWM9tVHxb",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "chirashi",
@@ -538,7 +595,10 @@
         "secureSignIn": "no"
       },
       "remark": "release.yml は共通の Secret 名を使用済み。アプリ ID の変更はこれから",
-      "thread": "session_012DXkbxUnbUEgxEY1bfHP77"
+      "thread": "session_012DXkbxUnbUEgxEY1bfHP77",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     },
     {
       "id": "desk",
@@ -566,7 +626,11 @@
         "secureSignIn": "no"
       },
       "settingsExport": "yes",
-      "thread": "session_018tmaD8HpkoGTEfY5qob4Dd"
+      "thread": "session_018tmaD8HpkoGTEfY5qob4Dd",
+      "googleOAuth": {
+        "registered": "2026-11-06"
+      }
     }
-  ]
+  ],
+  "googleCloudProject": "meishi-512311"
 }
