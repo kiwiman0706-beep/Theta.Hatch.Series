@@ -23,3 +23,4 @@ Theta Hatch シリーズ（Theta.xxx.Hatch）の作品一覧と、シリーズ�
   4. `python tools/board_seed.py check progress.json` → ArtifactData の batch（既存の文書は `list` で version を読んで `if_version` を付ける）
   5. 結果を一言で報告し、catalog・README・APP_IDS（`python tools/gen_app_ids.py`）も実態に合わせる
 - 全体の作業（`global`）を足すときは `tools/board_seed.py` の GLOBAL にも足す
+- `progress/<id>.md` は各アプリのスレッドが書く移行メモ。このスレッドは読むだけ（書き方の決まりは `progress/_TEMPLATE.md`）。チェックのときは `git pull` してから読む

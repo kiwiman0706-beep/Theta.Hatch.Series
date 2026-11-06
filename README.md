@@ -139,6 +139,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | [`spec/`](spec/) | シリーズ共通仕様（[Hatch](spec/THETA_HATCH_SPEC.md)・[Vault](spec/THETA_VAULT_SPEC.md)・[設定の引き継ぎ](spec/THETA_SHARED_SETTINGS.md)・[Google 連携](spec/THETA_GOOGLE_SETUP.md)）。MeishiApp/docs から移設 |
 | [`design/`](design/README.md) | デザインガイドラインとスキン（Home.Hatch の dark・light・pop・alert・scifi）、HUD キット |
 | [`secrets/`](secrets/README.md) | 共通の署名鍵・Secret の名前と置き場所（鍵そのものは入れない） |
+| [`progress/`](progress/_TEMPLATE.md) | 各アプリのスレッドが書く移行メモ（方針・決めてほしいこと・進み具合）。`progress/<id>.md` |
 | [`tools/`](tools/) | スキンの生成（`gen_skins.py`）、Secret を全リポジトリへ配る（`sync-secrets.ps1` / `.sh`） |
 | [`samples/`](samples/README.md) | Obsidian で開ける見本の Theta Vault（架空のデータ・一覧用の `.base` 付き） |
 | [`catalog/apps.json`](catalog/apps.json) | アプリ一覧（機械が読む用）：今と目標のリポジトリ名・ID、自動更新の有無。Home の Hatch ドロワーの正本 |

@@ -12,7 +12,11 @@ catalog/apps.json の各アプリについて、次を ok / ng / unknown で返�
   signing  ワークフローが共通の Secret 名（ANDROID_KEYSTORE_B64）を使うか
   update   ハブ（Home・KidsHome）は更新ハブがあるか、ほかはハブに頼む形でインストール権限が無いか（spec §6.1）
   catalog  catalog の current が target と同じか
-Secret の登録・スレッドへの追加・実機確認は、ここからは見えない（ボード上の自己申告と、Claude のスレッド確認）。
+さらに、各スレッドが書く移行メモ（progress/<id>.md）があれば読み、
+  addref・prompt  メモがある＝スレッドが Theta.Hatch.Series を追加して依頼文を受け取った
+  plan            メモの「状態」が 作業中・実機確認待ち・完了 なら、計画は OK 済み
+  ほかの手順      自動の確認ができていなくても、メモで [x] なら「スレッドは済と報告」と添える
+Secret の登録・実機確認は、ここからは見えない（ボード上の自己申告）。
 """
 import json
 import re
@@ -69,6 +73,34 @@ def grep(d, patterns, regex):
     return None
 
 
+def read_memo(app_id):
+    p = ROOT / "progress" / f"{app_id}.md"
+    if not p.exists():
+        return None
+    text = p.read_text(encoding="utf-8")
+    state = re.search(r"状態[：:]\s*(.+)", text)
+    done = set(re.findall(r"^- \[[xX]\]\s*([a-z]+)", text, re.M))
+    updated = re.search(r"更新[：:]\s*(\S+)", text)
+    return {"state": state.group(1).strip() if state else "", "done": done, "updated": updated.group(1) if updated else ""}
+
+
+def apply_memo(out, memo, app_id):
+    if memo is None:
+        return out
+    where = f"progress/{app_id}.md"
+    out["addref"] = {"s": "ok", "d": f"移行メモあり（{where}）"}
+    out["prompt"] = {"s": "ok", "d": "スレッドが移行メモを作成"}
+    # テンプレートのまま（「計画中 ／ 計画OK待ち ／ …」）なら、まだ書いていない扱い
+    filled = "／" not in memo["state"]
+    approved = filled and any(w in memo["state"] for w in ("作業中", "実機確認待ち", "完了"))
+    out["plan"] = {"s": "ok" if approved else "", "d": f"状態：{memo['state'] or '—'}（{memo['updated'] or '日付なし'}）"}
+    for key in memo["done"]:
+        c = out.get(key)
+        if c and c["s"] != "ok":
+            c["d"] += "（スレッドは済と報告）"
+    return out
+
+
 def check_app(a, work, names):
     cur, tgt = a["current"], a["target"]
     out = {}
@@ -109,7 +141,7 @@ def main():
     names = set(json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))) if len(sys.argv) > 2 else None
     work.mkdir(parents=True, exist_ok=True)
     catalog = json.loads((ROOT / "catalog" / "apps.json").read_text(encoding="utf-8"))
-    result = {a["id"]: check_app(a, work, names) for a in catalog["apps"] if a["id"] != "desk"}
+    result = {a["id"]: apply_memo(check_app(a, work, names), read_memo(a["id"]), a["id"]) for a in catalog["apps"] if a["id"] != "desk"}
     json.dump(result, sys.stdout, ensure_ascii=False, indent=1)
 
 

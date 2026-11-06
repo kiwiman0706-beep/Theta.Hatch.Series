@@ -285,6 +285,7 @@ function renderApps() {
     if (a.repoNow) { const l = el("a", null, "GitHub"); l.href = "https://github.com/kiwiman0706-beep/" + (a.repoNow); l.target = "_blank"; l.rel = "noopener"; links.append(l); }
     if (a.thread) { const l = el("a", null, "スレッド"); l.href = "https://claude.ai/code/" + a.thread; l.target = "_blank"; l.rel = "noopener"; links.append(l); }
     const gh = "https://github.com/kiwiman0706-beep/" + (a.repoNow || a.repoTarget);
+    if (a.checks && a.checks.addref && a.checks.addref.s === "ok") { const l = el("a", null, "移行メモ"); l.href = "https://github.com/kiwiman0706-beep/Theta.Hatch.Series/blob/HEAD/progress/" + a.id + ".md"; l.target = "_blank"; l.rel = "noopener"; links.append(l); }
     if (applies(a, "secret")) { const l = el("a", null, "Secret 設定"); l.href = gh + "/settings/secrets/actions"; l.target = "_blank"; l.rel = "noopener"; links.append(l); }
     if (applies(a, "rename")) { const l = el("a", null, "改名（Settings）"); l.href = gh + "/settings"; l.target = "_blank"; l.rel = "noopener"; links.append(l); }
     if (applies(a, "signing") || applies(a, "update")) { const l = el("a", null, "Actions"); l.href = gh + "/actions"; l.target = "_blank"; l.rel = "noopener"; links.append(l); const r = el("a", null, "Releases"); r.href = gh + "/releases"; r.target = "_blank"; r.rel = "noopener"; links.append(r); }

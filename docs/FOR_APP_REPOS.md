@@ -20,6 +20,7 @@ GitHub の kiwiman0706-beep/Theta.Hatch.Series にあり、このリポジトリ
   - `secrets/README.md`（署名鍵はシリーズ共通。Secret の名前は ANDROID_KEYSTORE_B64・ANDROID_KEYSTORE_PASSWORD・ANDROID_KEY_ALIAS・ANDROID_KEY_PASSWORD）
 - 共通仕様の写しをこのリポジトリに増やさない（変えるときは Theta.Hatch.Series 側を直す）
 - 鍵・パスワード・API キーをリポジトリに入れない
+- 移行や大きな変更の方針と進み具合は、Theta.Hatch.Series の `progress/<id>.md` に書く（書き方は `progress/_TEMPLATE.md`。自分のアプリのファイルだけを触る）
 - 作品の版や概要が変わったら、Theta.Hatch.Series の README の一覧も直す
 ```
 
