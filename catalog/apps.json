@@ -518,7 +518,7 @@
       "id": "chirashi",
       "name": "Theta Chirashi Hatch",
       "current": {
-        "repo": "THETA.Chirashi.Hatch",
+        "repo": "Theta.Chirashi.Hatch",
         "packageName": "jp.yaegaki.theta.chirashi"
       },
       "target": {
@@ -537,7 +537,7 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "remark": "リポジトリ名がまだ大文字の THETA.Chirashi.Hatch（GitHub は大文字・小文字を区別せず届くので、改名済みに見えやすい）。release.yml は共通の Secret 名を使用済み",
+      "remark": "release.yml は共通の Secret 名を使用済み。アプリ ID の変更はこれから",
       "thread": "session_012DXkbxUnbUEgxEY1bfHP77"
     },
     {

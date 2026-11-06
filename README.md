@@ -48,7 +48,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 17 | **Theta.Mitene.Hatch**（構想中） | 「みてね」の代わり。Synology Photos の写真を家族で見る | — | [Theta.Mitene.Hatch](https://github.com/kiwiman0706-beep/Theta.Mitene.Hatch)（まだ空） | [みてね代替案検討](https://claude.ai/code/session_012DXkc1gdp42YFc5gM1nwUj) | 2026-11-03 |
 | 18 | **Theta.Movie.Hatch**（設計中） | Synology の動画プレイヤー（Video Station）の代わり。NAS 上の Jellyfin（Docker、Tailscale 経由）を土台に、他のソフトでも読めるファイル名規則（`docs/naming-convention.md`）を作成中 | — | [Theta.Movie.Hatch](https://github.com/kiwiman0706-beep/Theta.Movie.Hatch) | [動画プレイヤー代替アプリ](https://claude.ai/code/session_012DXkbxgRpZwVsU9fra6sF1) | 2026-11-03 |
 | 19 | **Theta.File.Hatch**（試作） | Theta Vault を NAS などに置いたまま、フォルダごとにふさわしい見え方で眺めるファイラーの試作。見え方もファイル（`.view.yaml`）で持つ。ブラウザで見られるデモ付き | — | [Theta.File.Hatch](https://github.com/kiwiman0706-beep/Theta.File.Hatch) | [ObsidianFS 構想](https://claude.ai/code/session_012DXkbxcLWLwFVYWM9tVHxb) | 2026-11-05 |
-| 20 | **Theta.Chirashi.Hatch** | 製薬会社の勉強会などのチラシをスキャン → Gemini で読み取り → Google カレンダーに登録（チラシ画像は Drive に保存して添付）。QR コード読み取り、月のカレンダー表示。Meishi.Hatch と同じつくり | 0.1.0 | [THETA.Chirashi.Hatch](https://github.com/kiwiman0706-beep/THETA.Chirashi.Hatch) | [アプリ開発](https://claude.ai/code/session_012DXkbxUnbUEgxEY1bfHP77) | 2026-11-06 |
+| 20 | **Theta.Chirashi.Hatch** | 製薬会社の勉強会などのチラシをスキャン → Gemini で読み取り → Google カレンダーに登録（チラシ画像は Drive に保存して添付）。QR コード読み取り、月のカレンダー表示。Meishi.Hatch と同じつくり | 0.1.0 | [Theta.Chirashi.Hatch](https://github.com/kiwiman0706-beep/Theta.Chirashi.Hatch) | [アプリ開発](https://claude.ai/code/session_012DXkbxUnbUEgxEY1bfHP77) | 2026-11-06 |
 
 ### 関連（Theta.xxx.Hatch の名前ではないもの）
 

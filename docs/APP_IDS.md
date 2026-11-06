@@ -24,7 +24,7 @@
 | Theta Mitene Hatch（構想中） | `app.thetahatch.mitene` | `—` | `Theta.Mitene.Hatch` | `Theta.Mitene.Hatch` | なし |
 | Theta Movie Hatch（設計中） | `app.thetahatch.movie` | `—` | `Theta.Movie.Hatch` | `Theta.Movie.Hatch` | なし |
 | Theta File Hatch（試作） | `app.thetahatch.file` | `—` | `Theta.File.Hatch` | `Theta.File.Hatch` | なし |
-| Theta Chirashi Hatch | `app.thetahatch.chirashi` | `jp.yaegaki.theta.chirashi` | `Theta.Chirashi.Hatch` | `THETA.Chirashi.Hatch` | ID・リポジトリ名 |
+| Theta Chirashi Hatch | `app.thetahatch.chirashi` | `jp.yaegaki.theta.chirashi` | `Theta.Chirashi.Hatch` | `Theta.Chirashi.Hatch` | ID |
 | DeskHatch | `app.thetahatch.desk` | `—` | `deskhatch` | `deskhatch` | なし |
 
 - Google Cloud の Android 用 OAuth クライアントには「新しいアプリ ID」＋共通の SHA-1 を登録する（`secrets/README.md`）。
