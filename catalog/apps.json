@@ -9,7 +9,7 @@
       "name": "Theta Book Hatch",
       "nickname": "DSBooks",
       "current": {
-        "repo": "dsbooks",
+        "repo": "Theta.Book.Hatch",
         "packageName": "jp.shinwakai.dsbooks.preview"
       },
       "target": {
@@ -38,7 +38,7 @@
       "id": "meishi",
       "name": "Theta Meishi Hatch",
       "current": {
-        "repo": "MeishiApp",
+        "repo": "Theta.Meishi.Hatch",
         "packageName": "jp.yaegaki.meishiclaude"
       },
       "target": {
@@ -537,7 +537,7 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "remark": "リポジトリ名の大文字 THETA を Theta に。release.yml は共通の Secret 名（ANDROID_KEYSTORE_B64・ANDROID_KEYSTORE_PASSWORD）を使用済み",
+      "remark": "リポジトリ名がまだ大文字の THETA.Chirashi.Hatch（GitHub は大文字・小文字を区別せず届くので、改名済みに見えやすい）。release.yml は共通の Secret 名を使用済み",
       "thread": "session_012DXkbxUnbUEgxEY1bfHP77"
     },
     {

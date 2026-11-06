@@ -5,8 +5,8 @@
 
 | アプリ | 新しいアプリ ID | 今のアプリ ID | 新しいリポジトリ名 | 今のリポジトリ名 | 変更 |
 | --- | --- | --- | --- | --- | --- |
-| Theta Book Hatch | `app.thetahatch.book` | `jp.shinwakai.dsbooks.preview` | `Theta.Book.Hatch` | `dsbooks` | ID・リポジトリ名 |
-| Theta Meishi Hatch | `app.thetahatch.meishi` | `jp.yaegaki.meishiclaude` | `Theta.Meishi.Hatch` | `MeishiApp` | ID・リポジトリ名 |
+| Theta Book Hatch | `app.thetahatch.book` | `jp.shinwakai.dsbooks.preview` | `Theta.Book.Hatch` | `Theta.Book.Hatch` | ID |
+| Theta Meishi Hatch | `app.thetahatch.meishi` | `jp.yaegaki.meishiclaude` | `Theta.Meishi.Hatch` | `Theta.Meishi.Hatch` | ID |
 | Theta Item Hatch | `app.thetahatch.item` | `jp.omoide.closet` | `Theta.Item.Hatch` | `Theta.Item.Hatch` | ID |
 | Theta Kamigata Hatch | `app.thetahatch.kamigata` | `jp.yaegaki.kururihair` | `Theta.Kamigata.Hatch` | `Theta.Kamigata.Hatch` | ID |
 | Theta DoorPhoto Hatch | `app.thetahatch.doorphoto` | `jp.yaegaki.omoide` | `Theta.DoorPhoto.Hatch` | `Theta.DoorPhoto.Hatch` | ID |
