@@ -46,7 +46,7 @@
 - `app/build.gradle.kts`：applicationId・namespace、署名を Secret の 4 つ（環境変数）から読む。`app/kidshome.jks` を消す（履歴に残るので、この鍵はもう使わない）
 - Kotlin のパッケージ（`com.theta.kidshome.*` → `app.thetahatch.kidshome.*`、main・tepra・notepra・test の全ファイル）
 - Manifest：レスキュー画面の `taskAffinity`（`com.theta.kidshome.rescue`）、FileProvider は `${applicationId}.files` なので自動
-- 自動更新：APK の名前（今は `KidsHome-<版>.apk` と固定名 `KidsHome.apk`）→ spec の `ThetaKidsHomeHatch-<版>.apk` 1 つに。別のタブレットに入れる QR（`releases/latest/download/KidsHome.apk`）も直す
+- 自動更新：APK の名前（今は `KidsHome-<版>.apk` と固定名 `KidsHome.apk`）→ spec の `ThetaKidsHomeHatch-<版>.apk` 1 つに。別のタブレットに入れる QR は、最新 の APK の URL を API で しらべて その場 で 作る
 - `release.yml`：共通鍵で署名、APK を 1 つに、出来た APK の署名の SHA-256 を共通鍵と照合
 - README のリンク・QR、`docs/`
 - 変えなくてよい：QR の中身の `kidshome:setup?`・`kidshome:pair?`（アプリ ID ではない）、非公開リポジトリから取るパック（トークンで読む）
@@ -80,7 +80,7 @@
 ## 決めてほしいこと
 
 - [x] 1. （OK）新しいアプリは **1.0.0**（タグ `v1.0.0`）からでよいか。橋渡し版は 0.61
-- [ ] 2. （説明中：おすすめは QR で Releases のページを開く）APK の名前を `ThetaKidsHomeHatch-<版>.apk` 1 つにすると、固定の URL（`latest/download/KidsHome.apk`、別のタブレットに入れる QR）が使えなくなる。QR は Releases のページを開く形でよいか（固定名も残すなら spec と相談）
+- [x] 2. （決定）APK は `ThetaKidsHomeHatch-<版>.apk` の 1 つだけ（spec どおり）。別の 端末 に 入れる QR は、キッズホーム が その場 で Releases の API から 最新 の APK の URL を しらべて 作る（読む と すぐ ダウンロード）。README の 固定 の リンク・QR は Releases の 最新 の ページ へ。自動更新・ハブ の「入れる／更新」は API で APK を 直接 取る ので 1 ボタン（Releases の ページ は 通らない）
 - [x] 3. （OK）Kotlin のパッケージ名（namespace）も `app.thetahatch.kidshome` に変えてよいか（全ファイルの機械的な置き換え）
 - [x] 4. （OK）引っ越し zip の中身（上の表）でよいか。特に**ポイントの残高**は移す（設定の一括書き出しでは移さない決まりにしていた）
 - [x] 5. （OK）スキン：子どもの画面は今の子ども向けテーマのまま、親モードとハブの画面だけシリーズのスキン（system など）にする、でよいか
