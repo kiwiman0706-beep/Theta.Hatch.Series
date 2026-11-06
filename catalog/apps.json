@@ -1,6 +1,6 @@
 {
   "spec": 1,
-  "updated": "2026-11-03",
+  "updated": "2026-11-06",
   "owner": "kiwiman0706-beep",
   "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。",
   "apps": [
@@ -446,7 +446,7 @@
     {
       "id": "movie",
       "name": "Theta Movie Hatch",
-      "status": "concept",
+      "status": "design",
       "current": {
         "repo": "Theta.Movie.Hatch",
         "packageName": null
@@ -458,7 +458,7 @@
       "platforms": [],
       "autoUpdate": false,
       "vault": false,
-      "remark": "構想中（リポジトリは空）",
+      "remark": "設計中（NAS の Jellyfin＋ファイル名規則）",
       "integrations": {
         "obsidianVault": "no",
         "googleDrive": "no",
@@ -466,6 +466,57 @@
         "secureSignIn": "no"
       },
       "settingsExport": "no"
+    },
+    {
+      "id": "file",
+      "name": "Theta File Hatch",
+      "status": "prototype",
+      "current": {
+        "repo": "Theta.File.Hatch",
+        "packageName": null
+      },
+      "target": {
+        "repo": "Theta.File.Hatch",
+        "packageName": "app.thetahatch.file"
+      },
+      "platforms": [
+        "web"
+      ],
+      "autoUpdate": false,
+      "vault": true,
+      "settingsExport": "no",
+      "integrations": {
+        "obsidianVault": "yes",
+        "googleDrive": "no",
+        "synology": "planned",
+        "secureSignIn": "no"
+      },
+      "remark": "試作（ブラウザのデモ）"
+    },
+    {
+      "id": "chirashi",
+      "name": "Theta Chirashi Hatch",
+      "current": {
+        "repo": "THETA.Chirashi.Hatch",
+        "packageName": "jp.yaegaki.theta.chirashi"
+      },
+      "target": {
+        "repo": "Theta.Chirashi.Hatch",
+        "packageName": "app.thetahatch.chirashi"
+      },
+      "platforms": [
+        "android"
+      ],
+      "autoUpdate": false,
+      "vault": false,
+      "settingsExport": "no",
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "yes",
+        "synology": "no",
+        "secureSignIn": "no"
+      },
+      "remark": "リポジトリ名の大文字 THETA を Theta に。release.yml は共通の Secret 名（ANDROID_KEYSTORE_B64・ANDROID_KEYSTORE_PASSWORD）を使用済み"
     },
     {
       "id": "desk",
@@ -477,7 +528,8 @@
       },
       "target": {
         "repo": "deskhatch",
-        "packageName": null
+        "packageName": null,
+        "appId": "app.thetahatch.desk"
       },
       "platforms": [
         "windows",

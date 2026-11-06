@@ -25,7 +25,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 
 ## 作品一覧
 
-2026-11-03 時点。開始日の古い順。
+2026-11-06 時点。開始日の古い順。
 
 | # | 作品 | 概要 | 最新版 | GitHub | Claude スレッド | 開始日 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -46,7 +46,9 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 15 | **Theta.Music.Hatch**<br>（Theta Music） | Tailscale 経由で NAS の音楽を再生するプレーヤー（Flutter）。WebDAV か Synology Audio Station に接続。iPod classic 風と Home.Hatch 風（6 テーマ）のスキン。ライブラリを Obsidian の Markdown に書き出し | 1.0.0 | [Theta.Music.Hatch](https://github.com/kiwiman0706-beep/Theta.Music.Hatch)（private） | [NAS音楽再生アプリ](https://claude.ai/code/session_012DXkc2Wd5iBmicj8ba39vG) | 2026-10-27 |
 | 16 | **Theta.Photo.Hatch** | 「まず撮る → あとで仕分け」。カメラの写真を固定の仕分け先フォルダ（家族共有・家族・メモ・非公開）へ移し、名前の付け直しと XMP（分類・イベント・☆）の書き込み。Amazon フォト・Synology Photos・みてねのバックアップはフォルダ単位で任せる | 0.1.0 | [Theta.Photo.Hatch](https://github.com/kiwiman0706-beep/Theta.Photo.Hatch) | [ファイル管理構想](https://claude.ai/code/session_012DXkby1gTG6FFj5k36BF48) | 2026-10-29 |
 | 17 | **Theta.Mitene.Hatch**（構想中） | 「みてね」の代わり。Synology Photos の写真を家族で見る | — | [Theta.Mitene.Hatch](https://github.com/kiwiman0706-beep/Theta.Mitene.Hatch)（まだ空） | [みてね代替案検討](https://claude.ai/code/session_012DXkc1gdp42YFc5gM1nwUj) | 2026-11-03 |
-| 18 | **Theta.Movie.Hatch**（構想中） | Synology の動画プレイヤー（Video Station）の代わり。案は Flutter＋media_kit のアプリと NAS 上の Docker サーバー（Tailscale 経由） | — | [Theta.Movie.Hatch](https://github.com/kiwiman0706-beep/Theta.Movie.Hatch)（まだ空） | [動画プレイヤー代替アプリ](https://claude.ai/code/session_012DXkbxgRpZwVsU9fra6sF1) | 2026-11-03 |
+| 18 | **Theta.Movie.Hatch**（設計中） | Synology の動画プレイヤー（Video Station）の代わり。NAS 上の Jellyfin（Docker、Tailscale 経由）を土台に、他のソフトでも読めるファイル名規則（`docs/naming-convention.md`）を作成中 | — | [Theta.Movie.Hatch](https://github.com/kiwiman0706-beep/Theta.Movie.Hatch) | [動画プレイヤー代替アプリ](https://claude.ai/code/session_012DXkbxgRpZwVsU9fra6sF1) | 2026-11-03 |
+| 19 | **Theta.File.Hatch**（試作） | Theta Vault を NAS などに置いたまま、フォルダごとにふさわしい見え方で眺めるファイラーの試作。見え方もファイル（`.view.yaml`）で持つ。ブラウザで見られるデモ付き | — | [Theta.File.Hatch](https://github.com/kiwiman0706-beep/Theta.File.Hatch) | [ObsidianFS 構想](https://claude.ai/code/session_012DXkbxcLWLwFVYWM9tVHxb) | 2026-11-05 |
+| 20 | **Theta.Chirashi.Hatch** | 製薬会社の勉強会などのチラシをスキャン → Gemini で読み取り → Google カレンダーに登録（チラシ画像は Drive に保存して添付）。QR コード読み取り、月のカレンダー表示。Meishi.Hatch と同じつくり | 0.1.0 | [THETA.Chirashi.Hatch](https://github.com/kiwiman0706-beep/THETA.Chirashi.Hatch) | [アプリ開発](https://claude.ai/code/session_012DXkbxUnbUEgxEY1bfHP77) | 2026-11-06 |
 
 ### 関連（Theta.xxx.Hatch の名前ではないもの）
 
@@ -82,7 +84,10 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 14 | Hitsudan | ○ PC のサーバー | ○ PC のサーバー | × | × | ブラウザ（タブレット）・M5PaperS3 | × | × |
 | 15 | Music | × | × | ○ | × | — | × | × |
 | 16 | Photo | 予定（Flutter の雛形あり） | 予定（同左） | ○ | × | — | × | × |
-| 17・18 | Mitene・Movie | 構想中 | | | | | | |
+| 17 | Mitene | 構想中 | | | | | | |
+| 18 | Movie | 設計中（サーバーは NAS の Jellyfin） | | | | | | |
+| 19 | File | △ ブラウザのデモ | △ ブラウザのデモ | × | × | Python のデモ作成ツール | × | × |
+| 20 | Chirashi | × | × | ○ | × | — | × | × |
 | — | DeskHatch | ○ | ○ | × | × | — | ○ | ○ エクスポート・インポート |
 
 - **自動更新**は spec §6.1 で必須。○ は 6 つだけです（Meishi・Memo・Home・KidsHome・DeskHatch、Mensetsu はデスクトップのみ）。
@@ -110,7 +115,10 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 14 | Hitsudan | × | × | × | × |
 | 15 | Music | △ NAS 上の Vault にライブラリを書き出し（Dataview。Theta Vault ではない） | × | ○ Audio Station API・WebDAV・File Station | ○ 確認コード＋デバイストークン |
 | 16 | Photo | 予定（イベントの索引・日記。写真は NAS のパスで参照） | × | △ Synology Photos のバックアップ機能に任せる（API 接続なし） | × |
-| 17・18 | Mitene・Movie | 構想中 | | 前提（Synology Photos・動画） | |
+| 17 | Mitene | 構想中 | | 前提（Synology Photos） | |
+| 18 | Movie | △ 作品情報を NFO と Markdown に（予定） | × | 前提（NAS 上の Jellyfin） | × |
+| 19 | File | ○ Theta Vault を表示（`.view.yaml`） | × | 予定（NAS の Vault を表示） | × |
+| 20 | Chirashi | × 端末内（Markdown で保存は可） | ○ チラシ画像を Drive に保存（＋カレンダー） | × | × |
 | — | DeskHatch | △ クリップを Obsidian 向けの Markdown で保存 | △ Drive のフォルダを箱として使う | × | × |
 
 - **Secure SignIn**：Synology の 2 段階認証。アプリからは「確認コード（OTP）を入れる → デバイストークンを受け取って、次からは聞かない」形で対応します（Home・Music の方式）。Secure SignIn アプリの「承認」ボタンでのログインは、アプリからは使えない前提です（未確認）。
