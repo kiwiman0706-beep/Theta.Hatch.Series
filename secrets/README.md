@@ -23,8 +23,8 @@ GitHub Actions の Secret は **リポジトリごと** です。あるリポジ
 
 | 項目 | 値 |
 | --- | --- |
-| 鍵 | Meishi の鍵 `meishiclaude-release.jks`（すでに Meishi・Memo が使っている。仕様 `spec/THETA_GOOGLE_SETUP.md` で「シリーズ共通」と決めたもの） |
-| 別名（alias） | `meishiclaude` |
+| 鍵 | `theta-hatch-release.jks`（Meishi のときに作った鍵。元のファイル名は `meishiclaude-release.jks`。仕様 `spec/THETA_GOOGLE_SETUP.md` で「シリーズ共通」と決めたもの。1Password の「APK共通秘密鍵」に保存） |
+| 別名（alias） | `thetahatch`（2026-11-06 に `meishiclaude` から変更。証明書の CN は `Meishi-Claude` のまま。別名を変えても SHA-1・署名は変わらない） |
 | SHA-1 | `A1:13:EA:34:83:60:56:32:E7:F5:94:4E:4E:8C:20:55:DD:AE:28:BA` |
 | SHA-256 | `F4:77:40:D8:54:9B:C1:C3:7F:EB:00:B1:87:80:D8:0B:52:75:8B:60:25:2B:A0:D2:21:7D:83:AB:3F:01:2A:23`（更新ハブが APK の署名を照合するときに使う） |
 | 形式 | PKCS12、RSA 3072 ビット、`CN=Meishi-Claude, O=Personal, C=JP`、2026-10-16 作成、2076-10-03 まで有効 |
@@ -32,7 +32,7 @@ GitHub Actions の Secret は **リポジトリごと** です。あるリポジ
 | パスワード | Meishi のときに一緒に渡された `keystore-password.txt` の中身 |
 | 置き場所（正本） | 自分の PC／パスワード管理。**Google ドライブの Theta Vault や Git には置かない** |
 
-> **GitHub の Secret からは取り出せません**（登録した値は誰にも読めない）。`meishiclaude-release.jks` と `keystore-password.txt` が手元に無ければ、下の「新しく作る場合」で作ります。
+> **GitHub の Secret からは取り出せません**（登録した値は誰にも読めない）。`theta-hatch-release.jks` と `keystore-password.txt` が手元に無ければ、下の「新しく作る場合」で作ります。
 > 全アプリがアプリ ID の変更で一度入れ直しになるので、**今なら新しい鍵にしても失うものはほぼありません**（Meishi も ID が変わるため）。ただし Google Cloud に古い SHA-1 で登録済みなら、登録し直しになります。
 > 一度決めたら**鍵は作り直さない**。作り直すと全アプリの OAuth クライアントの SHA-1 を直すことになります。
 
@@ -57,10 +57,19 @@ Mac は `keytool`（Android Studio を入れていれば `/Applications/Android 
 | --- | --- |
 | `ANDROID_KEYSTORE_B64` | 鍵ファイル（.jks）を Base64 にしたもの |
 | `ANDROID_KEYSTORE_PASSWORD` | 鍵ストアのパスワード |
-| `ANDROID_KEY_ALIAS` | `meishiclaude` |
+| `ANDROID_KEY_ALIAS` | `thetahatch` |
 | `ANDROID_KEY_PASSWORD` | 鍵のパスワード。この鍵は PKCS12 なので、鍵ストアのパスワードと同じ値 |
 
 各アプリの `release.yml` はこの 4 つを読むように揃えます（Meishi・Memo・Mensetsu はすでにこの名前）。
+**別名をワークフローやビルドスクリプトに直接書かない**（必ず `ANDROID_KEY_ALIAS` を使う）。Meishi の `android/build.sh` は `meishiclaude` を直接書いているので、移行で直す。
+
+### 別名の変え方（記録）
+
+```powershell
+& "C:\Program Files\Android\Android Studio\jbr\bin\keytool.exe" -changealias -alias meishiclaude -destalias thetahatch -keystore theta-hatch-release.jks
+```
+
+変えたあと `-list -v` で別名が `thetahatch`、SHA-1 が変わっていないことを確かめる。
 
 ## 3. いまの各アプリの署名（2026-10-26 時点）
 
@@ -95,7 +104,7 @@ Android は署名が違う APK での上書きを拒否します。共通鍵に�
 `ANDROID_KEYSTORE_B64` の値は、PowerShell で次を実行するとクリップボードに入ります。
 
 ```powershell
-[Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\path\meishiclaude-release.jks")) | Set-Clipboard
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\path\theta-hatch-release.jks")) | Set-Clipboard
 ```
 
 ### まとめて登録する場合（おすすめ）
@@ -105,11 +114,11 @@ Android は署名が違う APK での上書きを拒否します。共通鍵に�
    - Mac：`brew install gh` → `gh auth login`
 2. 配る先は `tools/repos.txt`（1 行 1 リポジトリ。**改名後の名前**なので、先にリポジトリ名を変えておく）
 3. 実行（パスワードは画面で聞かれる。ファイルや履歴には残らない）
-   - Windows：`powershell -ExecutionPolicy Bypass -File tools\sync-secrets.ps1 -Keystore C:\path\meishiclaude-release.jks`
-   - Windows で 1Password から直接：`powershell -ExecutionPolicy Bypass -File tools\sync-secrets.ps1 -OpKeystore "op://<保管庫>/<アイテム>/meishiclaude-release.jks" -OpPassword "op://<保管庫>/<アイテム>/password"`
+   - Windows：`powershell -ExecutionPolicy Bypass -File tools\sync-secrets.ps1 -Keystore C:\path\theta-hatch-release.jks`
+   - Windows で 1Password から直接：`powershell -ExecutionPolicy Bypass -File tools\sync-secrets.ps1 -OpKeystore "op://<保管庫>/<アイテム>/theta-hatch-release.jks" -OpPassword "op://<保管庫>/<アイテム>/password"`
      （1Password CLI：`winget install AgileBits.1Password.CLI` → 1Password アプリの 設定 → 開発者 →「1Password CLI と連携」をオン。参照は 1Password でフィールドの「…」→「Copy Secret Reference」で取れる）
    - スクリプトは配る前に鍵の SHA-1 がシリーズ共通の値と同じか確かめ、違えば止まる
-   - Mac：`bash tools/sync-secrets.sh ~/path/meishiclaude-release.jks`
+   - Mac：`bash tools/sync-secrets.sh ~/path/theta-hatch-release.jks`
 4. 各リポジトリで release.yml を動かし、APK の SHA-1 が上の値と同じことを確かめる
 
 ## 5. 鍵以外の秘密

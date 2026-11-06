@@ -17,7 +17,7 @@ CONCEPT_STEPS = ["addref", "prompt", "claudemd"]
 
 GLOBAL = [
     ("key", "me", "署名鍵を手元に用意する",
-     "Meishi の meishiclaude-release.jks と keystore-password.txt。見つからなければ新しく作る（secrets/README.md）。"),
+     "Meishi の theta-hatch-release.jks と keystore-password.txt。見つからなければ新しく作る（secrets/README.md）。"),
     ("gh", "me", "GitHub CLI を入れてログイン",
      "winget install GitHub.cli → gh auth login。Secret をまとめて配るのに使う。"),
     ("rename", "me", "リポジトリ名を変える（Meishi・Book・Chirashi）",

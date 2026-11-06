@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # シリーズ共通の Android 署名鍵を、tools/repos.txt の全リポジトリの GitHub Secret に入れる（Mac / Linux）。
-#   bash tools/sync-secrets.sh ~/path/meishiclaude-release.jks [別名]
+#   bash tools/sync-secrets.sh ~/path/theta-hatch-release.jks [別名]
 # 必要なもの：GitHub CLI（brew install gh → gh auth login）。詳しくは secrets/README.md
 set -euo pipefail
 
 keystore="${1:?鍵ファイル（.jks）を指定してください}"
-alias_name="${2:-meishiclaude}"
+alias_name="${2:-thetahatch}"
 repos="$(dirname "$0")/repos.txt"
 
 command -v gh >/dev/null || { echo "gh が見つかりません。brew install gh のあと gh auth login" >&2; exit 1; }
