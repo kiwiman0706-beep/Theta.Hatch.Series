@@ -26,6 +26,9 @@ GitHub Actions の Secret は **リポジトリごと** です。あるリポジ
 | 鍵 | Meishi の鍵 `meishiclaude-release.jks`（すでに Meishi・Memo が使っている。仕様 `spec/THETA_GOOGLE_SETUP.md` で「シリーズ共通」と決めたもの） |
 | 別名（alias） | `meishiclaude` |
 | SHA-1 | `A1:13:EA:34:83:60:56:32:E7:F5:94:4E:4E:8C:20:55:DD:AE:28:BA` |
+| SHA-256 | `F4:77:40:D8:54:9B:C1:C3:7F:EB:00:B1:87:80:D8:0B:52:75:8B:60:25:2B:A0:D2:21:7D:83:AB:3F:01:2A:23`（更新ハブが APK の署名を照合するときに使う） |
+| 形式 | PKCS12、RSA 3072 ビット、`CN=Meishi-Claude, O=Personal, C=JP`、2026-10-16 作成、2076-10-03 まで有効 |
+| 確認 | 2026-11-06、手元の鍵ファイルの SHA-1 が上の値と一致することを確認済み |
 | パスワード | Meishi のときに一緒に渡された `keystore-password.txt` の中身 |
 | 置き場所（正本） | 自分の PC／パスワード管理。**Google ドライブの Theta Vault や Git には置かない** |
 
@@ -55,7 +58,7 @@ Mac は `keytool`（Android Studio を入れていれば `/Applications/Android 
 | `ANDROID_KEYSTORE_B64` | 鍵ファイル（.jks）を Base64 にしたもの |
 | `ANDROID_KEYSTORE_PASSWORD` | 鍵ストアのパスワード |
 | `ANDROID_KEY_ALIAS` | `meishiclaude` |
-| `ANDROID_KEY_PASSWORD` | 鍵のパスワード（鍵ストアと同じなら同じ値） |
+| `ANDROID_KEY_PASSWORD` | 鍵のパスワード。この鍵は PKCS12 なので、鍵ストアのパスワードと同じ値 |
 
 各アプリの `release.yml` はこの 4 つを読むように揃えます（Meishi・Memo・Mensetsu はすでにこの名前）。
 
