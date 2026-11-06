@@ -2,13 +2,13 @@
 
 - 更新：2026-11-06
 - スレッド：https://claude.ai/code/session_01NhS3xRwFVfssMDMXfSoJEv
-- 状態：計画OK待ち
+- 状態：作業中
 
 ## 今と目標
 
 | | 今（0.60.1） | 目標 |
 | --- | --- | --- |
-| リポジトリ名 | `Theta.KidsHome.Hatch`（公開）＋素材用 `Theta.Kidshome.Hatch.Closed`（非公開） | 同じ（改名なし）。非公開は `Theta.KidsHome.Hatch.Closed` に揃えるか相談 |
+| リポジトリ名 | `Theta.KidsHome.Hatch`（公開）＋素材用 `Theta.Kidshome.Hatch.Closed`（非公開） | 同じ（改名なし。非公開も改名しない） |
 | アプリ ID | `com.theta.kidshome`（namespace も同じ） | `app.thetahatch.kidshome`（namespace も） |
 | 署名 | アプリだけの鍵 `app/kidshome.jks` を**リポジトリに同梱**、パスワードを `build.gradle.kts` に直書き | 共通鍵（Secret の 4 つ、別名 thetahatch）。鍵ファイルと直書きのパスワードは外す |
 | 更新 | 自分の更新（`update/SelfUpdate.kt`：Releases を確認・取得・インストール画面）。SHA-256・署名の照合なし | **更新ハブ**（spec §6.1）。操作はおうちの人の画面（親モード） |
@@ -56,7 +56,7 @@
 - 土台：`update/SelfUpdate.kt`（Releases の確認・取得・インストール画面）
 - 新しく：`hub/Catalog.kt`（`catalog/apps.json`、APK にも同梱）、`hub/UpdateHub.kt`（入っているアプリの確認・Wi-Fi で先に取得・digest の SHA-256・`getPackageArchiveInfo` でパッケージ名・版・**共通鍵の署名**の照合）、`hub/HubInstaller.kt`（`PackageInstaller` のセッション、Android 12 以上は確認なし）、`hub/UpdateActivity.kt`（`app.thetahatch.action.UPDATE` を受けて、**親モードのゲートを通してから**更新画面）
 - 画面：親モード「🔧 キー・アップデート」に「Hatch シリーズのアプリ」：入っている版・新しい版・更新・すべて更新・入れる・移る・変更点・失敗の理由と Releases を開く。設定に「自動で更新する（既定オン）」「モバイル回線でも取得する（既定オフ）」「この端末の更新は Home に任せる」
-- Home も入っている端末：`app.thetahatch.action.UPDATE_BUSY` で同時に入れない
+- Home も入っている端末：**既定のホームに設定されているほう**がハブ。もう一方は更新・設定の配布をせず、ハブに頼む。念のため `app.thetahatch.action.UPDATE_BUSY` で同時に入れない
 - 子どもの画面には出さない（今のホームの「新しい版」のしるしも親モードの中だけにする）
 
 ### 設定のハブ（共通設定 §4.0・§4.1）
@@ -64,7 +64,7 @@
 - `hub/SettingsProvider.kt`：authority `app.thetahatch.kidshome.theta`、権限 `app.thetahatch.permission.SHARE`（signature）。`/info`（`ui.skin`・`gemini.model`・`nas.url`・`nas.user`・`nas.shareRoot`・`google.account`）、`/secret/<キー>`（`gemini.key`・`nas.password`・`nas.deviceToken`）、`update /info`
 - 親モードに「Hatch シリーズの共通設定」：スキン・Gemini・NAS（接続先・アカウント・パスワード・デバイストークン、Secure SignIn）・Google アカウント。秘密は Android Keystore で暗号化、書き出し（設定の一括・引っ越し zip）には入れない
 - 秘密を読まれたら通知。KidsHome は「秘密を貸す」を親モードの許可にする（許可したアプリだけ）
-- Home も入っている端末：Home を優先して読み、KidsHome は Home の値に合わせる
+- Home も入っている端末：既定のホームのほうを正本として読み、もう一方はその値に合わせる
 - キッズホーム自身の Gemini キー（ぬりえ・レジのラベルなど）も、ここに入れた値を使う
 
 ### Windows・Mac
@@ -79,14 +79,14 @@
 
 ## 決めてほしいこと
 
-- [ ] 1. 新しいアプリは **1.0.0**（タグ `v1.0.0`）からでよいか。橋渡し版は 0.61
-- [ ] 2. APK の名前を `ThetaKidsHomeHatch-<版>.apk` 1 つにすると、固定の URL（`latest/download/KidsHome.apk`、別のタブレットに入れる QR）が使えなくなる。QR は Releases のページを開く形でよいか（固定名も残すなら spec と相談）
-- [ ] 3. Kotlin のパッケージ名（namespace）も `app.thetahatch.kidshome` に変えてよいか（全ファイルの機械的な置き換え）
-- [ ] 4. 引っ越し zip の中身（上の表）でよいか。特に**ポイントの残高**は移す（設定の一括書き出しでは移さない決まりにしていた）
-- [ ] 5. スキン：子どもの画面は今の子ども向けテーマのまま、親モードとハブの画面だけシリーズのスキン（system など）にする、でよいか
-- [ ] 6. Home と両方ある端末：「Home が更新する、KidsHome は任せる」を既定にしてよいか（子ども用タブレットは KidsHome だけのことが多いので、KidsHome だけなら KidsHome が全部更新）
-- [ ] 7. 非公開リポジトリ `Theta.Kidshome.Hatch.Closed` を `Theta.KidsHome.Hatch.Closed` に改名するか（GitHub の転送があるので、タブレットに保存したリポジトリ名は直さなくても動く見込み）
-- [ ] 8. データの置き場所：絵・字の練習・（今後の）成長記録・日記を Theta Vault（Drive か NAS）に書き出すのは、移行のあと（別の版）でよいか
+- [x] 1. （OK）新しいアプリは **1.0.0**（タグ `v1.0.0`）からでよいか。橋渡し版は 0.61
+- [ ] 2. （説明中：おすすめは QR で Releases のページを開く）APK の名前を `ThetaKidsHomeHatch-<版>.apk` 1 つにすると、固定の URL（`latest/download/KidsHome.apk`、別のタブレットに入れる QR）が使えなくなる。QR は Releases のページを開く形でよいか（固定名も残すなら spec と相談）
+- [x] 3. （OK）Kotlin のパッケージ名（namespace）も `app.thetahatch.kidshome` に変えてよいか（全ファイルの機械的な置き換え）
+- [x] 4. （OK）引っ越し zip の中身（上の表）でよいか。特に**ポイントの残高**は移す（設定の一括書き出しでは移さない決まりにしていた）
+- [x] 5. （OK）スキン：子どもの画面は今の子ども向けテーマのまま、親モードとハブの画面だけシリーズのスキン（system など）にする、でよいか
+- [x] 6. （決定）Home と両方ある端末では、**既定のホームに設定されているほう**がハブ（更新・設定の配布）を受け持つ。もう一方は任せる。既定のホームを変えたら入れ替わる
+- [x] 7. （不要）非公開リポジトリ `Theta.Kidshome.Hatch.Closed` を `Theta.KidsHome.Hatch.Closed` に改名するか（GitHub の転送があるので、タブレットに保存したリポジトリ名は直さなくても動く見込み）
+- [x] 8. （OK）データの置き場所：絵・字の練習・（今後の）成長記録・日記を Theta Vault（Drive か NAS）に書き出すのは、移行のあと（別の版）でよいか
 
 ## 進み具合
 
