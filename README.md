@@ -21,7 +21,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 11 | 連携 | デスクトップ版は DeskHatch のドロワーとして表示できるように。テレビへは Theta Link（LAN 内で発見・ペアリング） | [spec §7・§8](spec/THETA_HATCH_SPEC.md) |
 | 12 | 品質 | Vault の往復テスト、2台の同期テスト、320〜768px 幅ではみ出さない、JS エラー0。実機で確かめていないことは `TESTING.md` に「未確認」と書く | [spec §9](spec/THETA_HATCH_SPEC.md) |
 | 13 | 新しいアプリの手順 | 各アプリの `CLAUDE.md` にこのリポジトリを参照する一文を入れる。完成したら下の作品一覧に追加し、`tools/repos.txt` に足して Secret を配る | [FOR_APP_REPOS](docs/FOR_APP_REPOS.md) |
-| 14 | 移行 | 名前・ID・リポジトリ名・署名鍵を揃える作業中。各アプリの今と目標は `catalog/apps.json`。鍵と ID は同じ版で変え、「橋渡し版」で自動更新からデータの書き出し→新アプリへ移る | [MIGRATION](docs/MIGRATION.md) |
+| 14 | 移行 | 名前・ID・リポジトリ名・署名鍵を揃える作業中。移行の操作は **Theta Home Hatch がまとめて行う**（橋渡し版への更新 → 書き出し → 新しい版を入れる → 読み込み → 古いアプリの削除）。データを移すのは Meishi・Chirashi・Book だけ、ほかは入れ直し | [MIGRATION](docs/MIGRATION.md) |
 
 ## 作品一覧
 

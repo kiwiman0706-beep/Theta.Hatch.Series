@@ -111,6 +111,12 @@ Android の更新は **Theta Home Hatch と Theta KidsHome Hatch（＝更新ハ�
   - 署名が **シリーズ共通の鍵**（`secrets/README.md` の SHA-256／SHA-1）で、入っているアプリとも同じ
   - 版が入っているものより新しい
 - 共通の鍵で署名されていない APK は、ハブからは一切入れない（ハブがほかのアプリを入れられる分、ここが安全の要）。
+  - 例外は**移行の橋渡し版**だけ：`catalog/apps.json` の `migration.bridge` が true のアプリで、古い ID（`current.packageName`）の APK が、**いま端末に入っているそのアプリと同じ署名**のときに限り入れてよい（Android も同じ署名でないと上書きを許さない）。
+
+**移行（ハブ）**
+- `catalog/apps.json` の `current.packageName`（古い ID）が入っていて、`target.packageName`（新しい ID）が無いアプリを「移行が必要」として一覧の上に出す。
+- 手順は `docs/MIGRATION.md` §3：橋渡し版への更新 → 書き出し（`Intent("app.thetahatch.action.EXPORT")`）→ 新しい版を入れる → 読み込み（`Intent("app.thetahatch.action.IMPORT")`）→ 古いアプリの削除。橋渡し版が無いアプリは、新しい版を入れて古いアプリを削除するだけ。
+- 古いアプリの削除は `Intent.ACTION_DELETE`（`package:<古い ID>`）か `PackageInstaller.uninstall`（権限 `REQUEST_DELETE_PACKAGES`）。どちらも Android が利用者に確認を出す。新しい版での読み込みが終わる前には出さない。
 
 **入れる（ハブ）**
 - `PackageInstaller` でアプリ内から入れる。権限 `REQUEST_INSTALL_PACKAGES`（初回は利用者が許可）。

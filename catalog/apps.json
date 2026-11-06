@@ -2,7 +2,7 @@
   "spec": 1,
   "updated": "2026-11-06",
   "owner": "kiwiman0706-beep",
-  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。 updateHub は Android の更新をまとめて行うアプリ（spec §6.1）。",
+  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。 updateHub は Android の更新をまとめて行うアプリ（spec §6.1）。 migration.bridge は移行の橋渡し版を作るか、migration.data はデータを移すか（docs/MIGRATION.md §3）。",
   "apps": [
     {
       "id": "book",
@@ -35,6 +35,10 @@
       "thread": "session_01VBri9A5SpavPKRqvCQZARs",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": true,
+        "data": "required"
       }
     },
     {
@@ -67,6 +71,10 @@
       "thread": "session_016tfKWDzu24Zp9FBxh4cjKS",
       "googleOAuth": {
         "registered": "2026-10-22（名前を変更）"
+      },
+      "migration": {
+        "bridge": true,
+        "data": "required"
       }
     },
     {
@@ -96,6 +104,10 @@
       "thread": "session_01QGzXdJYduLXUGSNC9NMCDu",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -125,6 +137,10 @@
       "thread": "session_01De2aFah9Lcgtf5wm3XZKDX",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -154,6 +170,10 @@
       "thread": "session_01EBZjKxFPPAcMuVaRQmJaEM",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -183,6 +203,10 @@
       "thread": "session_01SsMo5spj81EiVV3fsBYJwr",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -212,6 +236,10 @@
       "thread": "session_01MfF9qvjEzW47oy37eYGX2f",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -241,6 +269,10 @@
       "thread": "session_01AvSnwTjAMGxxrwossSH8b5",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -271,6 +303,10 @@
       "thread": "session_01LmiStbYTVdJCtU26X4VDQh",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -302,6 +338,10 @@
       "thread": "session_01UZcNkbW2pixSpi59267B3r",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -331,6 +371,10 @@
       "updateHub": true,
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -359,6 +403,10 @@
       "thread": "session_01H9m1j4wPmRzXQbzu7zWADS",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -390,6 +438,10 @@
       "updateHub": true,
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -454,6 +506,10 @@
       "thread": "session_012DXkc2Wd5iBmicj8ba39vG",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -483,6 +539,10 @@
       "thread": "session_012DXkby1gTG6FFj5k36BF48",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": false,
+        "data": "none"
       }
     },
     {
@@ -598,6 +658,10 @@
       "thread": "session_012DXkbxUnbUEgxEY1bfHP77",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "migration": {
+        "bridge": true,
+        "data": "required"
       }
     },
     {

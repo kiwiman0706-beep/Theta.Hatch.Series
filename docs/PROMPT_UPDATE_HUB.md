@@ -13,7 +13,7 @@ kiwiman0706-beep/Theta.Hatch.Series を参照してください（見えなけ�
 - 端末に入っているアプリについて、各リポジトリの Releases の最新版を確認し、Wi-Fi で取得、GitHub の SHA-256・パッケージ名・**シリーズ共通の鍵の署名**（`secrets/README.md`）を照合してから `PackageInstaller` で入れる。共通の鍵でない APK は入れない。
 - ほかのアプリからは `Intent("app.thetahatch.action.UPDATE")`（extra `packageName`）で頼まれるので、そのアプリの更新画面を開く。
 - 一覧に「入っている版・新しい版・更新・すべて更新・入れる」。自分自身の更新もここから。
-- 移行（アプリ ID の変更）にも使う：`catalog/apps.json` の `current.packageName`（古い ID）が入っていて `target.packageName`（新しい ID）が無ければ、「新しいアプリに移る」案内（新しいアプリを入れる → データの読み込み → 古いアプリの削除画面）を出す（`docs/MIGRATION.md`）。
+- **移行（アプリ ID の変更）も Home がまとめて行う**（`docs/MIGRATION.md` §3、spec §6.1「移行（ハブ）」）：古い ID が入っていて新しい ID が無いアプリについて、①橋渡し版への更新（Meishi・Chirashi・Book だけ。いま入っているアプリと同じ署名なら入れてよい）→ ②書き出し → ③新しい版を入れる → ④読み込み → ⑤古いアプリの削除、を順に案内する。ほかのアプリは「新しい版を入れる → 古いアプリの削除」だけ。
 - Home と KidsHome の両方が入っている端末で、同じアプリを同時に入れないようにする。
 - KidsHome は、更新の操作をおうちの人の画面に置く（子どもの画面には出さない）。
 
