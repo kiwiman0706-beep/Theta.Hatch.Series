@@ -9,7 +9,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | # | 分野 | 要点 | 詳しく |
 | --- | --- | --- | --- |
 | 1 | 名前 | 表示名は `Theta <名前> Hatch`。applicationId・appId は `app.thetahatch.<名前>`（個人名は入れない）。版番号は全プラットフォームで同じ、タグは `v<版>` | [spec §2](spec/THETA_HATCH_SPEC.md) |
-| 2 | データ | 正本は利用者の Google ドライブの **Theta Vault**（Obsidian で開ける Markdown＋添付）。1件＝1ファイル、`id` で同一性、削除は `.theta/trash/` へ、大量欠落では削除しない。Obsidian で一覧・ギャラリーが見られるよう、各アプリは自分のフォルダに `.base`（Obsidian Bases）を置く。見本は [`samples/theta-vault`](samples/README.md) | [Vault 仕様](spec/THETA_VAULT_SPEC.md) |
+| 2 | データ | 正本は **Theta Vault**（Google ドライブ、または NAS の共有フォルダ `Obsidian` の中。音楽・動画・写真はそれぞれの共有フォルダに置いたまま参照）（Obsidian で開ける Markdown＋添付）。1件＝1ファイル、`id` で同一性、削除は `.theta/trash/` へ、大量欠落では削除しない。Obsidian で一覧・ギャラリーが見られるよう、各アプリは自分のフォルダに `.base`（Obsidian Bases）を置く。見本は [`samples/theta-vault`](samples/README.md) | [Vault 仕様](spec/THETA_VAULT_SPEC.md) |
 | 3 | 原則 | ローカルファースト（オフラインで動き、同期は後から）。独自サーバーを持たない。消さない・戻せる | [spec §1](spec/THETA_HATCH_SPEC.md) |
 | 4 | プラットフォーム | UI は1つ（HTML/CSS/JS）を共有し、Android（APK＋ホーム画面ウィジェット）・Windows/Mac（Electron）・Web（PWA、iPhone）で動かす。端末機能はブリッジ `Native.call` / `window.onNative` で差し替え | [spec §4](spec/THETA_HATCH_SPEC.md) |
 | 5 | デザイン | 見た目は Home.Hatch の**スキン**に揃える：`system`（既定）・`dark`・`light`・`pop`・`alert`・`scifi`。色は直接書かず役割（accent・widget・launch…）から取る。書体は Oswald＋Share Tech Mono | [design](design/README.md) |

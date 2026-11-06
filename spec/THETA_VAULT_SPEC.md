@@ -144,7 +144,20 @@ Obsidian で開いたときに「一覧」や「ギャラリー」で見られ�
 | --- | --- | --- |
 | Google Drive API | Android（他アプリ不要） | 現行の仕組みを流用。PCは「Googleドライブ」デスクトップアプリで同じフォルダがローカルに見える → Obsidianで開ける |
 | ローカルフォルダ | Windows / Mac（Drive・OneDrive・Dropbox・Syncthingの同期フォルダ）、Android（Syncthing等のフォルダをSAFで指定） | クラウドを選ばない |
-| WebDAV（将来） | NAS・自宅サーバー | |
+| NAS（Synology、Tailscale 経由） | 自宅の NAS（DS1825+）。Android は File Station API か WebDAV、PC は共有フォルダをネットワークドライブで | 置き場所は下の「NAS の置き場所」 |
+
+### NAS の置き場所
+
+| データ | NAS の共有フォルダ | 備考 |
+| --- | --- | --- |
+| Theta Vault（ノート・添付） | **`Obsidian`** の中（既定は `Obsidian/Theta Vault/`。アプリの設定で変えられる） | PC の Obsidian はこの共有フォルダを保管庫として開く |
+| 音楽 | 音楽用の共有フォルダ（例 `music`） | Vault には入れない。Theta Music Hatch は Audio Station・WebDAV で直接読む。書き出すノート（アルバム・アーティスト）は Vault へ |
+| 動画 | 動画用の共有フォルダ（Jellyfin のライブラリ） | Vault には入れない。作品の情報は `.nfo` と、必要なら Vault のノート（Theta Movie Hatch） |
+| 写真 | Synology Photos の共有フォルダ（`photo`・各自の `Photos`） | Vault には入れない。XMP がファイルに付く。イベントの索引だけ Vault に（Theta Photo Hatch） |
+
+- **大きなメディア（音楽・動画・写真）は、それぞれの共有フォルダに置いたまま**。Vault のノートからは NAS 上のパス（`nas://<共有フォルダ>/…` の形。アプリが接続先に読み替える）で参照し、Vault にコピーしない。
+- それ以外のアプリのデータ（名刺・メモ・面接・おえかき・チラシなど）は、Google ドライブの Theta Vault と同じ形で `Obsidian` 共有フォルダに置ける。どちらを使うか（Drive／NAS／両方）はアプリの設定。両方のときは同じ中身を持つ。
+- NAS の接続先・ログイン（確認コード＋デバイストークン）は、設定のハブ（Home・KidsHome）から受け取れる（`THETA_SHARED_SETTINGS.md` §4）。
 
 Obsidian Sync（有料・独自形式）はアプリから直接は使わないが、PCでObsidian Syncを使っていても、ローカルフォルダ方式なら共存できる。
 
