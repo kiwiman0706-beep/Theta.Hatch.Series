@@ -2,7 +2,7 @@
 
 - 更新：2026-11-06
 - スレッド：https://claude.ai/code/session_01GMSgoGarRChJJQLGtjAFKY
-- 状態：計画OK待ち
+- 状態：作業中
 
 ## 今と目標
 
@@ -70,13 +70,166 @@
 
 ## 決めてほしいこと
 
-- [ ] 1. 版の名前：Releases を **prerelease にしない**（spec は `releases/latest` を読むので、今の alpha の Release はハブから見えない）。新しいアプリは **1.0.0** から、タグ `v1.0.0` でよいか
-- [ ] 2. ビルド：CI（GitHub Actions）で共通鍵の Secret を使ってビルド・署名し、**APK をリポジトリにコミットするのをやめる**（今の `releases/` は 209MB。古いものは消すか、そのまま残すか）。Theta.Home.Hatch に Secret の 4 つが入っているか確認をお願いしたい
-- [ ] 3. Kotlin のパッケージ名（namespace）も `app.thetahatch.home` に変えてよいか（全ファイルの機械的な置き換え。個人名がコードに残らない）
-- [ ] 4. 橋渡し版で書き出すもの：設定の JSON＋記録＋Clip＋アイコンの型、でよいか（ウィジェットと各種の許可は入れ直し）
-- [ ] 5. 0.36 で足したスキン 5 つ（term・braun・soft・window・lcd）を `design/skins/skins.json` に足してよいか（このスレッドは Series の自分以外のファイルを直さないので、足すなら Series のスレッドに頼む）
-- [ ] 6. 更新の自動実行：WorkManager で 12 時間ごと（端末がスリープでも動く）でよいか。モバイル回線では取得しない（既定）
-- [ ] 7. 両方のハブがある端末：既定は「Home が更新する、KidsHome は任せる」でよいか
+利用者の答え（2026-11-06）：
+
+- [x] 1. Releases は prerelease にしない。新しいアプリは 1.0.0（タグ `v1.0.0`）から → **OK**
+- [x] 2. CI で共通鍵でビルドし、APK のコミットはやめる。今の `releases/` は**しばらく残す** → OK
+- [x] 3. Kotlin のパッケージ名も `app.thetahatch.home` に → **OK**
+- [x] 4. 橋渡し版の書き出し：設定の JSON＋記録＋Clip＋アイコンの型 → **OK**
+- [x] 5. スキン 5 つを `design/skins/skins.json` に足す → **お願いします**（下の「Series のスレッドへの依頼」）
+- [x] 6. 自動の確認は WorkManager で 12 時間ごと、モバイル回線では取得しない → **OK**
+- [x] 7. 両方のハブがある端末 → **OK。ただし「ホーム画面アプリに設定されている側に任せる」ができるならそちら**。→ できる：既定のホーム（`Intent.ACTION_MAIN`＋`CATEGORY_HOME` を受けるアプリ）が Home なら Home、KidsHome なら KidsHome が更新し、もう一方は任せる。どちらも既定のホームでないとき（One UI ホームなど）は Home。KidsHome のスレッドにも同じ決まりが要る（spec §6.1 の「ハブが両方入っている端末」に足すと分かりやすい）
+
+## Series のスレッドへの依頼
+
+### スキン 5 つ（0.36 で Home に足したもの）を skins.json に
+
+`skins` に次の 5 つを足し、`setting.values` にも足してほしい。今の 6 つに無い項目として `style`（作り：枠・時計・見出しの形を変える種類）・`radius`（角丸の大きさ dp）・`font`（`hud`＝Oswald＋Share Tech Mono／`sans`＝端末のゴシック／`mono`＝全部 Share Tech Mono）・`shadow`（`none`／`hard`＝右下 3dp の fg 色の影／`soft`＝ぼかした浮き出し）・`iconShape`（アイコンの台：`square`・`round`＝角丸 24%・`circle`）を持つ。`backdrop` に新しく `rain`（縦に流れる文字の列：18dp ごとの列に accent の点、最大 10%）・`lines`（白い方眼：36dp ごと、白の 22%）・`pixel`（液晶の横線：3dp ごと、fg の 3.5%）。WebView 版が作りまで真似できないときは、色だけ使えば十分。
+
+```json
+{
+ "term": {
+  "label": "TERMINAL（緑の端末）",
+  "summary": "黒地に蛍光の緑、見出しは反転した帯、文字は全部等幅、背景に流れる文字の列",
+  "color": {
+   "bg": "#030805",
+   "panel": "#06100A",
+   "raised": "#0B1E12",
+   "fg": "#8CFFB0",
+   "muted": "#4FC97A",
+   "faint": "#358A55",
+   "line": "#1D5531",
+   "accent": "#3DFF7F",
+   "onAccent": "#031006",
+   "widget": "#C9FFD9",
+   "launch": "#2E9E58",
+   "zebra": "#143DFF7F",
+   "accent2": "#C9FFD9",
+   "accent3": "#2E9E58"
+  },
+  "pop": false,
+  "backdrop": "rain",
+  "hazard": 0,
+  "style": "term",
+  "radius": 8,
+  "font": "mono",
+  "shadow": "none",
+  "iconShape": "square"
+ },
+ "braun": {
+  "label": "BRAUN（白い家電）",
+  "summary": "生成りの地にオレンジ 1 色。めくり時計、丸い日付の文字盤、浮き出た角丸の台、丸いアイコン",
+  "color": {
+   "bg": "#E9E7E1",
+   "panel": "#F6F5F1",
+   "raised": "#DDDAD2",
+   "fg": "#2A2A2A",
+   "muted": "#575757",
+   "faint": "#6E6B64",
+   "line": "#BFBBB1",
+   "accent": "#E8711A",
+   "onAccent": "#FFFFFF",
+   "widget": "#5E7A68",
+   "launch": "#3A3A3A",
+   "zebra": "#0A000000",
+   "accent2": "#5E7A68",
+   "accent3": "#C9C5BA"
+  },
+  "pop": true,
+  "backdrop": "",
+  "hazard": 4,
+  "style": "braun",
+  "radius": 14,
+  "font": "sans",
+  "shadow": "soft",
+  "iconShape": "circle"
+ },
+ "soft": {
+  "label": "SOFT（浮き出し）",
+  "summary": "線を使わず影で台が浮き出る。大きな角丸、淡いオレンジ・青・緑・赤",
+  "color": {
+   "bg": "#ECEDF0",
+   "panel": "#F3F4F7",
+   "raised": "#E3E5EA",
+   "fg": "#262A33",
+   "muted": "#545B68",
+   "faint": "#6B7280",
+   "line": "#D9DCE2",
+   "accent": "#F0A23A",
+   "onAccent": "#262A33",
+   "widget": "#5FA8DC",
+   "launch": "#7FC08E",
+   "zebra": "#08000000",
+   "accent2": "#E8606F",
+   "accent3": "#7FC08E"
+  },
+  "pop": true,
+  "backdrop": "",
+  "hazard": 4,
+  "style": "soft",
+  "radius": 18,
+  "font": "sans",
+  "shadow": "soft",
+  "iconShape": "round"
+ },
+ "window": {
+  "label": "WINDOW（昔のパソコン）",
+  "summary": "水色の地に白い方眼、クリームの窓にオレンジのタイトルバーと「_ □ ×」、こげ茶の太い線と右下の影",
+  "color": {
+   "bg": "#52C3D6",
+   "panel": "#FFF8EA",
+   "raised": "#FBEBCF",
+   "fg": "#3B2C27",
+   "muted": "#5E4C44",
+   "faint": "#7D6A60",
+   "line": "#3B2C27",
+   "accent": "#F5A33A",
+   "onAccent": "#3B2C27",
+   "widget": "#7C8DF2",
+   "launch": "#F28DB2",
+   "zebra": "#14F5A33A",
+   "accent2": "#7C8DF2",
+   "accent3": "#F28DB2"
+  },
+  "pop": true,
+  "backdrop": "lines",
+  "hazard": 4,
+  "style": "window",
+  "radius": 6,
+  "font": "sans",
+  "shadow": "hard",
+  "iconShape": "round"
+ },
+ "lcd": {
+  "label": "LCD（液晶ゲーム機）",
+  "summary": "くすんだ黄緑の地に濃い緑の太い線と文字、全部等幅、液晶の数字の時計、画素の細い横線",
+  "color": {
+   "bg": "#8E9B69",
+   "panel": "#99A673",
+   "raised": "#A6B27F",
+   "fg": "#1C2610",
+   "muted": "#2F3D1C",
+   "faint": "#45542C",
+   "line": "#1C2610",
+   "accent": "#1C2610",
+   "onAccent": "#A6B27F",
+   "widget": "#3C5568",
+   "launch": "#6B4A33",
+   "zebra": "#101C2610",
+   "accent2": "#3C5568",
+   "accent3": "#6B4A33"
+  },
+  "pop": false,
+  "backdrop": "pixel",
+  "hazard": 0,
+  "style": "lcd",
+  "radius": 8,
+  "font": "mono",
+  "shadow": "none",
+  "iconShape": "square"
+ }
+}
+```
 
 ## 進み具合
 
