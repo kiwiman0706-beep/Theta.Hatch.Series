@@ -1,0 +1,110 @@
+"""移行の進み具合を、各リポジトリの最新のブランチを見て確かめる（Hatch 移行ボードの「Claude が確認」）。
+
+    python tools/check_progress.py [作業用フォルダ] [リポジトリ一覧.json] > progress.json
+
+リポジトリ一覧は GitHub のリポジトリの正式な名前（full_name）の JSON 配列。GitHub は大文字・小文字を区別せず、
+改名後も古い名前から転送するので、改名できたかはこの一覧の名前と比べる（Claude は list_repos の結果を渡す）。
+
+catalog/apps.json の各アプリについて、次を ok / ng / unknown で返す：
+  rename   新しいリポジトリ名で GitHub に届くか（改名が要るアプリだけ）
+  claudemd CLAUDE.md か AGENTS.md に Theta.Hatch.Series への参照があるか
+  appid    applicationId が新しいアプリ ID か
+  signing  ワークフローが共通の Secret 名（ANDROID_KEYSTORE_B64）を使うか
+  update   アプリ内の自動更新（Releases の確認か PackageInstaller）があるか
+  catalog  catalog の current が target と同じか
+Secret の登録・スレッドへの追加・実機確認は、ここからは見えない（ボード上の自己申告と、Claude のスレッド確認）。
+"""
+import json
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+OWNER = "kiwiman0706-beep"
+SKIP_DIRS = {".git", "node_modules", "third_party", "build", ".dart_tool"}
+
+
+def git(*args, cwd=None):
+    return subprocess.run(["git", *args], cwd=cwd, capture_output=True, text=True, timeout=600)
+
+
+def renamed(repo, names):
+    if names is None:
+        return None
+    return f"{OWNER}/{repo}" in names
+
+
+def fetch_latest(repo, work):
+    """全ブランチを浅く取り、いちばん新しいコミットのブランチを展開する。"""
+    d = work / repo
+    if not d.exists():
+        d.mkdir(parents=True)
+        git("init", "-q", cwd=d)
+        git("remote", "add", "origin", f"https://github.com/{OWNER}/{repo}.git", cwd=d)
+    if git("fetch", "-q", "--depth", "1", "origin", "+refs/heads/*:refs/remotes/origin/*", cwd=d).returncode != 0:
+        return None, None
+    best = git("for-each-ref", "--sort=-committerdate", "--format=%(refname:short)", "refs/remotes/origin", cwd=d).stdout.split()
+    if not best:
+        return None, None
+    git("checkout", "-q", "--force", best[0], cwd=d)
+    return d, best[0].removeprefix("origin/")
+
+
+def files(d, pattern):
+    for p in d.rglob(pattern):
+        if not SKIP_DIRS.intersection(p.parts) and p.is_file():
+            yield p
+
+
+def grep(d, patterns, regex):
+    rx = re.compile(regex)
+    for pat in patterns:
+        for p in files(d, pat):
+            try:
+                if rx.search(p.read_text(encoding="utf-8", errors="ignore")):
+                    return p.relative_to(d).as_posix()
+            except OSError:
+                pass
+    return None
+
+
+def check_app(a, work, names):
+    cur, tgt = a["current"], a["target"]
+    out = {}
+    if cur["repo"] != tgt["repo"]:
+        r = renamed(tgt["repo"], names)
+        out["rename"] = {"s": "ok" if r else "unknown" if r is None else "ng",
+                         "d": f"{tgt['repo']} になっている" if r else "一覧が無く確認できず" if r is None else f"まだ {cur['repo']}"}
+    d, branch = fetch_latest(cur["repo"], work)
+    if d is None:
+        d, branch = fetch_latest(tgt["repo"], work)
+    if d is None:
+        return out | {"_branch": None}
+    hit = grep(d, ["CLAUDE.md", "AGENTS.md"], r"Theta\.Hatch\.Series")
+    out["claudemd"] = {"s": "ok" if hit else "ng", "d": f"{hit} に参照あり" if hit else "参照なし"}
+    if "android" in a.get("platforms", []):
+        pkg = re.escape(tgt["packageName"])
+        hit = grep(d, ["build.gradle", "build.gradle.kts"], r"applicationId\s*=?\s*[\"']" + pkg + r"[\"']")
+        out["appid"] = {"s": "ok" if hit else "ng", "d": "新しい ID" if hit else f"まだ {cur.get('packageName') or '別の ID'}"}
+        hit = grep(d, ["*.yml", "*.yaml"], r"ANDROID_KEYSTORE_B64")
+        out["signing"] = {"s": "ok" if hit else "ng", "d": "共通の Secret 名を使用" if hit else "共通の Secret 名を使っていない"}
+        hit = grep(d, ["*.java", "*.kt", "*.dart"], r"releases/latest|PackageInstaller")
+        out["update"] = {"s": "ok" if hit else "ng", "d": "自動更新あり" if hit else "自動更新なし"}
+    same = cur["repo"] == tgt["repo"] and ("android" not in a.get("platforms", []) or cur.get("packageName") == tgt.get("packageName"))
+    out["catalog"] = {"s": "ok" if same else "ng", "d": "一覧は新しい名前" if same else "一覧はまだ古い名前"}
+    out["_branch"] = branch
+    return out
+
+
+def main():
+    work = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / ".work"
+    names = set(json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))) if len(sys.argv) > 2 else None
+    work.mkdir(parents=True, exist_ok=True)
+    catalog = json.loads((ROOT / "catalog" / "apps.json").read_text(encoding="utf-8"))
+    result = {a["id"]: check_app(a, work, names) for a in catalog["apps"] if a["id"] != "desk"}
+    json.dump(result, sys.stdout, ensure_ascii=False, indent=1)
+
+
+if __name__ == "__main__":
+    main()

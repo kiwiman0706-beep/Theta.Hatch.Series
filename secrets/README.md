@@ -26,9 +26,27 @@ GitHub Actions の Secret は **リポジトリごと** です。あるリポジ
 | 鍵 | Meishi の鍵 `meishiclaude-release.jks`（すでに Meishi・Memo が使っている。仕様 `spec/THETA_GOOGLE_SETUP.md` で「シリーズ共通」と決めたもの） |
 | 別名（alias） | `meishiclaude` |
 | SHA-1 | `A1:13:EA:34:83:60:56:32:E7:F5:94:4E:4E:8C:20:55:DD:AE:28:BA` |
+| パスワード | Meishi のときに一緒に渡された `keystore-password.txt` の中身 |
 | 置き場所（正本） | 自分の PC／パスワード管理。**Google ドライブの Theta Vault や Git には置かない** |
 
-> **鍵は作り直さない**。作り直すと全アプリの OAuth クライアントの SHA-1 を直すことになります。
+> **GitHub の Secret からは取り出せません**（登録した値は誰にも読めない）。`meishiclaude-release.jks` と `keystore-password.txt` が手元に無ければ、下の「新しく作る場合」で作ります。
+> 全アプリがアプリ ID の変更で一度入れ直しになるので、**今なら新しい鍵にしても失うものはほぼありません**（Meishi も ID が変わるため）。ただし Google Cloud に古い SHA-1 で登録済みなら、登録し直しになります。
+> 一度決めたら**鍵は作り直さない**。作り直すと全アプリの OAuth クライアントの SHA-1 を直すことになります。
+
+### 新しく作る場合
+
+Android Studio に付いている `keytool` を使います（Windows の PowerShell）。
+
+```powershell
+& "C:\Program Files\Android\Android Studio\jbr\bin\keytool.exe" -genkeypair -v `
+  -keystore theta-hatch-release.jks -alias thetahatch -keyalg RSA -keysize 4096 -validity 36500 `
+  -dname "CN=Theta Hatch"
+# SHA-1 を確かめる（Google Cloud に登録する値）
+& "C:\Program Files\Android\Android Studio\jbr\bin\keytool.exe" -list -v -keystore theta-hatch-release.jks -alias thetahatch
+```
+
+Mac は `keytool`（Android Studio を入れていれば `/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/keytool`）で同じ指定。
+作ったら、上の表の鍵・別名・SHA-1 をこの README に書き換え、`ANDROID_KEY_ALIAS` は `thetahatch` で配ります（`sync-secrets` の `-Alias thetahatch`）。
 
 ### Secret の名前（全アプリ共通）
 
@@ -68,10 +86,21 @@ Android は署名が違う APK での上書きを拒否します。共通鍵に�
 
 ## 4. 配り方
 
+### 画面から 1 つずつ登録する場合
+
+各リポジトリの **Settings → Secrets and variables → Actions → New repository secret** で、上の 4 つを登録します。
+`ANDROID_KEYSTORE_B64` の値は、PowerShell で次を実行するとクリップボードに入ります。
+
+```powershell
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\path\meishiclaude-release.jks")) | Set-Clipboard
+```
+
+### まとめて登録する場合（おすすめ）
+
 1. GitHub CLI を入れてログイン（初回だけ）
    - Windows：`winget install GitHub.cli` → `gh auth login`
    - Mac：`brew install gh` → `gh auth login`
-2. 配る先は `tools/repos.txt`（1 行 1 リポジトリ）
+2. 配る先は `tools/repos.txt`（1 行 1 リポジトリ。**改名後の名前**なので、先にリポジトリ名を変えておく）
 3. 実行（パスワードは画面で聞かれる。ファイルや履歴には残らない）
    - Windows：`powershell -ExecutionPolicy Bypass -File tools\sync-secrets.ps1 -Keystore C:\path\meishiclaude-release.jks`
    - Mac：`bash tools/sync-secrets.sh ~/path/meishiclaude-release.jks`

@@ -1,0 +1,356 @@
+<title>Hatch 移行ボード</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Share+Tech+Mono&display=swap">
+<style>
+/* Theta Home Hatch の HUD スキン（dark / light）を、そのまま進捗ボードに。上に全体の作業、下にアプリごとのカード */
+:root {
+  --bg: #F4F3EE; --panel: #FFFFFF; --raised: #E9E8E2;
+  --fg: #121212; --muted: #474747; --faint: #5E5E5E; --line: #BDBCB4;
+  --accent: #B8400C; --on-accent: #FFFFFF; --zebra: rgba(0,0,0,.05);
+  --ok: #1F7A3E; --ng: #B3261E; --wait: #8A6200;
+  --display: "Oswald", "Noto Sans JP", sans-serif;
+  --mono: "Share Tech Mono", ui-monospace, "Noto Sans JP", monospace;
+  --body: system-ui, "Noto Sans JP", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0A0A0B; --panel: #111113; --raised: #19191C;
+    --fg: #EDEDED; --muted: #A3A3A3; --faint: #858585; --line: #333336;
+    --accent: #FF6B1A; --on-accent: #0A0A0B; --zebra: rgba(255,255,255,.06);
+    --ok: #39C46E; --ng: #FF5A4E; --wait: #E8B23A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0A0A0B; --panel: #111113; --raised: #19191C;
+  --fg: #EDEDED; --muted: #A3A3A3; --faint: #858585; --line: #333336;
+  --accent: #FF6B1A; --on-accent: #0A0A0B; --zebra: rgba(255,255,255,.06);
+  --ok: #39C46E; --ng: #FF5A4E; --wait: #E8B23A; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font: 15px/1.6 var(--body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 28px; }
+.label { font: 11px var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--faint); }
+.label.bullet::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 8px; background: var(--accent); vertical-align: middle; }
+h1 { font: 300 clamp(34px, 6vw, 52px)/1.05 var(--display); margin: 4px 0 0; letter-spacing: .01em; text-wrap: balance; }
+h2 { font: 400 22px var(--display); margin: 0; }
+a { color: var(--accent); }
+.head { display: grid; gap: 14px; }
+.readouts { display: flex; flex-wrap: wrap; gap: 10px 28px; }
+.readout { display: grid; gap: 2px; }
+.readout b { font: 400 26px var(--display); font-variant-numeric: tabular-nums; }
+.bar { height: 6px; background: var(--raised); border: 1px solid var(--line); }
+.bar > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .4s; }
+.note { color: var(--muted); font-size: 13px; max-width: 70ch; }
+.status { font: 12px var(--mono); color: var(--faint); }
+.status.warn { color: var(--wait); }
+
+.panel { position: relative; border: 1px solid var(--line); background: var(--panel); padding: 14px; }
+.panel::before, .panel::after { content: ""; position: absolute; width: 10px; height: 10px; border: 1.5px solid var(--accent); }
+.panel::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+.panel::after { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+
+.section { display: grid; gap: 12px; }
+.section > header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+
+/* 全体の作業 */
+.tasks { list-style: none; margin: 0; padding: 0; }
+.tasks li { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: start; padding: 10px 8px; }
+.tasks li:nth-child(odd) { background: var(--zebra); }
+.tasks li .t { min-width: 0; }
+.tasks li .t b { font-weight: 600; }
+.tasks li .t p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+.tasks li.done .t b { color: var(--faint); text-decoration: line-through; }
+.who { font: 11px var(--mono); letter-spacing: .1em; padding: 2px 6px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.who.me { border-color: var(--accent); color: var(--accent); }
+
+.check { appearance: none; width: 22px; height: 22px; margin: 2px 0 0; border: 1.5px solid var(--line); background: var(--raised); cursor: pointer; display: grid; place-items: center;
+  clip-path: polygon(6px 0, 100% 0, 100% 100%, 0 100%, 0 6px); }
+.check:checked { background: var(--accent); border-color: var(--accent); }
+.check:checked::after { content: "✓"; color: var(--on-accent); font: 14px var(--mono); }
+.check:focus-visible, .chip:focus-visible, .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.check:disabled { cursor: default; opacity: .6; }
+
+/* 手順の凡例・絞り込み */
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 9px; height: 9px; display: inline-block; border: 1px solid var(--line); }
+.dot.ok { background: var(--ok); border-color: var(--ok); }
+.dot.done { background: var(--accent); border-color: var(--accent); }
+.dot.ng { background: var(--ng); border-color: var(--ng); }
+.seg { display: inline-flex; border: 1px solid var(--line); }
+.seg button { font: 12px var(--mono); letter-spacing: .08em; background: transparent; color: var(--muted); border: 0; padding: 8px 12px; cursor: pointer; min-height: 36px; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+
+.steps-summary { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.steps-summary .s { display: grid; gap: 4px; padding: 8px; border: 1px solid var(--line); background: var(--panel); }
+.steps-summary .s b { font: 400 18px var(--display); font-variant-numeric: tabular-nums; }
+
+/* アプリのカード */
+.apps { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 14px; }
+.app { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.app .top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.app h3 { font: 400 20px var(--display); margin: 0; }
+.app .pct { font: 13px var(--mono); color: var(--faint); font-variant-numeric: tabular-nums; }
+.app dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 0; font-size: 12px; }
+.app dt { font: 11px var(--mono); letter-spacing: .1em; color: var(--faint); }
+.app dd { margin: 0; min-width: 0; overflow-wrap: anywhere; font-family: var(--mono); }
+.app dd .old { color: var(--faint); }
+.app dd .arrow { color: var(--accent); }
+.app .links { display: flex; flex-wrap: wrap; gap: 12px; font-size: 13px; }
+.chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.chip { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; align-items: center; text-align: left; font: 13px var(--body); color: var(--fg);
+  background: var(--raised); border: 1px solid var(--line); padding: 6px 8px; cursor: pointer; min-height: 44px; }
+.chip .box { grid-row: span 2; width: 16px; height: 16px; border: 1.5px solid var(--line); display: grid; place-items: center; font: 11px var(--mono); }
+.chip .who2 { font: 10px var(--mono); letter-spacing: .08em; color: var(--faint); }
+.chip.done .box { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.chip.ok .box { background: var(--ok); border-color: var(--ok); color: var(--on-accent); }
+.chip.ng { border-color: var(--ng); }
+.chip.ng .box { border-color: var(--ng); color: var(--ng); }
+.chip .auto { grid-column: 2; font: 11px var(--mono); color: var(--faint); overflow-wrap: anywhere; }
+.chip.ok .auto { color: var(--ok); }
+.chip.ng .auto { color: var(--ng); }
+.chip:disabled { cursor: default; }
+.app.concept { opacity: .85; }
+.empty { padding: 24px; text-align: center; color: var(--muted); border: 1px dashed var(--line); }
+.foot { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
+@media (prefers-reduced-motion: reduce) { .bar > i { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header class="head">
+    <div>
+      <div class="label bullet">Theta Hatch Series · Brand Unification</div>
+      <h1>Hatch 移行ボード</h1>
+    </div>
+    <p class="note">アプリ ID を <code>app.thetahatch.&lt;名前&gt;</code>、リポジトリ名を <code>Theta.&lt;名前&gt;.Hatch</code>、署名鍵を共通にする作業の進み具合。マスを押すと「済」になります。緑は Claude が GitHub やスレッドを見て、できていることを確かめたもの。</p>
+    <div class="readouts">
+      <div class="readout"><span class="label">全体</span><b id="r-all">—</b></div>
+      <div class="readout"><span class="label">あなたの番</span><b id="r-me">—</b></div>
+      <div class="readout"><span class="label">確認済み</span><b id="r-ok">—</b></div>
+      <div class="readout"><span class="label">要確認</span><b id="r-ng">—</b></div>
+    </div>
+    <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+    <div class="status" id="status">データを読み込んでいます…</div>
+  </header>
+
+  <section class="section panel">
+    <header><h2>全体の作業</h2><span class="label">順番どおりに</span></header>
+    <ul class="tasks" id="global"><li><span></span><div class="t"><b>読み込み中…</b></div><span></span></li></ul>
+  </section>
+
+  <section class="section">
+    <header>
+      <h2>アプリごとの作業</h2>
+      <div class="seg" role="group" aria-label="表示する作業">
+        <button type="button" data-filter="all" aria-pressed="true">すべて</button>
+        <button type="button" data-filter="me" aria-pressed="false">あなたの番</button>
+        <button type="button" data-filter="left" aria-pressed="false">残りあり</button>
+      </div>
+    </header>
+    <div class="legend">
+      <span><i class="dot"></i>まだ</span>
+      <span><i class="dot done"></i>済（自己申告）</span>
+      <span><i class="dot ok"></i>Claude が確認済み</span>
+      <span><i class="dot ng"></i>済にしたのに、確認するとできていない</span>
+    </div>
+    <div class="steps-summary" id="steps-summary"></div>
+    <div class="apps" id="apps"><div class="empty">アプリの一覧を読み込んでいます…</div></div>
+  </section>
+
+  <footer class="foot">
+    <div>手順の詳細：<a href="https://github.com/kiwiman0706-beep/Theta.Hatch.Series/blob/HEAD/docs/MIGRATION.md" target="_blank" rel="noopener">MIGRATION.md</a> · ID 一覧：<a href="https://github.com/kiwiman0706-beep/Theta.Hatch.Series/blob/HEAD/docs/APP_IDS.md" target="_blank" rel="noopener">APP_IDS.md</a> · 鍵：<a href="https://github.com/kiwiman0706-beep/Theta.Hatch.Series/blob/HEAD/secrets/README.md" target="_blank" rel="noopener">secrets/README.md</a></div>
+    <div id="checked-at">Claude の確認：まだ</div>
+  </footer>
+</div>
+
+<script>
+// 手順の定義。who: me＝あなた、thread＝各アプリのスレッド、claude＝このスレッド
+const STEPS = [
+  { key: "secret",   name: "Secret 登録",          who: "me" },
+  { key: "rename",   name: "リポジトリ改名",        who: "me" },
+  { key: "addref",   name: "スレッドに Series 追加", who: "me" },
+  { key: "prompt",   name: "依頼文を送る",          who: "me" },
+  { key: "plan",     name: "計画を確認して OK",      who: "me" },
+  { key: "claudemd", name: "CLAUDE.md に参照",      who: "thread" },
+  { key: "appid",    name: "新しいアプリ ID",        who: "thread" },
+  { key: "signing",  name: "共通鍵で署名",           who: "thread" },
+  { key: "update",   name: "自動更新",               who: "thread" },
+  { key: "device",   name: "実機で確認",             who: "me" },
+  { key: "catalog",  name: "一覧を更新",             who: "claude" },
+];
+const WHO = { me: "あなた", thread: "スレッド", claude: "Claude" };
+
+const state = { apps: [], global: [], meta: null, filter: "all", loaded: { apps: false, global: false } };
+let db = null;
+let writable = true;
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+try { const f = localStorage.getItem("hatch-board-filter"); if (f) state.filter = f; } catch (e) {}
+
+// アプリで、その手順が対象か（applies に無い手順は対象外）
+function applies(app, key) { return Array.isArray(app.applies) ? app.applies.includes(key) : true; }
+function cellState(app, key) {
+  const done = !!(app.done && app.done[key]);
+  const c = app.checks && app.checks[key];
+  if (c && c.s === "ok") return { cls: "ok", done: true, auto: c.d || "確認済み" };
+  // 自己申告で「済」なのに確認するとできていないときだけ赤。まだのものは灰色のまま、確認結果を小さく出す
+  if (c && c.s === "ng") return done ? { cls: "ng", done, auto: c.d || "できていない" } : { cls: "", done, auto: c.d || "" };
+  return { cls: done ? "done" : "", done, auto: c && c.d ? c.d : "" };
+}
+
+function counts() {
+  let total = 0, finished = 0, mine = 0, ok = 0, ng = 0;
+  const per = {};
+  for (const s of STEPS) per[s.key] = { total: 0, finished: 0 };
+  for (const a of state.apps) for (const s of STEPS) {
+    if (!applies(a, s.key)) continue;
+    const st = cellState(a, s.key);
+    total++; per[s.key].total++;
+    if (st.done) { finished++; per[s.key].finished++; }
+    else if (s.who === "me") mine++;
+    if (st.cls === "ok") ok++;
+    if (st.cls === "ng") ng++;
+  }
+  for (const g of state.global) { total++; if (g.done) finished++; else if (g.who === "me") mine++; }
+  return { total, finished, mine, ok, ng, per };
+}
+
+function renderHead() {
+  const c = counts();
+  $("r-all").textContent = c.total ? `${c.finished}/${c.total}` : "—";
+  $("r-me").textContent = c.total ? String(c.mine) : "—";
+  $("r-ok").textContent = c.total ? String(c.ok) : "—";
+  $("r-ng").textContent = c.total ? String(c.ng) : "—";
+  $("bar").style.width = c.total ? `${Math.round(c.finished / c.total * 100)}%` : "0";
+  const sum = $("steps-summary"); sum.textContent = "";
+  for (const s of STEPS) {
+    const p = c.per[s.key]; if (!p.total) continue;
+    const box = el("div", "s");
+    box.append(el("span", "label", `${WHO[s.who]}`), el("span", null, s.name), el("b", null, `${p.finished}/${p.total}`));
+    sum.append(box);
+  }
+  const m = state.meta;
+  $("checked-at").textContent = m && m.checkedAt ? `Claude の確認：${m.checkedAt}${m.summary ? "　" + m.summary : ""}` : "Claude の確認：まだ";
+}
+
+function renderGlobal() {
+  const ul = $("global"); ul.textContent = "";
+  if (!state.global.length) {
+    const li = el("li"); li.append(el("span"), Object.assign(el("div", "t"), { textContent: state.loaded.global ? "全体の作業はまだありません（Claude が入れます）。" : "読み込み中…" }), el("span")); ul.append(li); return;
+  }
+  for (const g of state.global) {
+    const li = el("li", g.done ? "done" : "");
+    const cb = el("input", "check"); cb.type = "checkbox"; cb.checked = !!g.done; cb.id = "g-" + g.id; cb.disabled = !writable;
+    cb.setAttribute("aria-label", g.title);
+    cb.addEventListener("change", () => toggleGlobal(g, cb.checked));
+    const t = el("div", "t"); t.append(el("b", null, g.title)); if (g.detail) t.append(el("p", null, g.detail));
+    if (g.check && g.check.d) { const p = el("p", null, "Claude：" + g.check.d); p.style.color = g.check.s === "ok" ? "var(--ok)" : g.check.s === "ng" ? "var(--ng)" : ""; t.append(p); }
+    li.append(cb, t, el("span", "who" + (g.who === "me" ? " me" : ""), WHO[g.who] || g.who));
+    ul.append(li);
+  }
+}
+
+function renderApps() {
+  const box = $("apps"); box.textContent = "";
+  if (!state.apps.length) { box.append(el("div", "empty", state.loaded.apps ? "アプリの一覧はまだありません（Claude が入れます）。" : "アプリの一覧を読み込んでいます…")); return; }
+  let shown = 0;
+  for (const a of state.apps) {
+    const keys = STEPS.filter((s) => applies(a, s.key));
+    const left = keys.filter((s) => !cellState(a, s.key).done);
+    if (state.filter === "me" && !left.some((s) => s.who === "me")) continue;
+    if (state.filter === "left" && !left.length) continue;
+    shown++;
+    const card = el("article", "app panel" + (a.kind === "concept" ? " concept" : ""));
+    const top = el("div", "top");
+    top.append(el("h3", null, a.name), el("span", "pct", keys.length ? `${keys.length - left.length}/${keys.length}` : "—"));
+    const dl = el("dl");
+    const pair = (label, now, target) => {
+      const dd = el("dd");
+      if (now && target && now !== target) { dd.append(el("span", "old", now), el("span", "arrow", " → "), document.createTextNode(target)); }
+      else dd.textContent = target || now || "—";
+      dl.append(el("dt", null, label), dd);
+    };
+    pair("REPO", a.repoNow, a.repoTarget);
+    pair("APP ID", a.idNow, a.idTarget);
+    if (a.remark) { dl.append(el("dt", null, "NOTE"), Object.assign(el("dd"), { textContent: a.remark })); }
+    const links = el("div", "links");
+    if (a.repoNow) { const l = el("a", null, "GitHub"); l.href = "https://github.com/kiwiman0706-beep/" + (a.repoNow); l.target = "_blank"; l.rel = "noopener"; links.append(l); }
+    if (a.thread) { const l = el("a", null, "スレッド"); l.href = "https://claude.ai/code/" + a.thread; l.target = "_blank"; l.rel = "noopener"; links.append(l); }
+    const chips = el("div", "chips");
+    for (const s of keys) {
+      const st = cellState(a, s.key);
+      const b = el("button", "chip " + st.cls); b.type = "button"; b.id = `c-${a.id}-${s.key}`;
+      b.disabled = !writable;
+      b.setAttribute("aria-pressed", st.done ? "true" : "false");
+      const mark = el("span", "box", st.cls === "ok" ? "✓" : st.cls === "ng" ? "!" : st.done ? "✓" : "");
+      b.append(mark, el("span", null, s.name));
+      const sub = el("span", "auto", st.auto || WHO[s.who]);
+      if (!st.auto) sub.className = "who2";
+      b.append(sub);
+      b.addEventListener("click", () => toggleStep(a, s.key));
+      chips.append(b);
+    }
+    card.append(top, dl, links, chips);
+    box.append(card);
+  }
+  if (!shown) box.append(el("div", "empty", state.filter === "me" ? "あなたの番の作業はありません。" : "残っている作業はありません。"));
+}
+
+function render() { renderHead(); renderGlobal(); renderApps(); }
+
+// 書き込みは 1 件ずつ。失敗したら表示を戻して知らせる
+let busy = Promise.resolve();
+function write(fn, undo) {
+  busy = busy.then(fn).catch((e) => {
+    undo(); render();
+    if (e && e.code === "invalid_argument") { writable = false; render(); setStatus("このページは見るだけです（書き込みの権限がありません）。", true); }
+    else setStatus("保存できませんでした。通信を確かめて、もう一度押してください。", true);
+  });
+}
+function toggleStep(a, key) {
+  if (!db) return;
+  const was = !!(a.done && a.done[key]);
+  a.done = Object.assign({}, a.done, { [key]: !was }); render();
+  write(() => db.doc("apps/" + a.id).update({ done: { [key]: !was }, doneAt: { [key]: new Date().toISOString().slice(0, 10) } }),
+        () => { a.done = Object.assign({}, a.done, { [key]: was }); });
+}
+function toggleGlobal(g, v) {
+  if (!db) return;
+  const was = !!g.done; g.done = v; render();
+  write(() => db.doc("global/" + g.id).update({ done: v, doneAt: new Date().toISOString().slice(0, 10) }), () => { g.done = was; });
+}
+
+function setStatus(text, warn) { const s = $("status"); s.textContent = text; s.className = "status" + (warn ? " warn" : ""); }
+
+document.querySelectorAll(".seg button").forEach((b) => {
+  b.setAttribute("aria-pressed", b.dataset.filter === state.filter ? "true" : "false");
+  b.addEventListener("click", () => {
+    state.filter = b.dataset.filter;
+    document.querySelectorAll(".seg button").forEach((x) => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+    try { localStorage.setItem("hatch-board-filter", state.filter); } catch (e) {}
+    renderApps();
+  });
+});
+
+render();
+
+(async () => {
+  db = window.claude && window.claude.use ? await window.claude.use("db") : null;
+  if (!db) { setStatus("共有データに接続できません。claude.ai でこのページを開いてください。", true); writable = false; render(); return; }
+  let confirmed = false;
+  const timer = setTimeout(() => { if (!confirmed) setStatus("データにまだ届きません。表示が古いかもしれません。", true); }, 10000);
+  const fresh = (snap) => { if (!snap.metadata.fromCache && !confirmed) { confirmed = true; clearTimeout(timer); setStatus("最新の状態です。"); } };
+  const fail = (e) => { clearTimeout(timer); setStatus("共有データを読めませんでした（" + (e && e.code || "unknown") + "）。", true); };
+  db.collection("apps").orderBy("order").onSnapshot((snap) => {
+    state.apps = snap.docs.map((d) => Object.assign({ id: d.id }, structuredClone(d.data())));
+    state.loaded.apps = true; fresh(snap); render();
+  }, fail);
+  db.collection("global").orderBy("order").onSnapshot((snap) => {
+    state.global = snap.docs.map((d) => Object.assign({ id: d.id }, structuredClone(d.data())));
+    state.loaded.global = true; render();
+  }, fail);
+  db.doc("meta/run").onSnapshot((snap) => { state.meta = snap.exists ? snap.data() : null; renderHead(); }, fail);
+})();
+</script>

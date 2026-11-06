@@ -31,7 +31,8 @@
         "secureSignIn": "partial"
       },
       "settingsExport": "partial",
-      "remark": "ブランチが分かれている：claude/vigilant-ramanujan-4v5vsv（1.0.0、デスクトップ版あり）と ccr-fbd7a73d-mp81q5（0.8.7-preview、Android のみ）"
+      "remark": "ブランチが分かれている：claude/vigilant-ramanujan-4v5vsv（1.0.0、デスクトップ版あり）と ccr-fbd7a73d-mp81q5（0.8.7-preview、Android のみ）",
+      "thread": "session_01VBri9A5SpavPKRqvCQZARs"
     },
     {
       "id": "meishi",
@@ -59,7 +60,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "partial"
+      "settingsExport": "partial",
+      "thread": "session_016tfKWDzu24Zp9FBxh4cjKS"
     },
     {
       "id": "item",
@@ -84,7 +86,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "partial"
+      "settingsExport": "partial",
+      "thread": "session_01QGzXdJYduLXUGSNC9NMCDu"
     },
     {
       "id": "kamigata",
@@ -109,7 +112,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "partial"
+      "settingsExport": "partial",
+      "thread": "session_01De2aFah9Lcgtf5wm3XZKDX"
     },
     {
       "id": "doorphoto",
@@ -134,7 +138,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "partial"
+      "settingsExport": "partial",
+      "thread": "session_01EBZjKxFPPAcMuVaRQmJaEM"
     },
     {
       "id": "label",
@@ -159,7 +164,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "no"
+      "settingsExport": "no",
+      "thread": "session_01SsMo5spj81EiVV3fsBYJwr"
     },
     {
       "id": "device",
@@ -184,7 +190,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "partial"
+      "settingsExport": "partial",
+      "thread": "session_01MfF9qvjEzW47oy37eYGX2f"
     },
     {
       "id": "travel",
@@ -209,7 +216,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "partial"
+      "settingsExport": "partial",
+      "thread": "session_01AvSnwTjAMGxxrwossSH8b5"
     },
     {
       "id": "oekaki",
@@ -235,7 +243,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "partial"
+      "settingsExport": "partial",
+      "thread": "session_01LmiStbYTVdJCtU26X4VDQh"
     },
     {
       "id": "mensetsu",
@@ -262,7 +271,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "partial"
+      "settingsExport": "partial",
+      "thread": "session_01UZcNkbW2pixSpi59267B3r"
     },
     {
       "id": "home",
@@ -286,7 +296,8 @@
         "synology": "yes",
         "secureSignIn": "yes"
       },
-      "settingsExport": "yes"
+      "settingsExport": "yes",
+      "thread": "session_01GMSgoGarRChJJQLGtjAFKY"
     },
     {
       "id": "memo",
@@ -310,7 +321,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "no"
+      "settingsExport": "no",
+      "thread": "session_01H9m1j4wPmRzXQbzu7zWADS"
     },
     {
       "id": "kidshome",
@@ -336,7 +348,8 @@
         "synology": "planned",
         "secureSignIn": "no"
       },
-      "settingsExport": "yes"
+      "settingsExport": "yes",
+      "thread": "session_01NhS3xRwFVfssMDMXfSoJEv"
     },
     {
       "id": "hitsudan",
@@ -366,7 +379,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "no"
+      "settingsExport": "no",
+      "thread": "session_01B9UWzs14Mh99ti9U7GyxZV"
     },
     {
       "id": "music",
@@ -392,7 +406,8 @@
         "synology": "yes",
         "secureSignIn": "yes"
       },
-      "settingsExport": "no"
+      "settingsExport": "no",
+      "thread": "session_012DXkc2Wd5iBmicj8ba39vG"
     },
     {
       "id": "photo",
@@ -417,7 +432,8 @@
         "synology": "partial",
         "secureSignIn": "no"
       },
-      "settingsExport": "no"
+      "settingsExport": "no",
+      "thread": "session_012DXkby1gTG6FFj5k36BF48"
     },
     {
       "id": "mitene",
@@ -441,7 +457,8 @@
         "synology": "planned",
         "secureSignIn": "no"
       },
-      "settingsExport": "no"
+      "settingsExport": "no",
+      "thread": "session_012DXkc1gdp42YFc5gM1nwUj"
     },
     {
       "id": "movie",
@@ -465,7 +482,8 @@
         "synology": "planned",
         "secureSignIn": "no"
       },
-      "settingsExport": "no"
+      "settingsExport": "no",
+      "thread": "session_012DXkbxgRpZwVsU9fra6sF1"
     },
     {
       "id": "file",
@@ -491,7 +509,8 @@
         "synology": "planned",
         "secureSignIn": "no"
       },
-      "remark": "試作（ブラウザのデモ）"
+      "remark": "試作（ブラウザのデモ）",
+      "thread": "session_012DXkbxcLWLwFVYWM9tVHxb"
     },
     {
       "id": "chirashi",
@@ -516,7 +535,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "remark": "リポジトリ名の大文字 THETA を Theta に。release.yml は共通の Secret 名（ANDROID_KEYSTORE_B64・ANDROID_KEYSTORE_PASSWORD）を使用済み"
+      "remark": "リポジトリ名の大文字 THETA を Theta に。release.yml は共通の Secret 名（ANDROID_KEYSTORE_B64・ANDROID_KEYSTORE_PASSWORD）を使用済み",
+      "thread": "session_012DXkbxUnbUEgxEY1bfHP77"
     },
     {
       "id": "desk",
@@ -543,7 +563,8 @@
         "synology": "no",
         "secureSignIn": "no"
       },
-      "settingsExport": "yes"
+      "settingsExport": "yes",
+      "thread": "session_018tmaD8HpkoGTEfY5qob4Dd"
     }
   ]
 }
