@@ -443,7 +443,7 @@
       ],
       "autoUpdate": false,
       "vault": false,
-      "remark": "Flutter。リポジトリが private（自動更新には公開が必要）。鍵は key.properties かデバッグ鍵。Obsidian 書き出しは NAS 上の Vault（Theta Vault 外、Dataview 使用）",
+      "remark": "Flutter。2026-11-06 に公開（ハブが Releases を読めるように）。鍵は key.properties かデバッグ鍵だったので共通鍵へ。Obsidian 書き出しは NAS 上の Vault（Theta Vault 外、Dataview 使用）",
       "integrations": {
         "obsidianVault": "partial",
         "googleDrive": "no",
