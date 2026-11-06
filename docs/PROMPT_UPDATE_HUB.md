@@ -1,10 +1,10 @@
-# 更新ハブを作る依頼文（Home・KidsHome のスレッドへ）
+# ハブを作る依頼文（Home・KidsHome のスレッドへ）
 
 Theta Home Hatch と Theta KidsHome Hatch のスレッドに送る。`PROMPT_JOIN.md`（シリーズへの参加）を送ったあと、または一緒に。
 
 ---
 
-シリーズの Android アプリの更新を、このアプリ（と、もう一方のホームアプリ）でまとめて行う「更新ハブ」にしたいです。
+シリーズの Android アプリの更新と共通設定を、このアプリ（と、もう一方のホームアプリ）でまとめて扱う「ハブ」にしたいです。まずは更新のハブです。
 ねらいは、ほかのアプリにインストールの権限（`REQUEST_INSTALL_PACKAGES`）を持たせなくて済むようにすることです。
 
 kiwiman0706-beep/Theta.Hatch.Series を参照してください（見えなければ add_repo で追加して clone）。決まりは `spec/THETA_HATCH_SPEC.md` の **§6.1** に書きました。要点：
@@ -19,5 +19,14 @@ kiwiman0706-beep/Theta.Hatch.Series を参照してください（見えなけ�
 
 Home には `HatchInstaller.kt`（Hatch ドロワーからの導入）、KidsHome には `SelfUpdate.kt` がすでにあるので、それを土台にしてください。
 Android 12 以降の「確認なしの更新」は、ハブがそのアプリを入れた側のときだけ効くはずです。ブラウザで入れたアプリを更新したときの動きは、実機で確かめる項目として `TESTING.md` などに書いてください。
+
+## もう一つ：設定のハブ
+
+同じ端末のシリーズのアプリ同士で、スキン・Gemini API キー・NAS の接続先とパスワードとデバイストークン（Synology Secure SignIn の確認コードを次から省くもの）・使う Google アカウントを共有したいです。これも、このアプリ（と、もう一方のホームアプリ）が預かって配る「設定のハブ」にしてください。決まりは `spec/THETA_SHARED_SETTINGS.md` の **§4.0・§4.1** です。要点：
+
+- 共通の署名鍵のアプリだけが読める ContentProvider（権限 `app.thetahatch.permission.SHARE`、`protectionLevel="signature"`）で、設定（`info`）と秘密（`secret/<キー>`）を配る。
+- 設定画面に「Hatch シリーズの共通設定」を置き、まとめて入力・変更できるようにする。秘密は Android Keystore で暗号化して持ち、書き出し・バックアップには入れない。
+- ほかのアプリが秘密を読んだら通知で知らせる。KidsHome では、貸す操作をおうちの人の画面に置く。
+- Google のログイン自体は共有できない（アプリごとに 1 回）ので、共有するのは「どのアカウントを使うか」だけ。
 
 最初の返事では、まだ変更はせず、作り方の計画（画面・使うクラス・Manifest の変更・テスト）と、決めてほしいことを見せてください。

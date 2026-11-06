@@ -87,6 +87,16 @@ Theta Hatch の設定を引き継ぎますか？         （Meishi Hatch で設�
 
 - これに合わせ、**シリーズの署名鍵は共通**にする（2026-11-06 に全アプリの Secret へ登録済み。`secrets/README.md`）。共通の鍵で署名したアプリ同士でしか、この仕組みは動かない。
 
+### 4.0 設定のハブ（Home・KidsHome）
+
+同じ端末での共有は、**Theta Home Hatch と Theta KidsHome Hatch（設定のハブ）が預かって配る**形にする（更新のハブ：`THETA_HATCH_SPEC.md` §6.1 と同じ 2 つ）。
+
+- ハブは ContentProvider（authority `app.thetahatch.home.theta`／`app.thetahatch.kidshome.theta`、権限 `app.thetahatch.permission.SHARE`、`protectionLevel="signature"`）で、下の表の項目を持つ。設定画面に「Hatch シリーズの共通設定」（スキン・Gemini・NAS・Google アカウント）を置き、まとめて入力・変更できる。
+- ほかのアプリは、`<queries>` にハブのパッケージ名を書き、起動時にハブの `info` を読む。秘密は、初めて使うときに「Home Hatch の設定を使う」を選んだら `secret/<キー>` を読んで自分の端末内に暗号化して持つ。
+- アプリ側で設定を変えたら（「シリーズに合わせる」項目だけ）、ハブへ書き戻す：`update` を `content://app.thetahatch.home.theta/info` に。ハブは書いたアプリと時刻を記録する。
+- ハブが無い端末では、各アプリが自分で入力する（今までどおり）。Home と KidsHome の両方がある端末では、Home を優先して読み、KidsHome は Home と同じ値に合わせる。
+- 子ども用の端末（KidsHome）では、秘密を貸す操作をおうちの人の画面に置く。
+
 ### 4.1 同じ端末で共有する項目
 
 | 項目 | キー | 種類 | 同じ端末での共有 | 別の端末へ |
