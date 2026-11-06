@@ -106,6 +106,9 @@ Android は署名が違う APK での上書きを拒否します。共通鍵に�
 2. 配る先は `tools/repos.txt`（1 行 1 リポジトリ。**改名後の名前**なので、先にリポジトリ名を変えておく）
 3. 実行（パスワードは画面で聞かれる。ファイルや履歴には残らない）
    - Windows：`powershell -ExecutionPolicy Bypass -File tools\sync-secrets.ps1 -Keystore C:\path\meishiclaude-release.jks`
+   - Windows で 1Password から直接：`powershell -ExecutionPolicy Bypass -File tools\sync-secrets.ps1 -OpKeystore "op://<保管庫>/<アイテム>/meishiclaude-release.jks" -OpPassword "op://<保管庫>/<アイテム>/password"`
+     （1Password CLI：`winget install AgileBits.1Password.CLI` → 1Password アプリの 設定 → 開発者 →「1Password CLI と連携」をオン。参照は 1Password でフィールドの「…」→「Copy Secret Reference」で取れる）
+   - スクリプトは配る前に鍵の SHA-1 がシリーズ共通の値と同じか確かめ、違えば止まる
    - Mac：`bash tools/sync-secrets.sh ~/path/meishiclaude-release.jks`
 4. 各リポジトリで release.yml を動かし、APK の SHA-1 が上の値と同じことを確かめる
 

@@ -61,6 +61,7 @@ a { color: var(--accent); }
 .tasks li .t b { font-weight: 600; }
 .tasks li .t p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
 .tasks li.done .t b { color: var(--faint); text-decoration: line-through; }
+.tasks li .t .glinks { display: flex; flex-wrap: wrap; gap: 4px 14px; }
 .who { font: 11px var(--mono); letter-spacing: .1em; padding: 2px 6px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
 .who.me { border-color: var(--accent); color: var(--accent); }
 
@@ -246,6 +247,11 @@ function renderGlobal() {
     cb.setAttribute("aria-label", g.title);
     cb.addEventListener("change", () => toggleGlobal(g, cb.checked));
     const t = el("div", "t"); t.append(el("b", null, g.title)); if (g.detail) t.append(el("p", null, g.detail));
+    if (Array.isArray(g.links) && g.links.length) {
+      const p = el("p", "glinks");
+      for (const k of g.links) { if (!k || !/^https:\/\//.test(k.url || "")) continue; const l = el("a", null, k.label || k.url); l.href = k.url; l.target = "_blank"; l.rel = "noopener"; p.append(l); }
+      t.append(p);
+    }
     if (g.check && g.check.d) { const p = el("p", null, "Claude：" + g.check.d); p.style.color = g.check.s === "ok" ? "var(--ok)" : g.check.s === "ng" ? "var(--ng)" : ""; t.append(p); }
     li.append(cb, t, el("span", "who" + (g.who === "me" ? " me" : ""), WHO[g.who] || g.who));
     ul.append(li);
@@ -278,6 +284,10 @@ function renderApps() {
     const links = el("div", "links");
     if (a.repoNow) { const l = el("a", null, "GitHub"); l.href = "https://github.com/kiwiman0706-beep/" + (a.repoNow); l.target = "_blank"; l.rel = "noopener"; links.append(l); }
     if (a.thread) { const l = el("a", null, "スレッド"); l.href = "https://claude.ai/code/" + a.thread; l.target = "_blank"; l.rel = "noopener"; links.append(l); }
+    const gh = "https://github.com/kiwiman0706-beep/" + (a.repoNow || a.repoTarget);
+    if (applies(a, "secret")) { const l = el("a", null, "Secret 設定"); l.href = gh + "/settings/secrets/actions"; l.target = "_blank"; l.rel = "noopener"; links.append(l); }
+    if (applies(a, "rename")) { const l = el("a", null, "改名（Settings）"); l.href = gh + "/settings"; l.target = "_blank"; l.rel = "noopener"; links.append(l); }
+    if (applies(a, "signing") || applies(a, "update")) { const l = el("a", null, "Actions"); l.href = gh + "/actions"; l.target = "_blank"; l.rel = "noopener"; links.append(l); const r = el("a", null, "Releases"); r.href = gh + "/releases"; r.target = "_blank"; r.rel = "noopener"; links.append(r); }
     const chips = el("div", "chips");
     for (const s of keys) {
       const st = cellState(a, s.key);
