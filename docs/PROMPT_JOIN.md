@@ -24,7 +24,7 @@
 2. **データの置き場所。** 基本は Google ドライブか、Tailscale でつないだ自宅の NAS（Synology DS1825+）、またはその両方にします。形式は Obsidian の Vault（Markdown＋添付ファイル）を基本に、アプリが無くなっても読める、ベンダーロックインしない形にしてください（`spec/THETA_VAULT_SPEC.md`）。NAS へのログインは、Synology の 2 段階認証（Secure SignIn の確認コード）にも対応してください。
 3. **名前を揃えます。** リポジトリ名を `Theta.<名前>.Hatch` に、アプリ ID を `app.thetahatch.<名前>` にします（`docs/APP_IDS.md`）。yaegaki・kiwiman などの個人名は、アプリの中や ID に出さないでください。リポジトリの改名は私が GitHub で行います。
 4. **改名による不具合を確認してください。** リポジトリ名やアプリ ID が変わると、自動更新（Releases を見に行く URL）、Web 版の URL、ワークフロー、README のリンク、ContentProvider の authority などが壊れることがあります。古い名前が残っていないか探して直し、動くことを確かめてください。
-5. **自動更新。** アプリ内の自動更新は全アプリ必須です（spec §6.1）。無ければ入れてください。
+5. **自動更新。** Android の更新は Theta Home Hatch と Theta KidsHome Hatch（更新ハブ）がまとめて行います（spec §6.1）。このアプリにはインストールの権限（`REQUEST_INSTALL_PACKAGES`）を持たせず、「更新する」はハブに頼む形（ハブが無ければ Releases ページを開く）にしてください。今アプリの中に自分で入れる更新の仕組みがあれば、外すかハブに頼む形に変えてください。
 6. **見た目。** Theta Home Hatch から始めたスキン（dark・light・pop・alert・scifi・system）のかっこいい UI を踏襲してください（`design/README.md`）。
 7. **Windows・Mac。** APK だけでなく、Windows や Mac でも動かせるか検討してください（難しければ理由を）。
 

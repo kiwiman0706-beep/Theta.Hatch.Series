@@ -81,35 +81,56 @@ v2：Meishiで実績のできたもの（Google Drive同期・Google連絡先・
 - **自動更新（必須）**：シリーズのアプリはすべて、利用者が Releases ページを見に行かなくても新しい版に上がること。共通の決まりは §6.1。
   - Windows：`electron-updater`（GitHub）でバックグラウンド取得、次の起動で入れ替え。
   - Mac：Appleの開発者署名が無い間は通知とダウンロードページ。
-  - Android：§6.1 のとおり（実装の見本は Theta.Memo.Hatch の `UpdateCheck.java`・`UpdateInstaller.java`）。
+  - Android：§6.1 のとおり。更新は Home・KidsHome（更新ハブ）がまとめて行い、ほかのアプリはインストールの権限を持たない（確認と取得の見本は Theta.Memo.Hatch の `UpdateCheck.java`・`UpdateInstaller.java`、Home の `HatchInstaller.kt`）。
   - Web：Service Workerが版ごとにキャッシュを入れ替え。
 - リポジトリは公開（非公開だとアプリがReleaseを読めない）。
 - 新しい版で増えた処理を既存データに当てはめる「**過去のデータを最新の状態にする**」をメニューに1つ（件数と費用の目安を出してからまとめて実行）。
 
-### 6.1 Android の自動更新（必須）
+### 6.1 Android の自動更新（必須）— 更新は「ハブ」に任せる
 
-**確認**
-- 起動時と、その後は最大 12 時間に 1 回、`https://api.github.com/repos/kiwiman0706-beep/<リポジトリ>/releases/latest` を見る（draft・prerelease は除く）。タグ `v<版>` と今の版を比べる。
+Android の更新は **Theta Home Hatch と Theta KidsHome Hatch（＝更新ハブ）がまとめて行う**。
+インストールの権限（`REQUEST_INSTALL_PACKAGES`）を持つのはハブだけにし、ほかのアプリには持たせない。
+
+| | ハブ（Home・KidsHome） | ほかのアプリ |
+| --- | --- | --- |
+| インストールの権限 | 持つ | **持たない** |
+| 新しい版の確認 | 全アプリ分（下の「確認」） | 自分の分だけ（任意。帯で知らせるため） |
+| 入れる | `PackageInstaller` で入れる | ハブに頼む。ハブが無ければ Releases ページを開く |
+| 自分自身の更新 | 自分で入れる | — |
+
+**確認（ハブ）**
+- 対象は `catalog/apps.json` の、Android 版があるアプリ（`platforms` に `android`、`target.repo` と `target.packageName`）。ハブの APK にも同じ一覧を同梱し、ネットで読めたほうを使う。
+- 端末に入っているアプリ（`PackageManager` で `packageName` を確かめる）について、起動時と、その後は最大 12 時間に 1 回、`https://api.github.com/repos/kiwiman0706-beep/<リポジトリ>/releases/latest` を見る（draft・prerelease は除く）。タグ `v<版>` と入っている版（`versionName`）を比べる。
 - Release に付ける Android の APK は **1 つだけ**（名前は `Theta<名前>Hatch-<版>.apk`）。
 
-**取得と確認**
+**取得と確認（ハブ）**
 - Wi-Fi のときは先に取得しておく（モバイル回線では「取得」ボタンを出すだけ）。
 - GitHub が付ける各ファイルの `digest`（`sha256:…`）と照合する。合わなければ入れない。
-- 入れる前に、取得した APK の **パッケージ名と署名が自分と同じか** を確かめる（`getPackageArchiveInfo`）。
-  - 同じ → 更新として入れる。
-  - パッケージ名が違う → 更新ではなく「移行」（`docs/MIGRATION.md`）。勝手に入れず、移行の画面を出す。
-  - 署名だけ違う → 入れられない（上書きが失敗する）。理由と Releases ページへのボタンを出す。
+- 入れる前に、取得した APK を `getPackageArchiveInfo` で開き、次を全部確かめる。どれか違えば入れない。
+  - パッケージ名が、入っているアプリと同じ（違えば「移行」：`docs/MIGRATION.md`。勝手に入れず案内を出す）
+  - 署名が **シリーズ共通の鍵**（`secrets/README.md` の SHA-256／SHA-1）で、入っているアプリとも同じ
+  - 版が入っているものより新しい
+- 共通の鍵で署名されていない APK は、ハブからは一切入れない（ハブがほかのアプリを入れられる分、ここが安全の要）。
 
-**入れる**
+**入れる（ハブ）**
 - `PackageInstaller` でアプリ内から入れる。権限 `REQUEST_INSTALL_PACKAGES`（初回は利用者が許可）。
-- Android 12 以降は `UPDATE_PACKAGES_WITHOUT_USER_ACTION` を宣言し、2 回目からは確認なしで、画面を離れたときに入れ替える。
+- Android 12 以降は `UPDATE_PACKAGES_WITHOUT_USER_ACTION` を宣言し、`setRequireUserAction(USER_ACTION_NOT_REQUIRED)` で確認なしの更新を頼む。Android が確認なしにしてくれるのは、**ハブがそのアプリを入れた側（installer of record）のときだけ**。ブラウザなどで入れたアプリは、最初の 1 回は確認が出る（それ以降の扱いは実機で確かめる：未確認）。
+- まとめて更新するときは 1 つずつ順に入れ、終わったら一覧に結果（入れた・失敗・理由）を出す。
+- KidsHome は子どもが使う端末なので、更新の操作はおうちの人の画面に置く（子どもの画面には出さない）。
 
-**画面**
-- 設定に「今の版」「更新を確認」「自動で更新する（オン／オフ、既定オン）」。新しい版があるときはホームに帯を出し、変更点（Release の本文）を見られる。
+**ほかのアプリがすること**
+- 設定に「今の版」「更新を確認」。新しい版があるときは帯を出してよい（確認は任意。ハブが知らせるなら無くてよい）。
+- 「更新する」を押したら、ハブに頼む：`<queries>` に `app.thetahatch.home` と `app.thetahatch.kidshome` を書き、入っているほうへ `Intent("app.thetahatch.action.UPDATE")`（extra `packageName` に自分のパッケージ名）を送る。ハブはそのアプリの更新画面を開く。
+- ハブが入っていなければ、Releases ページ（`https://github.com/kiwiman0706-beep/<リポジトリ>/releases/latest`）をブラウザで開く。
+- Manifest に `REQUEST_INSTALL_PACKAGES` と `UPDATE_PACKAGES_WITHOUT_USER_ACTION` を**書かない**（すでにあるアプリは外す）。
+
+**ハブが両方入っている端末**
+- Home と KidsHome の両方があるときは、どちらからでも更新できる。同じアプリを同時に入れないよう、更新中は相手に知らせる（`Intent("app.thetahatch.action.UPDATE_BUSY")`）か、片方の設定で「この端末の更新は Home に任せる」を選べるようにする。
+
+**画面（ハブ）**
+- 「Hatch」ドロワー（Home）・おうちの人の設定（KidsHome）に、シリーズのアプリの一覧：入っている版・新しい版・「更新」「すべて更新」・入っていないアプリは「入れる」。変更点（Release の本文）を見られる。
+- 設定に「自動で更新する（オン／オフ、既定オン）」と「モバイル回線でも取得する（既定オフ）」。
 - 失敗したときは理由と「Releases ページを開く」ボタン。
-
-**ホームからの更新**
-- Theta Home Hatch の「Hatch」ドロワーは、シリーズの全アプリを入れる・更新する入口。対象の一覧（パッケージ名・リポジトリ）は、このリポジトリの `catalog/apps.json` を正本にする。
 
 ## 7. DeskHatch との統合
 

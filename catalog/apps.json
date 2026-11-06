@@ -2,7 +2,7 @@
   "spec": 1,
   "updated": "2026-11-06",
   "owner": "kiwiman0706-beep",
-  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。",
+  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。 updateHub は Android の更新をまとめて行うアプリ（spec §6.1）。",
   "apps": [
     {
       "id": "book",
@@ -297,7 +297,8 @@
         "secureSignIn": "yes"
       },
       "settingsExport": "yes",
-      "thread": "session_01GMSgoGarRChJJQLGtjAFKY"
+      "thread": "session_01GMSgoGarRChJJQLGtjAFKY",
+      "updateHub": true
     },
     {
       "id": "memo",
@@ -349,7 +350,8 @@
         "secureSignIn": "no"
       },
       "settingsExport": "yes",
-      "thread": "session_01NhS3xRwFVfssMDMXfSoJEv"
+      "thread": "session_01NhS3xRwFVfssMDMXfSoJEv",
+      "updateHub": true
     },
     {
       "id": "hitsudan",

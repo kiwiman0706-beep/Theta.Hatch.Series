@@ -33,6 +33,8 @@ GLOBAL = [
     ("desk", "me", "DeskHatch を Theta.Desk.Hatch にするか決める", "シリーズに入れるならリポジトリ名・appId を揃える。"),
     ("series-public", "me", "Theta.Hatch.Series を公開にするか決める",
      "鍵の値は入っていない。公開にすると各スレッドがリポジトリを追加しなくても読め、Home が catalog を読める。"),
+    ("update-hub", "me", "Home・KidsHome のスレッドに「更新ハブ」を頼む",
+     "docs/PROMPT_UPDATE_HUB.md を送る。全アプリの更新をこの 2 つでまとめて行い、ほかのアプリからインストール権限を外す（spec §6.1）。"),
     ("synology-spec", "claude", "Synology 接続の共通仕様を書く",
      "DS1825+・Tailscale・Secure SignIn（確認コード＋デバイストークン）。Book・Home・Music で別々の接続をまとめる。"),
     ("nas-vault", "claude", "Vault の置き場所に NAS を加える",

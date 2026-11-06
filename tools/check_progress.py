@@ -10,7 +10,7 @@ catalog/apps.json の各アプリについて、次を ok / ng / unknown で返�
   claudemd CLAUDE.md か AGENTS.md に Theta.Hatch.Series への参照があるか
   appid    applicationId が新しいアプリ ID か
   signing  ワークフローが共通の Secret 名（ANDROID_KEYSTORE_B64）を使うか
-  update   アプリ内の自動更新（Releases の確認か PackageInstaller）があるか
+  update   ハブ（Home・KidsHome）は更新ハブがあるか、ほかはハブに頼む形でインストール権限が無いか（spec §6.1）
   catalog  catalog の current が target と同じか
 Secret の登録・スレッドへの追加・実機確認は、ここからは見えない（ボード上の自己申告と、Claude のスレッド確認）。
 """
@@ -89,8 +89,15 @@ def check_app(a, work, names):
         out["appid"] = {"s": "ok" if hit else "ng", "d": "新しい ID" if hit else f"まだ {cur.get('packageName') or '別の ID'}"}
         hit = grep(d, ["*.yml", "*.yaml"], r"ANDROID_KEYSTORE_B64")
         out["signing"] = {"s": "ok" if hit else "ng", "d": "共通の Secret 名を使用" if hit else "共通の Secret 名を使っていない"}
-        hit = grep(d, ["*.java", "*.kt", "*.dart"], r"releases/latest|PackageInstaller")
-        out["update"] = {"s": "ok" if hit else "ng", "d": "自動更新あり" if hit else "自動更新なし"}
+        if a.get("updateHub"):
+            hit = grep(d, ["*.java", "*.kt"], r"app\.thetahatch\.action\.UPDATE")
+            out["update"] = {"s": "ok" if hit else "ng", "d": "更新ハブあり" if hit else "更新ハブはまだ（spec §6.1）"}
+        else:
+            asks = grep(d, ["*.java", "*.kt", "*.dart"], r"app\.thetahatch\.action\.UPDATE")
+            perm = grep(d, ["AndroidManifest.xml"], r"REQUEST_INSTALL_PACKAGES")
+            ok = asks and not perm
+            out["update"] = {"s": "ok" if ok else "ng",
+                             "d": "ハブに頼む形" if ok else "インストール権限が残っている" if perm else "ハブに頼む形はまだ"}
     same = cur["repo"] == tgt["repo"] and ("android" not in a.get("platforms", []) or cur.get("packageName") == tgt.get("packageName"))
     out["catalog"] = {"s": "ok" if same else "ng", "d": "一覧は新しい名前" if same else "一覧はまだ古い名前"}
     out["_branch"] = branch
