@@ -21,13 +21,31 @@
 
 ### 移行（ID と鍵を同じ版で変える）
 
-1. **橋渡し版 0.43**（古い ID・古い鍵のまま。今の自動更新で上書き）
-   - 「新しいアプリに移る」画面：書き出し（1 つの zip：設定の JSON＋記録（録音・手書き・写真）＋Clip＋Gemini で作ったアイコンの型）→ 新しいアプリの Releases を開く（入れたら、新しいアプリで読み込み → 古いアプリの削除画面）
-   - 既定のホーム・通知へのアクセス・使用状況・ほかのアプリの上に表示・すべてのファイルへのアクセス・ウィジェットは、新しいアプリで入れ直し（案内に書く）
-2. **新しいアプリ 1.0**（`app.thetahatch.home`・共通鍵・CI ビルド）
-   - 初回起動の案内（0.35 からある）で「前のホームから読み込む」を先頭に
-   - 秘密（Gemini キー・NAS のパスワード）は zip に入れない（再入力。ほかのシリーズのアプリから借りられる）
-3. このあと Home がほかのアプリの移行の入口になる（`catalog/apps.json` の current が入っていて target が無い → 案内）
+2026-11-07 の `docs/MIGRATION.md` §3 の決定で、Home は**データを移さないアプリ**（catalog の `migration.bridge: false`）。橋渡し版 0.43 は作らない。
+
+1. **新しいアプリ 1.0.0**（`app.thetahatch.home`・共通鍵・CI ビルド・prerelease にしない）を出す
+2. 古い Home（`jp.yaegaki.theta.home`）の「更新」から 1.0.0 を取ると、別のアプリとして入る（ID が違うので上書きではない）
+3. 新しい Home を既定のホームにする → 設定は今ある「設定を書き出す」（古い Home）→「前の設定を読み込む」（新しい Home の初めの案内）で持ち越せる（任意）
+4. 新しい Home のハブが、古い Home が入っていることに気づき「古いアプリを削除」を出す（`ACTION_DELETE`）
+- 既定のホーム・通知へのアクセス・使用状況・ほかのアプリの上に表示・すべてのファイルへのアクセス・ウィジェット・Dimple の割り当ては、新しいアプリでやり直し（README と 1.0.0 の Release の本文に書く）
+
+### 移行のハブ（ほかのアプリの移行を Home が進める）
+
+- catalog の `current.packageName` が入っていて `target.packageName` が無いアプリを、一覧のいちばん上に「移行が必要」として出す
+- `migration.bridge: true`（Meishi・Chirashi・Book）：
+  1. 古いアプリを橋渡し版へ更新（current のリポジトリの最新 Release。同じ鍵なので上書き）
+  2. 書き出し：`startActivityForResult(Intent("app.thetahatch.action.EXPORT").setPackage(<古い ID>))`
+  3. 新しい版を入れる（target の Release）
+  4. 読み込み：`Intent("app.thetahatch.action.IMPORT").setPackage(<新しい ID>)`、`data` に書き出したファイル（下の約束）
+  5. 読み込みが済んだら、古いアプリの削除（`ACTION_DELETE`、`package:<古い ID>`。読み込みの前には出さない）
+- `migration.bridge: false`：新しい版を入れる → 古いアプリの削除、だけ
+- 進み具合（どの手順まで済んだか）はアプリごとに Home が覚え、途中でやめても続きから
+
+**ファイルの受け渡しの約束（案。橋渡し版を作るアプリと揃えたい）**
+- 書き出し（橋渡し版）：`EXPORT` を受けたら書き出し画面を出し、終わったら `setResult(RESULT_OK, Intent().setData(<zip の content:// URI>).addFlags(FLAG_GRANT_READ_URI_PERMISSION))` で返す。zip は 1 つ
+- Home：受け取った zip を自分のフォルダにコピーして持つ（読み込みが済むまで消さない）
+- 読み込み（新しい版）：`IMPORT` の `data` に Home の FileProvider の URI（読む権限付き）。読み込んだら `setResult(RESULT_OK)`、失敗なら `RESULT_CANCELED`＋extra `error`（理由の文）
+- 結果が `RESULT_OK` で返ってこないとき（書き出し画面が結果を返さない作りなど）は、Home が「書き出したファイルを選ぶ」（ファイルを選ぶ画面）で続けられるようにする
 
 ### 改名・ID 変更で直すところ
 
@@ -75,12 +93,16 @@
 - [x] 1. Releases は prerelease にしない。新しいアプリは 1.0.0（タグ `v1.0.0`）から → **OK**
 - [x] 2. CI で共通鍵でビルドし、APK のコミットはやめる。今の `releases/` は**しばらく残す** → OK
 - [x] 3. Kotlin のパッケージ名も `app.thetahatch.home` に → **OK**
-- [x] 4. 橋渡し版の書き出し：設定の JSON＋記録＋Clip＋アイコンの型 → **OK**
+- [x] 4. 橋渡し版の書き出し：設定の JSON＋記録＋Clip＋アイコンの型 → **OK**。ただし 2026-11-07 の MIGRATION §3 で Home はデータを移さないアプリになったので、橋渡し版は作らない（設定は今ある書き出し・読み込みで任意に持ち越す）
 - [x] 5. スキン 5 つを `design/skins/skins.json` に足す → **お願いします**（下の「Series のスレッドへの依頼」）
 - [x] 6. 自動の確認は WorkManager で 12 時間ごと、モバイル回線では取得しない → **OK**
 - [x] 7. 両方のハブがある端末 → **OK。ただし「ホーム画面アプリに設定されている側に任せる」ができるならそちら**。→ できる：既定のホーム（`Intent.ACTION_MAIN`＋`CATEGORY_HOME` を受けるアプリ）が Home なら Home、KidsHome なら KidsHome が更新し、もう一方は任せる。どちらも既定のホームでないとき（One UI ホームなど）は Home。KidsHome のスレッドにも同じ決まりが要る（spec §6.1 の「ハブが両方入っている端末」に足すと分かりやすい）
 
 ## Series のスレッドへの依頼
+
+### EXPORT・IMPORT のファイルの受け渡し
+
+上の「ファイルの受け渡しの約束（案）」を、よければ `docs/MIGRATION.md` §3 か spec §6.1 に足してほしい（Meishi・Chirashi・Book の橋渡し版と新しい版が同じ形にするため）。
 
 ### スキン 5 つ（0.36 で Home に足したもの）を skins.json に
 
