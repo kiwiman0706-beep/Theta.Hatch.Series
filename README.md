@@ -14,7 +14,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 4 | プラットフォーム | UI は1つ（HTML/CSS/JS）を共有し、Android（APK＋ホーム画面ウィジェット）・Windows/Mac（Electron）・Web（PWA、iPhone）で動かす。端末機能はブリッジ `Native.call` / `window.onNative` で差し替え | [spec §4](spec/THETA_HATCH_SPEC.md) |
 | 5 | デザイン | 見た目は Home.Hatch の**スキン**に揃える：`system`（既定）・`dark`・`light`・`pop`・`alert`・`scifi`。色は直接書かず役割（accent・widget・launch…）から取る。書体は Oswald＋Share Tech Mono | [design](design/README.md) |
 | 6 | 設定の共有 | シリーズ共通の設定は Vault の `.theta/settings.json`（スキン `ui.skin`、Gemini のモデル、Google アカウントなど）。項目ごとに「シリーズに合わせる／このアプリだけ」を選べる。初回起動で引き継ぎを聞く | [設定の引き継ぎ](spec/THETA_SHARED_SETTINGS.md) |
-| 7 | 秘密 | API キー・トークンはクラウドにも Git にも置かない。端末内で暗号化。同じ端末の別アプリへは、利用者の承認で貸し借り（同じ署名鍵のアプリ同士） | [設定の引き継ぎ §4](spec/THETA_SHARED_SETTINGS.md) |
+| 7 | 秘密 | API キー・NAS のパスワード・トークンはクラウドにも Git にも置かない。端末内で暗号化。**同じ端末の別アプリへは、利用者の承認で貸し借り**（共通の署名鍵で守った ContentProvider）。共有するのは Gemini API キー、NAS の接続先・パスワード・デバイストークン、使う Google アカウント、スキン。Google のログイン自体はアプリごとに 1 回 | [設定の引き継ぎ §4](spec/THETA_SHARED_SETTINGS.md) |
 | 8 | 署名鍵 | Android は**シリーズ共通の鍵**（Meishi の鍵、SHA-1 `A1:13:EA:…:28:BA`）。CI の Secret 名は `ANDROID_KEYSTORE_B64`・`ANDROID_KEYSTORE_PASSWORD`・`ANDROID_KEY_ALIAS`・`ANDROID_KEY_PASSWORD`。`tools/sync-secrets` で全リポジトリへ配る | [secrets](secrets/README.md) |
 | 9 | AI・Google | Gemini は利用者自身の API キー。Google Cloud はシリーズで1プロジェクト、新しいアプリは Android 用 OAuth クライアント（パッケージ名＋共通の SHA-1）を足すだけ。設定手順はアプリ内のガイドで案内 | [Google 連携](spec/THETA_GOOGLE_SETUP.md) |
 | 10 | リリース・**自動更新（必須）** | GitHub Actions の `release.yml` で全プラットフォームを1つの Release に。Web 版は `pages.yml`。**Android の更新は Home・KidsHome（更新ハブ）がまとめて行う**：Releases を12時間ごとに確認、Wi-Fi で取得、SHA-256・パッケージ名・共通鍵の署名を照合して PackageInstaller で更新。ほかのアプリはインストールの権限を持たず、ハブに頼む（ハブが無ければ Releases ページを開く）。リポジトリは公開 | [spec §6・§6.1](spec/THETA_HATCH_SPEC.md) |

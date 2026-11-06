@@ -85,7 +85,25 @@ Theta Hatch の設定を引き継ぎますか？         （Meishi Hatch で設�
 | Windows / Mac | 将来はデスクトップを1つの「Theta Hatch」ホスト（トレイ常駐、各アプリはその中のモジュール。DeskHatch連携と同じ形）にまとめ、設定と鍵を1か所に持つ。それまでは各アプリの設定画面に「他のTheta Hatchアプリから読み込む」を置き、`<ユーザーの設定フォルダ>/ThetaHatch/shared-secrets.json`（ユーザーだけが読める権限）を経由して、利用者の操作でコピーする。 |
 | Web（PWA） | シリーズのWeb版を同じオリジン（`https://<user>.github.io/`）で配信すると、IndexedDB の共通データベース `theta-hatch-series` を全アプリが読める。秘密はそこに置き、各アプリは利用者の承認で読む。 |
 
-- これに合わせ、**シリーズの署名鍵は共通**にする（Android の署名鍵を全アプリで同じにする。別にする場合は `protectionLevel="knownSigner"`（Android 12以降）で許可する鍵を列挙）。
+- これに合わせ、**シリーズの署名鍵は共通**にする（2026-11-06 に全アプリの Secret へ登録済み。`secrets/README.md`）。共通の鍵で署名したアプリ同士でしか、この仕組みは動かない。
+
+### 4.1 同じ端末で共有する項目
+
+| 項目 | キー | 種類 | 同じ端末での共有 | 別の端末へ |
+| --- | --- | --- | --- | --- |
+| スキン | `ui.skin` | 設定 | ContentProvider の `info` で今の値を返す（承認なしで読んでよい） | Vault の `.theta/settings.json`（§2） |
+| Gemini API キー | `gemini.key` | 秘密 | `secret/gemini.key`（利用者の承認でコピー） | しない |
+| Gemini のモデル | `gemini.model` | 設定 | `info` | Vault |
+| NAS の接続先 | `nas.url`・`nas.user`・`nas.shareRoot` | 設定 | `info` | Vault（パスワードは入れない） |
+| NAS のパスワード | `nas.password` | 秘密 | `secret/nas.password`（利用者の承認でコピー） | しない |
+| NAS のデバイストークン（Secure SignIn の 2 段階認証を次から省くもの） | `nas.deviceToken` | 秘密 | `secret/nas.deviceToken`（承認でコピー。受け取ったアプリは確認コードなしでログインできる） | しない |
+| Google アカウント（どのアカウントを使うか） | `google.account` | 設定 | `info`（メールアドレスだけ） | Vault |
+
+- **Google のログインそのもの（アクセストークン）は共有できない。** Google のトークンはアプリ（パッケージ名＋署名）ごとに発行されるため。共有するのは「どのアカウントを使うか」だけで、各アプリは初回に Google の許可画面を 1 回通す（同じアカウントが選ばれた状態で出す）。
+- 秘密を貸すときは、借りる側の画面で「〇〇 Hatch の NAS の設定を使う」のように、どのアプリから何を受け取るかを見せてから読む。貸した側は通知で知らせる。
+- 秘密はどのアプリでも端末の中で暗号化して保存する（Android Keystore）。バックアップ・Vault・書き出しには入れない。
+- 設定の正本は、どの端末でも「最後に変えたアプリ」の値（`at` が新しい方）。同じ端末では、ほかのアプリの `info` を見て、より新しい値があれば「シリーズに合わせる」項目だけ取り込む。
+- デバイストークンを複数のアプリで使い回せるかは、Synology の動き次第（未確認）。使えなければ、アプリごとに一度だけ確認コードを入れる。
 
 ## 5. Google Cloud は1つのプロジェクトで
 
