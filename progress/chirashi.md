@@ -1,6 +1,6 @@
 # Theta Chirashi Hatch（chirashi）の移行メモ
 
-- 更新：2026-11-07
+- 更新：2026-11-07（シリーズへの提言を追加）
 - スレッド：https://claude.ai/code/session_012DXkbxUnbUEgxEY1bfHP77
 - 状態：実機確認待ち
 
@@ -59,6 +59,18 @@ Home から呼ぶときの決まり（`TransferActivity`）：
 - [ ] Home 側：橋渡し版は `releases/latest`（0.2.0）ではなくタグ `v0.1.1` の Release にある。catalog に `migration.bridgeTag: "v0.1.1"` のような項目を足すか、Home が古い ID の最新版を Releases の一覧から探すか（このリポジトリのスレッドで決めてほしい）
 - [ ] ハブの ContentProvider の `info` の形：Chirashi は「key・value の行」と「1 行で列名がキー」の両方を読める。`secret/<キー>` は列 `value`（無ければ 1 列目）。Home の実装に合わせて直す
 
+## シリーズへの提言（Theta.Hatch.Series のスレッドへ）
+
+実機で「Googleカレンダーに登録」したところ、ログインと Drive への画像のアップロードはできたのに、予定の作成で Google に **SERVICE_DISABLED（Google Calendar API が無効）** と返された（2026-11-07）。原因と提言：
+
+1. **`spec/THETA_GOOGLE_SETUP.md` の API の表を直す**
+   - 今は「Google Calendar API：Web 版でカレンダーに書くアプリができたとき（Android は端末のカレンダー経由なので不要）」とある。Chirashi は**画像を添付するため Android から Calendar API を直接使う**（端末のカレンダー経由では添付できない）ので、この前提が合わない
+   - 「どのアプリがどの API を使うか」を表にする：Drive（全アプリ・Vault）、Calendar（Chirashi の Android・Meishi の Web 版）、People（Meishi・Mensetsu の Web 版）など。新しいアプリが API を足すときは、この表に 1 行足して、**利用者に「プロジェクトで〇〇 API を有効に」と頼む**ところまでを新アプリの手順にする
+   - プロジェクト `meishi-512311` で、Calendar API を今のうちに有効にしておく（1 回で全アプリに効く）
+2. **`catalog/apps.json` に使う Google API を書く**（例：`"googleApis": ["drive.file", "calendar"]`）。Home の「Google 連携」の画面やアプリ内のガイドが、未設定の API を一覧で案内できる
+3. **API が無効なときの画面を揃える**（共通仕様 §5 に 1 行）：Google の 403 の `error.details[].metadata.activationUrl`（ErrorInfo、reason `SERVICE_DISABLED`）に「有効にする画面」の URL とプロジェクトが入っているので、各アプリはそれをボタンで開く（「〇〇 API が無効です → 有効にする画面を開く」）。Chirashi は 0.2.1 で実装済み（`android/app/src/main/assets/www/google.js` の `activationUrl`、`app.js` の `googleError`）
+4. **「ログインできない」と「API が無効」を分けて見せる**：今回は利用者に「ログインできない」と見えた。許可（OAuth）の失敗は初期設定ガイドへ、API が無効なら上の画面へ、と出し分ける
+
 ## 進み具合
 
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
@@ -73,7 +85,8 @@ Home から呼ぶときの決まり（`TransferActivity`）：
 ## 実機で確かめること
 
 - [ ] 共通鍵で署名した APK の SHA-1 が `A1:13:EA:…:28:BA`
-- [ ] Google ログイン（`app.thetahatch.chirashi` は Google Cloud に登録済み）→ カレンダー登録・画像の添付
+- [x] Google ログイン・Drive への画像のアップロード（2026-11-07、0.2.0）
+- [ ] カレンダー登録・画像の添付（Calendar API を有効にしてから）
 - [ ] ハブ（Home）から Gemini キー・スキンを受け取れる
 - [ ] 「更新する」でハブの更新画面が開く／ハブが無ければ Releases ページ
 - [ ] スキャン・QR 読み取り・Gemini の読み取り（0.1.0 から未確認）
