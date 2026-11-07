@@ -2,7 +2,7 @@
 
 - 更新：2026-11-07（1.0.0）
 - スレッド：https://claude.ai/code/session_016tfKWDzu24Zp9FBxh4cjKS
-- 状態：作業中（橋渡し版 0.19.0 を Releases に公開済み。新しい版 1.0.0 は作成済みで、Home の移行機能ができてからリリース）
+- 状態：実機確認待ち（0.19.0・1.0.0 を Releases に公開。0.19.0 の書き出しは実機で確認済み、Home からの橋渡し版の取得はできなかった）
 
 ## 今と目標
 
@@ -88,7 +88,7 @@
 - [x] update：更新をハブに頼む形に（1.0.0：インストール権限を外し、`app.thetahatch.action.UPDATE`、ハブが無ければ Releases）
 - [x] settings：共通設定をハブから受け取る（1.0.0：`info` の `gemini.model`・`google.account` を取り込み・書き戻し、`secret/gemini.key`。スキンは後の版）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した（Releases・更新の確認・Pages・ワークフロー・README・デスクトップの更新先）
-- [ ] release：新しい版を Releases に出した
+- [x] release：新しい版を Releases に出した（1.0.0、2026-11-07）
 
 ## 実機で確かめること
 
