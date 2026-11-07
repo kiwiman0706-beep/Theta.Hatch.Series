@@ -26,6 +26,8 @@ GLOBAL = [
      "tools\\sync-secrets.ps1 -Keystore <鍵ファイル>。配る先は tools/repos.txt（改名後の名前）。"),
     ("google", "me", "Google Cloud に新しいアプリ ID を登録",
      "docs/APP_IDS.md の Android アプリ。Android 用 OAuth クライアント＋共通の SHA-1。古い ID の登録は移行が終わるまで残す。"),
+    ("google-apis", "me", "Google Cloud で Calendar API と People API を有効にする",
+     "プロジェクト meishi-512311。Chirashi が Android から Calendar API を直接使う。People API は Meishi・Mensetsu の Web 版用。"),
     ("music-public", "me", "Theta.Music.Hatch を公開にする", "非公開だとアプリ内の自動更新が Release を読めない。"),
     ("book-branch", "me", "Book の本線ブランチを決める",
      "claude/vigilant-…（1.0.0・デスクトップ版あり）と ccr-fbd7…（0.8.7-preview）に分かれている。"),

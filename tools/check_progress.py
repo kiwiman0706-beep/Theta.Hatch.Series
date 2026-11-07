@@ -117,7 +117,8 @@ def check_app(a, work, names):
     out["claudemd"] = {"s": "ok" if hit else "ng", "d": f"{hit} に参照あり" if hit else "参照なし"}
     if "android" in a.get("platforms", []):
         pkg = re.escape(tgt["packageName"])
-        hit = grep(d, ["build.gradle", "build.gradle.kts"], r"applicationId\s*=?\s*[\"']" + pkg + r"[\"']")
+        hit = grep(d, ["build.gradle", "build.gradle.kts"], r"applicationId\s*=?\s*[\"']" + pkg + r"[\"']") \
+            or grep(d, ["build.sh"], r"APP_ID=.*" + pkg)
         out["appid"] = {"s": "ok" if hit else "ng", "d": "新しい ID" if hit else f"まだ {cur.get('packageName') or '別の ID'}"}
         hit = grep(d, ["*.yml", "*.yaml"], r"ANDROID_KEYSTORE_B64")
         out["signing"] = {"s": "ok" if hit else "ng", "d": "共通の Secret 名を使用" if hit else "共通の Secret 名を使っていない"}
