@@ -24,7 +24,7 @@
 | | 版 | ID・鍵 | 中身 |
 | --- | --- | --- | --- |
 | 橋渡し版 | **0.1.1**（タグ `v0.1.1`、Release 済み） | `jp.yaegaki.theta.chirashi`・開発用の鍵（0.1.0 と同じ署名なので上書きできる） | 書き出し `app.thetahatch.action.EXPORT`、設定の「チラシと画像を書き出す（zip）」 |
-| 新しい版 | **0.2.0**（タグ `v0.2.0`） | `app.thetahatch.chirashi`・共通鍵 | 読み込み `app.thetahatch.action.IMPORT`、一覧が空のときの「書き出しファイルから読み込む」 |
+| 新しい版 | **0.2.0**（タグ `v0.2.0`、Release 済み・共通鍵の SHA-1 を CI で確認） | `app.thetahatch.chirashi`・共通鍵 | 読み込み `app.thetahatch.action.IMPORT`、一覧が空のときの「書き出しファイルから読み込む」 |
 
 Home から呼ぶときの決まり（`TransferActivity`）：
 
@@ -68,7 +68,7 @@ Home から呼ぶときの決まり（`TransferActivity`）：
 - [x] update：更新をハブに頼む形に（ハブはハブ機能）
 - [x] settings：共通設定をハブから受け取る（ハブは配る側）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した
-- [ ] release：新しい版を Releases に出した
+- [x] release：新しい版を Releases に出した
 
 ## 実機で確かめること
 
