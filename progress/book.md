@@ -2,7 +2,7 @@
 
 - 更新：2026-11-07
 - スレッド：https://claude.ai/code/session_01VBri9A5SpavPKRqvCQZARs
-- 状態：計画OK待ち
+- 状態：作業中
 
 ## 今と目標
 
@@ -62,15 +62,17 @@
 
 ## 決めてほしいこと
 
-- [ ] 1. 端末に入っているのは `jp.shinwakai.dsbooks.claude`（Claude 版）か、`jp.shinwakai.dsbooks.preview`（ChatGPT 版）か。両方なら、移すのは Claude 版でよいか。catalog の current も直す必要あり
-- [ ] 2. リポジトリを public にしてよいか（ハブが Releases を読むため。鍵・フォント・本の本文は入っていない）
-- [ ] 3. ブランチは `claude/vigilant-ramanujan-4v5vsv` を本線（デフォルト）にしてよいか。`ccr-fbd7a73d-mp81q5`（0.8.7-preview）は残すだけ
-- [ ] 4. Theta.Jisui.Viewer（`com.theta.jisuiviewer`）の扱い：別のリポジトリ（例 `Theta.Jisui.Hatch`、ID `app.thetahatch.jisui`）に分けるか、Book の Release に同梱するか（Release の APK は 1 つの決まりなので、分けるのがおすすめ）
-- [ ] 5. デスクトップ版は pywebview のままでよいか（Electron にしない）
-- [ ] 6. スキン：本棚の木目を残す（スキンはバー・ボタン・読書画面に当てる）か、スキンに完全に揃えるか
-- [ ] 7. 橋渡し版の書き出しに、端末にだけある本（取り込んだ本）を含めるか（容量が大きくなる）
-- [ ] 8. 版番号：Android・Windows・Mac を揃えて新しい版を `1.1.0` からでよいか
-- [ ] 9. EXPORT／IMPORT の取り決め（上の案）を Series の spec に入れてもらえるか（Meishi・Chirashi と同じ形に）
+利用者の答え（2026-11-07）：
+
+- [x] 1. 端末に入っているのは Claude 版（`jp.shinwakai.dsbooks.claude`）→ 橋渡し版は Claude 版で作る。**catalog の `current.packageName` を `jp.shinwakai.dsbooks.claude` に直してほしい（Series のスレッドへ）**
+- [x] 2. リポジトリを public にする → OK（利用者が設定）
+- [x] 3. 本線は `claude/vigilant-ramanujan-4v5vsv` → OK（利用者がデフォルトに設定）
+- [x] 4. Theta.Jisui.Viewer は別のリポジトリに分ける → OK（リポジトリは利用者が作る）
+- [x] 5. デスクトップ版は pywebview のまま → OK、Electron はあとで考える
+- [x] 6. スキンを使うときは木目もやめる（スキンに完全に揃える）
+- [x] 7. 端末にだけある本は今は無いので、書き出しに含めない
+- [x] 8. 新しい版は全プラットフォーム 1.1.0 から → OK
+- [ ] 9. EXPORT／IMPORT の取り決め（上の案）を Series の spec に入れてもらえるか（Series のスレッドへ）
 
 ## 進み具合
 
