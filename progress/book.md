@@ -1,6 +1,6 @@
 # Theta Book Hatch（book）の移行メモ
 
-- 更新：2026-11-07
+- 更新：2026-11-07（2 回目）
 - スレッド：https://claude.ai/code/session_01VBri9A5SpavPKRqvCQZARs
 - 状態：作業中
 
@@ -74,16 +74,24 @@
 - [x] 8. 新しい版は全プラットフォーム 1.1.0 から → OK
 - [ ] 9. EXPORT／IMPORT の取り決め（上の案）を Series の spec に入れてもらえるか（Series のスレッドへ）
 
+## Series のスレッドへの依頼
+
+- `catalog/apps.json` の book：`current.packageName` を **`jp.shinwakai.dsbooks.claude`** に（利用者が使っているのは Claude 版）。`migration.bridgeVersion` を **`"1.0.1"`**（Home の提案のとおり、橋渡し版のタグは `v1.0.1`）
+- EXPORT／IMPORT の約束：Book は Home の案（progress/home.md「ファイルの受け渡しの約束」）どおりに作った。`docs/MIGRATION.md` §3 に入れてもらえると Meishi・Chirashi とそろう。Book が足しているもの：EXPORT の結果に extra `packageName`・`format`（`theta-export-1`）・`versionName`・`sha256`、`ClipData` にも URI。呼び出し元がハブ（新旧の Home・KidsHome の ID）でなければ書き出さずに保存先を選ぶ画面にする。取り消しは `RESULT_CANCELED`
+- Book のリポジトリの Release には、これまでのデスクトップ版・ビューア・Android（v0.9.x〜v1.0.0-claude、すべて prerelease）が並ぶ。ハブが見る `releases/latest` は v1.1.0（prerelease でない）になる
+
 ## 進み具合
 
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
-- [ ] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
-- [ ] appid：アプリ ID を新しい ID に
-- [ ] signing：共通鍵の Secret で署名
-- [ ] update：更新をハブに頼む形に（ハブはハブ機能）
+- [x] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
+- [x] appid：アプリ ID を新しい ID に（`app.thetahatch.book`、1.1.0、versionCode 77。橋渡し版 1.0.1 は古い ID）
+- [x] signing：共通鍵の Secret で署名（`release.yml`。v1.1.0 の CI 結果で確認）
+- [x] update：更新をハブに頼む形に（設定 →「更新を確認」で `app.thetahatch.action.UPDATE`、無ければ Releases。インストール権限なし）
 - [ ] settings：共通設定をハブから受け取る（ハブは配る側）
-- [ ] rename：改名後の名前に合わせて URL・リンクを直した
+- [x] rename：改名後の名前に合わせて URL・リンクを直した（README・docs・AGENTS.md・更新の URL）
 - [ ] release：新しい版を Releases に出した
+
+ほかに残っていること：スキン 6 つ（スキンの時は木目もやめる）、読書の記録を Theta Vault へ、デスクトップ版を 1.1.0 にそろえて同じ Release に、Theta.Jisui.Viewer を別リポジトリへ（リポジトリができたら）。
 
 ## 実機で確かめること
 
