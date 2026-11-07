@@ -99,6 +99,18 @@ Android の更新は **Theta Home Hatch と Theta KidsHome Hatch（＝更新ハ�
 | 入れる | `PackageInstaller` で入れる | ハブに頼む。ハブが無ければ Releases ページを開く |
 | 自分自身の更新 | 自分で入れる | — |
 
+**ハブが入れられる Release の条件（各アプリが守る）**
+
+ハブから「入れる」「更新」ができないときは、まずここを確かめる（`tools/check_apk.py` で APK の中身を確かめられる）。
+
+1. リポジトリが**公開**（非公開だとハブが Release を読めない）。
+2. **版を上げて既定ブランチに push したら、Actions が自動で `v<版>` のタグと Release を作る**（手で Release を作らなくてよいように。`workflow_dispatch` だけにしない）。
+3. Release は **draft でも prerelease でもない**（`releases/latest` に出る）。
+4. Android の APK は **1 つだけ**、名前は `Theta<名前>Hatch-<版>.apk`。ほかのファイル（SHA256SUMS、デスクトップ版）は一緒に置いてよい。
+5. APK の**パッケージ名が `catalog/apps.json` の `target.packageName`**、`versionName` がタグの版と同じ。
+6. **シリーズ共通の鍵**で署名（SHA-256 `F4:77:40:…:2A:23`、`secrets/README.md`）。
+7. `catalog/apps.json` に載っている（新しいアプリは、このリポジトリのスレッドに追加を頼む）。
+
 **確認（ハブ）**
 - 対象は `catalog/apps.json` の、Android 版があるアプリ（`platforms` に `android`、`target.repo` と `target.packageName`）。ハブの APK にも同じ一覧を同梱し、ネットで読めたほうを使う。
 - 端末に入っているアプリ（`PackageManager` で `packageName` を確かめる）について、起動時と、その後は最大 12 時間に 1 回、`https://api.github.com/repos/kiwiman0706-beep/<リポジトリ>/releases/latest` を見る（draft・prerelease は除く）。タグ `v<版>` と入っている版（`versionName`）を比べる。

@@ -1,8 +1,8 @@
 {
   "spec": 1,
-  "updated": "2026-11-07",
+  "updated": "2026-11-08",
   "owner": "kiwiman0706-beep",
-  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。 updateHub は Android の更新をまとめて行うアプリ（spec §6.1）。 migration.bridge は移行の橋渡し版を作るか、migration.data はデータを移すか（docs/MIGRATION.md §3）。 googleApis は使う Google API（spec/THETA_GOOGLE_SETUP.md の表）。migration.bridgeVersion は橋渡し版のタグ。",
+  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。 updateHub は Android の更新をまとめて行うアプリ（spec §6.1）。 migration.bridge は移行の橋渡し版を作るか、migration.data はデータを移すか（docs/MIGRATION.md §3）。 googleApis は使う Google API（spec/THETA_GOOGLE_SETUP.md の表）。migration.bridgeVersion は橋渡し版のタグ。 hubReady はハブ（Home）から入れられる Release があるか（spec §6.1「ハブが入れられる Release の条件」）。移行が済んだアプリは current を target と同じにする。 previous.packageName は移行前の古い ID（端末に残っていれば、ハブが削除を案内する）。",
   "apps": [
     {
       "id": "book",
@@ -10,7 +10,7 @@
       "nickname": "DSBooks",
       "current": {
         "repo": "Theta.Book.Hatch",
-        "packageName": "jp.shinwakai.dsbooks.claude"
+        "packageName": "app.thetahatch.book"
       },
       "target": {
         "repo": "Theta.Book.Hatch",
@@ -39,18 +39,24 @@
       "migration": {
         "bridge": true,
         "data": "required",
-        "bridgeVersion": "1.0.1"
+        "bridgeVersion": "1.0.1",
+        "status": "done"
       },
       "googleApis": [
         "drive"
-      ]
+      ],
+      "latestRelease": "1.1.0",
+      "hubReady": true,
+      "previous": {
+        "packageName": "jp.shinwakai.dsbooks.claude"
+      }
     },
     {
       "id": "meishi",
       "name": "Theta Meishi Hatch",
       "current": {
         "repo": "Theta.Meishi.Hatch",
-        "packageName": "jp.yaegaki.meishiclaude"
+        "packageName": "app.thetahatch.meishi"
       },
       "target": {
         "repo": "Theta.Meishi.Hatch",
@@ -79,13 +85,19 @@
       "migration": {
         "bridge": true,
         "data": "required",
-        "bridgeVersion": "0.19.0"
+        "bridgeVersion": "0.19.0",
+        "status": "done"
       },
       "googleApis": [
         "drive",
         "calendar",
         "people"
-      ]
+      ],
+      "latestRelease": "1.0.0",
+      "hubReady": true,
+      "previous": {
+        "packageName": "jp.yaegaki.meishiclaude"
+      }
     },
     {
       "id": "item",
@@ -372,7 +384,7 @@
       "name": "Theta Home Hatch",
       "current": {
         "repo": "Theta.Home.Hatch",
-        "packageName": "jp.yaegaki.theta.home"
+        "packageName": "app.thetahatch.home"
       },
       "target": {
         "repo": "Theta.Home.Hatch",
@@ -401,7 +413,12 @@
       },
       "googleApis": [
         "drive"
-      ]
+      ],
+      "latestRelease": "1.1.1",
+      "hubReady": true,
+      "previous": {
+        "packageName": "jp.yaegaki.theta.home"
+      }
     },
     {
       "id": "memo",
@@ -436,7 +453,9 @@
       },
       "googleApis": [
         "drive"
-      ]
+      ],
+      "hubReady": false,
+      "remark": "0.3.0（新しい ID）はコードのみ。Release がまだ無いので Home から入れられない"
     },
     {
       "id": "kidshome",
@@ -444,7 +463,7 @@
       "nickname": "キッズホーム",
       "current": {
         "repo": "Theta.KidsHome.Hatch",
-        "packageName": "com.theta.kidshome"
+        "packageName": "app.thetahatch.kidshome"
       },
       "target": {
         "repo": "Theta.KidsHome.Hatch",
@@ -474,7 +493,12 @@
       },
       "googleApis": [
         "drive"
-      ]
+      ],
+      "latestRelease": "1.0.3",
+      "hubReady": true,
+      "previous": {
+        "packageName": "com.theta.kidshome"
+      }
     },
     {
       "id": "hitsudan",
@@ -668,7 +692,7 @@
       "name": "Theta Chirashi Hatch",
       "current": {
         "repo": "Theta.Chirashi.Hatch",
-        "packageName": "jp.yaegaki.theta.chirashi"
+        "packageName": "app.thetahatch.chirashi"
       },
       "target": {
         "repo": "Theta.Chirashi.Hatch",
@@ -694,12 +718,18 @@
       "migration": {
         "bridge": true,
         "data": "required",
-        "bridgeVersion": "0.1.1"
+        "bridgeVersion": "0.1.1",
+        "status": "done"
       },
       "googleApis": [
         "drive",
         "calendar"
-      ]
+      ],
+      "latestRelease": "0.2.1",
+      "hubReady": true,
+      "previous": {
+        "packageName": "jp.yaegaki.theta.chirashi"
+      }
     },
     {
       "id": "desk",
