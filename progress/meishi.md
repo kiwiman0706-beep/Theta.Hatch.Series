@@ -1,8 +1,8 @@
 # Theta Meishi Hatch（meishi）の移行メモ
 
-- 更新：2026-11-07
+- 更新：2026-11-07（1.0.0）
 - スレッド：https://claude.ai/code/session_016tfKWDzu24Zp9FBxh4cjKS
-- 状態：作業中（橋渡し版 0.19.0 を作成。新しい版はこれから）
+- 状態：作業中（橋渡し版 0.19.0 をリリース中、新しい版 1.0.0 を作成。Home での実機確認待ち）
 
 ## 今と目標
 
@@ -71,20 +71,23 @@
 
 ## 決めてほしいこと
 
-- [ ] NAS（Synology、Tailscale、Secure SignIn の 2 段階認証）にも Vault を置けるようにするか。Meishi は Drive で動いているので、移行では Drive のままにし、NAS は後の版にしたい
-- [ ] スキン対応を移行と同じ版でやるか、移行（1.0）の後の版に分けるか（画面全体の色を役割に置き換える作業）
-- [ ] 新しいアプリの最初の版を 1.0.0 にするか、0.19 の続き（0.20）にするか
-- [ ] デスクトップの appId も `app.thetahatch.meishi` に変えてよいか（Windows では入れ直しになる）
+決まったこと（2026-11-07）：NAS は後の版（今は Drive）／スキンは後の版／新しい版は 1.0.0／デスクトップの appId も `app.thetahatch.meishi`／移行は Home がまとめて行う（EXPORT・IMPORT）。
+
+
+- [x] NAS：後の版（移行では Drive のまま）
+- [x] スキン：後の版
+- [x] 新しいアプリは 1.0.0
+- [x] デスクトップの appId も変える（Windows は古い版を手で削除）
 
 ## 進み具合
 
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
-- [ ] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
-- [ ] appid：アプリ ID を新しい ID に
-- [ ] signing：共通鍵の Secret で署名（0.19.0 で `build.sh`・`release.yml` を 4 つの Secret に。別名は `ANDROID_KEY_ALIAS` から）
-- [ ] update：更新をハブに頼む形に（ハブはハブ機能）
-- [ ] settings：共通設定をハブから受け取る（ハブは配る側）
-- [ ] rename：改名後の名前に合わせて URL・リンクを直した
+- [x] claudemd：CLAUDE.md に Theta.Hatch.Series への参照（1.0.0）
+- [x] appid：アプリ ID を新しい ID に（1.0.0：`app.thetahatch.meishi`、Java のパッケージ・デスクトップの appId も）
+- [x] signing：共通鍵の Secret で署名（0.19.0 から 4 つの Secret。CI で署名できることを確認）
+- [x] update：更新をハブに頼む形に（1.0.0：インストール権限を外し、`app.thetahatch.action.UPDATE`、ハブが無ければ Releases）
+- [x] settings：共通設定をハブから受け取る（1.0.0：`info` の `gemini.model`・`google.account` を取り込み・書き戻し、`secret/gemini.key`。スキンは後の版）
+- [x] rename：改名後の名前に合わせて URL・リンクを直した（Releases・更新の確認・Pages・ワークフロー・README・デスクトップの更新先）
 - [ ] release：新しい版を Releases に出した
 
 ## 実機で確かめること
