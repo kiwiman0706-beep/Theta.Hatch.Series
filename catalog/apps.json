@@ -1,8 +1,8 @@
 {
   "spec": 1,
-  "updated": "2026-11-06",
+  "updated": "2026-11-07",
   "owner": "kiwiman0706-beep",
-  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。 updateHub は Android の更新をまとめて行うアプリ（spec §6.1）。 migration.bridge は移行の橋渡し版を作るか、migration.data はデータを移すか（docs/MIGRATION.md §3）。",
+  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。 updateHub は Android の更新をまとめて行うアプリ（spec §6.1）。 migration.bridge は移行の橋渡し版を作るか、migration.data はデータを移すか（docs/MIGRATION.md §3）。 googleApis は使う Google API（spec/THETA_GOOGLE_SETUP.md の表）。migration.bridgeVersion は橋渡し版のタグ。",
   "apps": [
     {
       "id": "book",
@@ -10,7 +10,7 @@
       "nickname": "DSBooks",
       "current": {
         "repo": "Theta.Book.Hatch",
-        "packageName": "jp.shinwakai.dsbooks.preview"
+        "packageName": "jp.shinwakai.dsbooks.claude"
       },
       "target": {
         "repo": "Theta.Book.Hatch",
@@ -31,15 +31,19 @@
         "secureSignIn": "partial"
       },
       "settingsExport": "partial",
-      "remark": "ブランチが分かれている：claude/vigilant-ramanujan-4v5vsv（1.0.0、デスクトップ版あり）と ccr-fbd7a73d-mp81q5（0.8.7-preview、Android のみ）",
+      "remark": "本線は claude/vigilant-ramanujan-4v5vsv（デフォルトに設定済み）。2026-11-07 に公開。利用者が使っているのは Claude 版（jp.shinwakai.dsbooks.claude）。Theta.Jisui.Viewer は別のリポジトリに分ける予定。デスクトップ版は pywebview のまま",
       "thread": "session_01VBri9A5SpavPKRqvCQZARs",
       "googleOAuth": {
         "registered": "2026-11-06"
       },
       "migration": {
         "bridge": true,
-        "data": "required"
-      }
+        "data": "required",
+        "bridgeVersion": "1.0.1"
+      },
+      "googleApis": [
+        "drive"
+      ]
     },
     {
       "id": "meishi",
@@ -74,8 +78,14 @@
       },
       "migration": {
         "bridge": true,
-        "data": "required"
-      }
+        "data": "required",
+        "bridgeVersion": "0.19.0"
+      },
+      "googleApis": [
+        "drive",
+        "calendar",
+        "people"
+      ]
     },
     {
       "id": "item",
@@ -108,7 +118,10 @@
       "migration": {
         "bridge": false,
         "data": "none"
-      }
+      },
+      "googleApis": [
+        "drive"
+      ]
     },
     {
       "id": "kamigata",
@@ -174,7 +187,10 @@
       "migration": {
         "bridge": false,
         "data": "none"
-      }
+      },
+      "googleApis": [
+        "drive"
+      ]
     },
     {
       "id": "label",
@@ -307,7 +323,10 @@
       "migration": {
         "bridge": false,
         "data": "none"
-      }
+      },
+      "googleApis": [
+        "drive"
+      ]
     },
     {
       "id": "mensetsu",
@@ -342,7 +361,11 @@
       "migration": {
         "bridge": false,
         "data": "none"
-      }
+      },
+      "googleApis": [
+        "drive",
+        "people"
+      ]
     },
     {
       "id": "home",
@@ -375,7 +398,10 @@
       "migration": {
         "bridge": false,
         "data": "none"
-      }
+      },
+      "googleApis": [
+        "drive"
+      ]
     },
     {
       "id": "memo",
@@ -407,7 +433,10 @@
       "migration": {
         "bridge": false,
         "data": "none"
-      }
+      },
+      "googleApis": [
+        "drive"
+      ]
     },
     {
       "id": "kidshome",
@@ -442,7 +471,10 @@
       "migration": {
         "bridge": false,
         "data": "none"
-      }
+      },
+      "googleApis": [
+        "drive"
+      ]
     },
     {
       "id": "hitsudan",
@@ -661,8 +693,13 @@
       },
       "migration": {
         "bridge": true,
-        "data": "required"
-      }
+        "data": "required",
+        "bridgeVersion": "0.1.1"
+      },
+      "googleApis": [
+        "drive",
+        "calendar"
+      ]
     },
     {
       "id": "desk",

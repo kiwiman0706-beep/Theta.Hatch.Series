@@ -97,6 +97,11 @@ Theta Hatch の設定を引き継ぎますか？         （Meishi Hatch で設�
 - ハブが無い端末では、各アプリが自分で入力する（今までどおり）。Home と KidsHome の両方がある端末では、Home を優先して読み、KidsHome は Home と同じ値に合わせる。
 - 子ども用の端末（KidsHome）では、秘密を貸す操作をおうちの人の画面に置く。
 
+**ContentProvider の返し方**（Home 1.0.0 の形）
+- `query /info` → 列 `key`・`value`・`by`・`at`（1 項目 1 行。`by` は書いたアプリの catalog の id、`at` は ISO 8601、記録が無ければ空）。
+- `query /secret/<キー>` → 列 `key`・`value`（`gemini.key`・`nas.password`・`nas.deviceToken`。無ければ 0 行、ほかのキーは null）。
+- `update /info`（ContentValues：キー → 値の文字列）→ 受け付けた数。`key`・`token`・`secret`・`password` を含む名前は受け付けない。知らない項目も預かって `info` で返す。書いたアプリは呼び出し元のパッケージ名から catalog の id で記録。
+
 ### 4.1 同じ端末で共有する項目
 
 | 項目 | キー | 種類 | 同じ端末での共有 | 別の端末へ |

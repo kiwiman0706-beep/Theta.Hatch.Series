@@ -53,6 +53,30 @@
    4. 新しい版を開いて**読み込む**（`Intent("app.thetahatch.action.IMPORT")`、書き出したファイルを渡す）
    5. 読み込みができたら、**古いアプリを削除**（Home から削除の確認画面を出す。利用者が「OK」を押す）
 
+### 書き出し・読み込みの受け渡し（EXPORT・IMPORT の約束）
+
+Home・Meishi・Chirashi・Book で揃える（2026-11-07、Home と Book の案から）。
+
+**書き出し（橋渡し版）**
+- `Intent("app.thetahatch.action.EXPORT")` を `startActivityForResult` で受ける。画面で中身（件数・含めるもの）を見せ、利用者が「書き出す」を押したときだけ作る。
+- 終わったら `setResult(RESULT_OK, Intent().setData(<zip の content:// URI>).addFlags(FLAG_GRANT_READ_URI_PERMISSION))`（FileProvider、`ClipData` にも同じ URI）。zip は 1 つ。取り消しは `RESULT_CANCELED`。
+- extra：`packageName`（自分）、`format`（`theta-export-1`）、`versionName`、`sha256`（zip の）。
+- 呼び出し元（`getCallingPackage()`）がハブ（`app.thetahatch.home`・`app.thetahatch.kidshome`、移行中は古い ID も）のときだけ返す。ほかから呼ばれたら返さず、保存先を選ぶ画面にする（手で保存）。
+
+**zip の中身**
+- `manifest.json`：`format`・元のアプリ（パッケージ名と版）・作った日時・ファイル一覧と各 SHA-256。
+- アプリのデータ（JSON など）。**パスワード・トークン・API キーは入れない**（新しい版はハブから受け取るか、入れ直す）。
+- 大きい物（取り込んだ本・画像など）を含めるかは、書き出し画面で選べるようにする。NAS や Drive にある物は入れず、新しい版で取り直す。
+
+**ハブ（Home）**
+- 受け取った zip はすぐ自分のフォルダにコピーし、読み込みが済むまで消さない。
+- 結果が `RESULT_OK` で返らないとき（結果を返さない作りなど）は、「書き出したファイルを選ぶ」画面で続けられるようにする。
+
+**読み込み（新しい版）**
+- `Intent("app.thetahatch.action.IMPORT")`、`data` にハブの FileProvider の URI（読む権限付き）。画面で中身を見せて「読み込む」。
+- 成功は `RESULT_OK`、失敗は `RESULT_CANCELED`＋extra `error`（理由の文）。
+- すでにデータがあるときは上書きせずに足す（同じ id は新しい方を残す）。手で選んだ zip からも同じ処理。
+
 ### それ以外のアプリ
 
 Home が「新しい版を入れる → 古いアプリを削除」だけを案内する。橋渡し版もデータの移行も作らない。

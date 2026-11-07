@@ -12,7 +12,25 @@ SKINS = ROOT / "design" / "skins"
 COLOR_KEYS = ["bg", "panel", "raised", "fg", "muted", "faint", "line", "accent", "onAccent",
               "widget", "launch", "zebra", "accent2", "accent3"]
 KT_NAMES = {"dark": "DarkPalette", "light": "LightPalette", "pop": "PopPalette",
-            "alert": "AlertPalette", "scifi": "SciFiPalette"}
+            "alert": "AlertPalette", "scifi": "SciFiPalette", "term": "TermPalette", "braun": "BraunPalette",
+            "soft": "SoftPalette", "window": "WindowPalette", "lcd": "LcdPalette"}
+GOTHIC = 'system-ui, "Noto Sans JP", sans-serif'
+OSWALD = '"Oswald", "Noto Sans JP", sans-serif'
+TECH = '"Share Tech Mono", ui-monospace, "Noto Sans JP", monospace'
+# font の種類 → (見出し, ラベル・数字)
+FONTS = {"hud": (OSWALD, TECH), "sans": (GOTHIC, GOTHIC), "mono": (TECH, TECH)}
+SHADOWS = {"none": "none", "hard": "3px 3px 0 var(--fg)", "soft": "0 6px 16px rgba(0,0,0,.18)"}
+ICON_RADIUS = {"square": "0", "round": "24%", "circle": "50%"}
+# 背景の模様（.theta-backdrop に付ける）
+BACKDROPS = {
+    "scan": "repeating-linear-gradient(to bottom, color-mix(in srgb, var(--accent) 5%, transparent) 0 1px, transparent 1px 4px)",
+    "grid": ("repeating-linear-gradient(to right, color-mix(in srgb, var(--widget) 7%, transparent) 0 1px, transparent 1px 28px),\n"
+             "    repeating-linear-gradient(to bottom, color-mix(in srgb, var(--widget) 7%, transparent) 0 1px, transparent 1px 28px)"),
+    "rain": "repeating-linear-gradient(to right, color-mix(in srgb, var(--accent) 10%, transparent) 0 2px, transparent 2px 18px)",
+    "lines": ("repeating-linear-gradient(to right, rgba(255,255,255,.22) 0 1px, transparent 1px 36px),\n"
+              "    repeating-linear-gradient(to bottom, rgba(255,255,255,.22) 0 1px, transparent 1px 36px)"),
+    "pixel": "repeating-linear-gradient(to bottom, color-mix(in srgb, var(--fg) 3.5%, transparent) 0 1px, transparent 1px 3px)",
+}
 
 
 def css_name(key):
@@ -35,13 +53,13 @@ def kt_color(v):
 
 def css_block(skin):
     lines = [f"  {css_name(k)}: {css_color(skin['color'][k])};" for k in COLOR_KEYS]
-    gothic = 'system-ui, "Noto Sans JP", sans-serif'
-    display = gothic if skin["pop"] else '"Oswald", "Noto Sans JP", sans-serif'
-    mono = gothic if skin["pop"] else '"Share Tech Mono", ui-monospace, "Noto Sans JP", monospace'
+    display, mono = FONTS[skin.get("font", "hud")]
     lines += [
-        f"  --radius: {'10px' if skin['pop'] else '0'};",
+        f"  --radius: {skin.get('radius', 0)}px;",
         f"  --line-width: {'1.5px' if skin['pop'] else '1px'};",
         f"  --hazard: {skin['hazard']}px;",
+        f"  --shadow: {SHADOWS[skin.get('shadow', 'none')]};",
+        f"  --icon-radius: {ICON_RADIUS[skin.get('iconShape', 'square')]};",
         f"  --display: {display};",
         f"  --mono: {mono};",
         f"  color-scheme: {'dark' if is_dark(skin) else 'light'};",
@@ -59,7 +77,7 @@ def make_css(data):
     s = data["skins"]
     out = [
         "/* 生成ファイル：tools/gen_skins.py で design/skins/skins.json から作る。手で直さない。",
-        "   <html data-theta-skin=\"dark|light|pop|alert|scifi|system\">（html 以外の要素に付けてもその中だけ切り替わる）。無い・system は端末のダーク／ライトに合わせる。",
+        "   <html data-theta-skin=\"" + "|".join(s) + "|system\">（html 以外の要素に付けてもその中だけ切り替わる）。無い・system は端末のダーク／ライトに合わせる。",
         "   書体：<link href=\"https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Share+Tech+Mono&display=swap\" rel=\"stylesheet\">",
         "   （アプリに同梱するときは design/hud-kit/compose/res/font/ の ttf とライセンスを使う） */",
         ":root {", css_block(s["light"]), "}",
@@ -73,17 +91,15 @@ def make_css(data):
         out += [f"[data-theta-skin=\"{name}\"] {{", css_block(skin), "}"]
     out += [
         "",
-        "/* 背景の模様（ALERT の走査線・SCI-FI の方眼）。地を塗る要素に .theta-backdrop を付ける */",
-        "[data-theta-skin=\"alert\"] .theta-backdrop, .theta-backdrop[data-theta-skin=\"alert\"] {",
-        "  background-image: repeating-linear-gradient(to bottom, color-mix(in srgb, var(--accent) 5%, transparent) 0 1px, transparent 1px 4px);",
-        "}",
-        "[data-theta-skin=\"scifi\"] .theta-backdrop, .theta-backdrop[data-theta-skin=\"scifi\"] {",
-        "  background-image:",
-        "    repeating-linear-gradient(to right, color-mix(in srgb, var(--widget) 7%, transparent) 0 1px, transparent 1px 28px),",
-        "    repeating-linear-gradient(to bottom, color-mix(in srgb, var(--widget) 7%, transparent) 0 1px, transparent 1px 28px);",
-        "}",
-        "/* POP のボタンの、右下にずらした影 */",
-        "[data-theta-skin=\"pop\"] .theta-pop-shadow { box-shadow: 3px 3px 0 var(--fg); }",
+        "/* 背景の模様。地を塗る要素に .theta-backdrop を付ける */",
+    ]
+    for name, skin in s.items():
+        if skin.get("backdrop"):
+            out += [f"[data-theta-skin=\"{name}\"] .theta-backdrop, .theta-backdrop[data-theta-skin=\"{name}\"] {{",
+                    f"  background-image: {BACKDROPS[skin['backdrop']]};", "}"]
+    out += [
+        "/* ボタン・台の影（POP・WINDOW は右下にずらした影、BRAUN・SOFT は浮き出し） */",
+        ".theta-pop-shadow { box-shadow: var(--shadow); }",
         "",
     ]
     return "\n".join(out)
@@ -109,6 +125,16 @@ def make_kt(data):
         "    val backdrop: String = \"\",",
         "    /** 見出しの上の警告の帯の太さ。 */",
         "    val hazard: Dp = 4.dp,",
+        "    /** 作り：hud・pop・term・braun・soft・window・lcd（枠・時計・見出しの形の種類）。 */",
+        "    val style: String = \"hud\",",
+        "    /** 角丸の大きさ。 */",
+        "    val radius: Dp = 0.dp,",
+        "    /** 書体：hud＝Oswald＋Share Tech Mono・sans＝端末のゴシック・mono＝全部 Share Tech Mono。 */",
+        "    val font: String = \"hud\",",
+        "    /** 影：none・hard（右下 3dp の fg 色）・soft（ぼかした浮き出し）。 */",
+        "    val shadow: String = \"none\",",
+        "    /** アイコンの台：square・round（角丸 24%）・circle。 */",
+        "    val iconShape: String = \"square\",",
         ") {",
         "    fun group(g: Int) = when (g) {",
         "        0 -> accent",
@@ -126,17 +152,20 @@ def make_kt(data):
             f"    pop = {str(skin['pop']).lower()},",
             f"    backdrop = \"{skin['backdrop']}\",",
             f"    hazard = {skin['hazard']}.dp,",
+            f"    style = \"{skin.get('style', 'hud')}\",",
+            f"    radius = {skin.get('radius', 0)}.dp,",
+            f"    font = \"{skin.get('font', 'hud')}\",",
+            f"    shadow = \"{skin.get('shadow', 'none')}\",",
+            f"    iconShape = \"{skin.get('iconShape', 'square')}\",",
             ")",
             "",
         ]
     out += [
-        "/** 設定 ui.skin の値（system・dark・light・pop・alert・scifi）から配色を決める。 */",
+        "/** 設定 ui.skin の値（system・" + "・".join(data["skins"]) + "）から配色を決める。 */",
         "fun paletteFor(skin: String, systemDark: Boolean): Palette = when (skin) {",
-        "    \"pop\" -> PopPalette",
-        "    \"alert\" -> AlertPalette",
-        "    \"scifi\" -> SciFiPalette",
-        "    \"light\" -> LightPalette",
-        "    \"dark\" -> DarkPalette",
+    ]
+    out += [f"    \"{name}\" -> {KT_NAMES[name]}" for name in data["skins"]]
+    out += [
         "    else -> if (systemDark) DarkPalette else LightPalette",
         "}",
         "",

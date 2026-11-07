@@ -92,7 +92,7 @@ def apply_memo(out, memo, app_id):
     out["prompt"] = {"s": "ok", "d": "スレッドが移行メモを作成"}
     # テンプレートのまま（「計画中 ／ 計画OK待ち ／ …」）なら、まだ書いていない扱い
     filled = "／" not in memo["state"]
-    approved = filled and any(w in memo["state"] for w in ("作業中", "実機確認待ち", "完了"))
+    approved = filled and any(w in memo["state"] for w in ("作業中", "実機確認待ち", "完了", "公開"))
     out["plan"] = {"s": "ok" if approved else "", "d": f"状態：{memo['state'] or '—'}（{memo['updated'] or '日付なし'}）"}
     for key in memo["done"]:
         c = out.get(key)

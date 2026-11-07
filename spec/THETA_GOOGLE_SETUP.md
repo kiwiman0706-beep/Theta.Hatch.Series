@@ -27,9 +27,13 @@ Google Cloud の設定は **シリーズで1つのプロジェクト** にまと
 
 1. **プロジェクト**：シリーズで1つ。名前は何でもよい（例 `theta-hatch`）。既に `meishi-claude` などで作ってあればそのまま使う。
 2. **API の有効化**：「APIとサービス」→「ライブラリ」。API はプロジェクト全体で有効になるので、2つ目のアプリで同じ API を使うなら何もしなくてよい。
-   - Google Drive API：Theta Vault の同期、ドライブのフォルダからの取り込み（全アプリ）
-   - Google People API：**Web版**で Google 連絡先に登録するとき（Android は端末の連絡先アプリ経由なので不要）
-   - Google Calendar API：**Web版**でカレンダーに書くアプリができたとき（Android は端末のカレンダー経由なので不要）
+   どのアプリがどの API を使うか（`catalog/apps.json` の `googleApis` と同じ。**新しく API を使うアプリは、ここに 1 行足し、利用者に「プロジェクト `meishi-512311` で〇〇 API を有効に」と頼む**）：
+
+   | API | 使うアプリ | 有効 |
+   | --- | --- | --- |
+   | Google Drive API | 全アプリ（Theta Vault の同期・取り込み）、Chirashi（チラシ画像の保存）、Home（ファイラー） | 済み |
+   | Google Calendar API | Chirashi（Android から直接。画像を添付するため）、Meishi の Web 版 | **要確認**（2026-11-07、Chirashi で SERVICE_DISABLED） |
+   | Google People API | Meishi・Mensetsu の Web 版（Android は端末の連絡先経由） | 要確認 |
 3. **同意画面**（Google Auth Platform →「ブランディング」「対象」）：アプリ名、サポートメール、対象は「外部」、公開ステータスは「テスト」のまま。
 4. **テストユーザー**（Google Auth Platform →「対象」→「テストユーザー」）：利用者自身の Google アカウント（と、使う家族のアカウント）。
    **プロジェクトに1回だけ**で、アプリを増やすたびに確かめる必要はありません（同じプロジェクトの全アプリに効きます）。

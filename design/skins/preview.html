@@ -20,7 +20,7 @@
   .btns { display: flex; gap: 8px; margin-top: 12px; }
   .btn { font: 13px var(--mono); color: var(--fg); background: var(--raised); border: var(--line-width) solid var(--line); padding: 8px 14px;
     border-radius: var(--radius); }
-  [data-theta-skin]:not([data-theta-skin="pop"]) .btn { clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px); }
+  :is([data-theta-skin="dark"], [data-theta-skin="light"], [data-theta-skin="alert"], [data-theta-skin="scifi"]) .btn { clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px); }
   .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
   .chips { display: flex; gap: 6px; margin-top: 10px; }
   .chips span { width: 22px; height: 22px; border: 1px solid var(--line); }
@@ -29,7 +29,7 @@
 <body>
 <div class="grid" id="grid"></div>
 <script>
-  const skins = { dark: "ダーク", light: "ライト", pop: "POP（カラフル）", alert: "ALERT（警報画面）", scifi: "SCI-FI（操作卓）" };
+  const skins = { dark: "ダーク", light: "ライト", pop: "POP（カラフル）", alert: "ALERT（警報画面）", scifi: "SCI-FI（操作卓）", term: "TERMINAL（緑の端末）", braun: "BRAUN（白い家電）", soft: "SOFT（浮き出し）", window: "WINDOW（昔のパソコン）", lcd: "LCD（液晶ゲーム機）" };
   const grid = document.getElementById("grid");
   for (const [id, name] of Object.entries(skins)) {
     grid.insertAdjacentHTML("beforeend", `
