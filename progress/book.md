@@ -2,7 +2,7 @@
 
 - 更新：2026-11-07（2 回目）
 - スレッド：https://claude.ai/code/session_01VBri9A5SpavPKRqvCQZARs
-- 状態：作業中
+- 状態：実機確認待ち（移行まわり）。スキン・共通設定・Vault は作業中
 
 ## 今と目標
 
@@ -85,11 +85,11 @@
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
 - [x] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
 - [x] appid：アプリ ID を新しい ID に（`app.thetahatch.book`、1.1.0、versionCode 77。橋渡し版 1.0.1 は古い ID）
-- [x] signing：共通鍵の Secret で署名（`release.yml`。v1.1.0 の CI 結果で確認）
+- [x] signing：共通鍵の Secret で署名（`release.yml`。v1.1.0 の CI で署名が共通鍵の SHA-256 と一致を確認）
 - [x] update：更新をハブに頼む形に（設定 →「更新を確認」で `app.thetahatch.action.UPDATE`、無ければ Releases。インストール権限なし）
 - [ ] settings：共通設定をハブから受け取る（ハブは配る側）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した（README・docs・AGENTS.md・更新の URL）
-- [ ] release：新しい版を Releases に出した
+- [x] release：新しい版を Releases に出した（`v1.1.0` の `ThetaBookHatch-1.1.0.apk`、SHA-256 `e46b1c11…672002`。橋渡し版は `v1.0.1` の `ThetaBookHatch-1.0.1.apk`、古い ID・Claude 版の鍵、SHA-256 `0fd1cb36…fae9fd`。どちらも prerelease でない）
 
 ほかに残っていること：スキン 6 つ（スキンの時は木目もやめる）、読書の記録を Theta Vault へ、デスクトップ版を 1.1.0 にそろえて同じ Release に、Theta.Jisui.Viewer を別リポジトリへ（リポジトリができたら）。
 
