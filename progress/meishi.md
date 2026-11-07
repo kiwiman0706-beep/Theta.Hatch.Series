@@ -1,8 +1,8 @@
 # Theta Meishi Hatch（meishi）の移行メモ
 
-- 更新：2026-11-06
+- 更新：2026-11-07
 - スレッド：https://claude.ai/code/session_016tfKWDzu24Zp9FBxh4cjKS
-- 状態：計画OK待ち
+- 状態：作業中（橋渡し版 0.19.0 を作成。新しい版はこれから）
 
 ## 今と目標
 
@@ -19,12 +19,24 @@
 
 ## 方針
 
+### Home との受け渡し（0.19.0 で実装。新しい版にも同じものが入る）
+
+移行は Home がまとめて行う（`docs/MIGRATION.md` §3）。Meishi 側の入口は `MigrationActivity`。
+
+| | 書き出し（橋渡し版 0.19.0、古い ID） | 読み込み（新しい版、新しい ID） |
+| --- | --- | --- |
+| 呼び方 | `startActivityForResult(Intent("app.thetahatch.action.EXPORT").setPackage("jp.yaegaki.meishiclaude"))` | `startActivityForResult(Intent("app.thetahatch.action.IMPORT").setPackage("app.thetahatch.meishi").setDataAndType(zip の URI, "application/zip").addFlags(FLAG_GRANT_READ_URI_PERMISSION))`（`EXTRA_STREAM` でも可） |
+| 確かめること | 呼び出し元が同じ署名（`checkSignatures`）、結果を受け取る形で呼ばれた、利用者が「書き出す」を押した | 同じ |
+| 結果 OK | data＝zip の `content://` URI（読み取り許可付き。**古いアプリを消すと読めなくなるので、Home が自分の領域へコピーしておく**）、extra `app.thetahatch.extra.FORMAT`＝`meishi-migration/1`、`app.thetahatch.extra.COUNT`＝名刺の件数 | extra `app.thetahatch.extra.COUNT`＝新しく加えた名刺の件数（Vault から先に戻った名刺は数えず、端末だけの項目だけ足す） |
+| 結果 NG | `RESULT_CANCELED`、extra `app.thetahatch.extra.ERROR`＝理由（取りやめも含む） | 同じ |
+| zip の中身 | `data.json`（名刺。連絡先・予定の行などの端末だけの項目も、`settings`＝設定、`migration`＝元の ID と時刻）、`media/`（画像・録音・手書き） | — |
+| 入れないもの | Gemini の API キー、Google の許可（新しい ID で取り直し）、取り込みフォルダの権限 | — |
+
 ### 移行の順番（ID は変わるが鍵はすでに共通）
 
-1. **橋渡し版 0.19**（古い ID のまま。今のアプリ内更新で上書き）
-   - 「新しいアプリに移る」画面：Vault の同期が済んでいることを確かめる → 端末だけの設定（下）を Vault の `.theta/` 以外の 1 ファイルに書き出す（または zip）→ 新しいアプリの Releases を開く → 新しいアプリで読み込んだら古いアプリの削除画面
+1. **橋渡し版 0.19.0**（古い ID のまま。今のアプリ内更新か Home で上書き）：上の書き出し。メニューに「新しい Theta Meishi Hatch へ移る」（Home を開く／無ければ Home の入手ページ）
 2. **新しいアプリ 1.0**（`app.thetahatch.meishi`、Release の APK 名は `ThetaMeishiHatch-<版>.apk`）
-   - 初回起動で「前の Meishi から読み込む」：Vault から名刺を戻し、書き出した設定を読む
+   - 上の読み込み（Home から呼ばれる）
    - 自分で入れる更新の仕組みを外し、ハブに頼む形に
    - Web 版は Pages の URL が `…/Theta.Meishi.Hatch/` に変わる（オリジンは同じなので Web 用 OAuth クライアントはそのまま。ホーム画面のアイコンは入れ直し）
 
@@ -69,7 +81,7 @@
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
 - [ ] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
 - [ ] appid：アプリ ID を新しい ID に
-- [ ] signing：共通鍵の Secret で署名
+- [ ] signing：共通鍵の Secret で署名（0.19.0 で `build.sh`・`release.yml` を 4 つの Secret に。別名は `ANDROID_KEY_ALIAS` から）
 - [ ] update：更新をハブに頼む形に（ハブはハブ機能）
 - [ ] settings：共通設定をハブから受け取る（ハブは配る側）
 - [ ] rename：改名後の名前に合わせて URL・リンクを直した
@@ -77,7 +89,8 @@
 
 ## 実機で確かめること
 
-- [ ] 橋渡し版 0.19 がアプリ内更新で入り、「新しいアプリに移る」から新しいアプリへ移れる
+- [ ] 橋渡し版 0.19.0 がアプリ内更新か Home で入り、Home の EXPORT で zip を受け取れる（確認の画面が出る）
+- [ ] 新しい版が Home の IMPORT で読み込める。読み込み後に名刺・画像・連絡先とのつながり・設定が揃っている
 - [ ] 新しいアプリで Vault から名刺・画像が戻り、Google 連絡先との結び付けが戻る
 - [ ] Home（ハブ）から Meishi の更新ができる。ハブが無い端末では Releases が開く
 - [ ] ハブの Gemini キー・スキン・Google アカウントを受け取れる
