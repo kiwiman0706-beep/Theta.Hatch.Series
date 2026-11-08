@@ -2,7 +2,7 @@
   "spec": 1,
   "updated": "2026-11-08",
   "owner": "kiwiman0706-beep",
-  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。 updateHub は Android の更新をまとめて行うアプリ（spec §6.1）。 migration.bridge は移行の橋渡し版を作るか、migration.data はデータを移すか（docs/MIGRATION.md §3）。 googleApis は使う Google API（spec/THETA_GOOGLE_SETUP.md の表）。migration.bridgeVersion は橋渡し版のタグ。 hubReady はハブ（Home）から入れられる Release があるか（spec §6.1「ハブが入れられる Release の条件」）。移行が済んだアプリは current を target と同じにする。 previous.packageName は移行前の古い ID（端末に残っていれば、ハブが削除を案内する）。",
+  "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。 updateHub は Android の更新をまとめて行うアプリ（spec §6.1）。 migration.bridge は移行の橋渡し版を作るか、migration.data はデータを移すか（docs/MIGRATION.md §3）。 googleApis は使う Google API（spec/THETA_GOOGLE_SETUP.md の表）。migration.bridgeVersion は橋渡し版のタグ。 hubReady はハブ（Home）から入れられる Release があるか（spec §6.1「ハブが入れられる Release の条件」）。移行が済んだアプリは current を target と同じにする。 previous.packageName は移行前の古い ID（端末に残っていれば、ハブが削除を案内する）。 tv は TV 版の予定（spec/THETA_TV_SPEC.md）：yes 対応済み・planned 予定・maybe 検討。",
   "apps": [
     {
       "id": "book",
@@ -49,6 +49,10 @@
       "hubReady": true,
       "previous": {
         "packageName": "jp.shinwakai.dsbooks.claude"
+      },
+      "tv": {
+        "androidtv": "yes",
+        "webos": "maybe"
       }
     },
     {
@@ -418,6 +422,9 @@
       "hubReady": true,
       "previous": {
         "packageName": "jp.yaegaki.theta.home"
+      },
+      "tv": {
+        "androidtv": "planned"
       }
     },
     {
@@ -498,6 +505,9 @@
       "hubReady": true,
       "previous": {
         "packageName": "com.theta.kidshome"
+      },
+      "tv": {
+        "androidtv": "yes"
       }
     },
     {
@@ -566,6 +576,10 @@
       "migration": {
         "bridge": false,
         "data": "none"
+      },
+      "tv": {
+        "androidtv": "planned",
+        "webos": "maybe"
       }
     },
     {
@@ -599,6 +613,10 @@
       "migration": {
         "bridge": false,
         "data": "none"
+      },
+      "tv": {
+        "androidtv": "planned",
+        "webos": "planned"
       }
     },
     {
@@ -627,6 +645,10 @@
       "thread": "session_012DXkc1gdp42YFc5gM1nwUj",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "tv": {
+        "androidtv": "planned",
+        "webos": "planned"
       }
     },
     {
@@ -655,6 +677,10 @@
       "thread": "session_012DXkbxgRpZwVsU9fra6sF1",
       "googleOAuth": {
         "registered": "2026-11-06"
+      },
+      "tv": {
+        "androidtv": "planned",
+        "webos": "planned"
       }
     },
     {

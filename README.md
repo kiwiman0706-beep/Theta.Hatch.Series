@@ -23,6 +23,8 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 13 | 新しいアプリの手順 | 各アプリの `CLAUDE.md` にこのリポジトリを参照する一文を入れる。完成したら下の作品一覧に追加し、`tools/repos.txt` に足して Secret を配る | [FOR_APP_REPOS](docs/FOR_APP_REPOS.md) |
 | 14 | 移行 | 名前・ID・リポジトリ名・署名鍵を揃える作業中。移行の操作は **Theta Home Hatch がまとめて行う**（橋渡し版への更新 → 書き出し → 新しい版を入れる → 読み込み → 古いアプリの削除）。データを移すのは Meishi・Chirashi・Book だけ、ほかは入れ直し | [MIGRATION](docs/MIGRATION.md) |
 | 15 | PC から操作（構想） | ADB（USB・Wi-Fi）で PC から入れる・初期設定・設定・状態・操作。各アプリは `dumpsys` の状態と、`android.permission.DUMP` で守った操作の窓口を持つ。PC の CLI（hatchctl）と画面（Theta Console Hatch）、ローカルの Claude に「やっといて」 | [ADB 仕様](spec/THETA_ADB_SPEC.md) |
+| 16 | TV（構想） | Android TV／Google TV を中心に、できる物は webOS にも。Book・Movie・Music・Photo を TV で、Home は広告のない軽いスマート TV のホームに。リモコンだけで操作、10 フィートの画面、同じ APK に TV の画面を足す | [TV 仕様](spec/THETA_TV_SPEC.md) |
+| 17 | NAS のライブラリ | 映画・音楽・写真・本の並べ方と名前（Jellyfin・Synology Photos・Calibre などでもそのまま読める形）。整理は Claude に任せてよいが、スナップショット→変更案 CSV→確認→実行→記録、消さない | [ライブラリ規則](spec/THETA_LIBRARY_SPEC.md)・[依頼文](docs/PROMPT_NAS_ORGANIZE.md) |
 
 ## 作品一覧
 
@@ -137,7 +139,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 
 | 場所 | 中身 |
 | --- | --- |
-| [`spec/`](spec/) | シリーズ共通仕様（[ADB](spec/THETA_ADB_SPEC.md)（構想）・[Hatch](spec/THETA_HATCH_SPEC.md)・[Vault](spec/THETA_VAULT_SPEC.md)・[設定の引き継ぎ](spec/THETA_SHARED_SETTINGS.md)・[Google 連携](spec/THETA_GOOGLE_SETUP.md)）。MeishiApp/docs から移設 |
+| [`spec/`](spec/) | シリーズ共通仕様（[ADB](spec/THETA_ADB_SPEC.md)・[TV](spec/THETA_TV_SPEC.md)（構想）・[NAS ライブラリ](spec/THETA_LIBRARY_SPEC.md)・[Hatch](spec/THETA_HATCH_SPEC.md)・[Vault](spec/THETA_VAULT_SPEC.md)・[設定の引き継ぎ](spec/THETA_SHARED_SETTINGS.md)・[Google 連携](spec/THETA_GOOGLE_SETUP.md)）。MeishiApp/docs から移設 |
 | [`design/`](design/README.md) | デザインガイドラインとスキン（Home.Hatch の dark・light・pop・alert・scifi）、HUD キット |
 | [`secrets/`](secrets/README.md) | 共通の署名鍵・Secret の名前と置き場所（鍵そのものは入れない） |
 | [`progress/`](progress/_TEMPLATE.md) | 各アプリのスレッドが書く移行メモ（方針・決めてほしいこと・進み具合）。`progress/<id>.md` |
