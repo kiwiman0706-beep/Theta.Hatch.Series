@@ -22,6 +22,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 12 | 品質 | Vault の往復テスト、2台の同期テスト、320〜768px 幅ではみ出さない、JS エラー0。実機で確かめていないことは `TESTING.md` に「未確認」と書く | [spec §9](spec/THETA_HATCH_SPEC.md) |
 | 13 | 新しいアプリの手順 | 各アプリの `CLAUDE.md` にこのリポジトリを参照する一文を入れる。完成したら下の作品一覧に追加し、`tools/repos.txt` に足して Secret を配る | [FOR_APP_REPOS](docs/FOR_APP_REPOS.md) |
 | 14 | 移行 | 名前・ID・リポジトリ名・署名鍵を揃える作業中。移行の操作は **Theta Home Hatch がまとめて行う**（橋渡し版への更新 → 書き出し → 新しい版を入れる → 読み込み → 古いアプリの削除）。データを移すのは Meishi・Chirashi・Book だけ、ほかは入れ直し | [MIGRATION](docs/MIGRATION.md) |
+| 15 | PC から操作（構想） | ADB（USB・Wi-Fi）で PC から入れる・初期設定・設定・状態・操作。各アプリは `dumpsys` の状態と、`android.permission.DUMP` で守った操作の窓口を持つ。PC の CLI（hatchctl）と画面（Theta Console Hatch）、ローカルの Claude に「やっといて」 | [ADB 仕様](spec/THETA_ADB_SPEC.md) |
 
 ## 作品一覧
 
@@ -136,7 +137,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 
 | 場所 | 中身 |
 | --- | --- |
-| [`spec/`](spec/) | シリーズ共通仕様（[Hatch](spec/THETA_HATCH_SPEC.md)・[Vault](spec/THETA_VAULT_SPEC.md)・[設定の引き継ぎ](spec/THETA_SHARED_SETTINGS.md)・[Google 連携](spec/THETA_GOOGLE_SETUP.md)）。MeishiApp/docs から移設 |
+| [`spec/`](spec/) | シリーズ共通仕様（[ADB](spec/THETA_ADB_SPEC.md)（構想）・[Hatch](spec/THETA_HATCH_SPEC.md)・[Vault](spec/THETA_VAULT_SPEC.md)・[設定の引き継ぎ](spec/THETA_SHARED_SETTINGS.md)・[Google 連携](spec/THETA_GOOGLE_SETUP.md)）。MeishiApp/docs から移設 |
 | [`design/`](design/README.md) | デザインガイドラインとスキン（Home.Hatch の dark・light・pop・alert・scifi）、HUD キット |
 | [`secrets/`](secrets/README.md) | 共通の署名鍵・Secret の名前と置き場所（鍵そのものは入れない） |
 | [`progress/`](progress/_TEMPLATE.md) | 各アプリのスレッドが書く移行メモ（方針・決めてほしいこと・進み具合）。`progress/<id>.md` |
