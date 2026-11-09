@@ -15,3 +15,4 @@ kiwiman0706-beep/Theta.KidsHome.Hatch
 kiwiman0706-beep/Theta.Music.Hatch
 kiwiman0706-beep/Theta.Photo.Hatch
 kiwiman0706-beep/Theta.Chirashi.Hatch
+kiwiman0706-beep/Theta.Camera.Hatch
