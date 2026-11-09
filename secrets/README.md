@@ -30,7 +30,7 @@ GitHub Actions の Secret は **リポジトリごと** です。あるリポジ
 | 形式 | PKCS12、RSA 3072 ビット、`CN=Meishi-Claude, O=Personal, C=JP`、2026-10-16 作成、2076-10-03 まで有効 |
 | 確認 | 2026-11-06、手元の鍵ファイルの SHA-1 が上の値と一致することを確認済み |
 | パスワード | Meishi のときに一緒に渡された `keystore-password.txt` の中身 |
-| 置き場所（正本） | 自分の PC／パスワード管理。**Google ドライブの Theta Vault や Git には置かない** |
+| 置き場所（正本） | 1Password の「APK共通秘密鍵」と、Secret 登録をする PC のフォルダ（同期フォルダの外）。**Google ドライブの Theta Vault や Git には置かない** |
 
 > **GitHub の Secret からは取り出せません**（登録した値は誰にも読めない）。`theta-hatch-release.jks` と `keystore-password.txt` が手元に無ければ、下の「新しく作る場合」で作ります。
 > 全アプリがアプリ ID の変更で一度入れ直しになるので、**今なら新しい鍵にしても失うものはほぼありません**（Meishi も ID が変わるため）。ただし Google Cloud に古い SHA-1 で登録済みなら、登録し直しになります。
@@ -137,6 +137,8 @@ Android は署名が違う APK での上書きを拒否します。共通鍵に�
    powershell -ExecutionPolicy Bypass -File tools\sync-secrets.ps1 -OpKeystore "op://個人/APK共通秘密鍵/theta-hatch-release.jks" -OpPassword "op://個人/APK共通秘密鍵/keystore-password.txt" -OnlyRepo kiwiman0706-beep/Theta.Xxx.Hatch
    ```
 3. 新しいアプリのスレッドには「署名は Secret の 4 つ（登録済み）」と伝えるだけ。**スレッドに鍵そのものは渡さない。**
+
+代行は、ローカルの Claude Code に `docs/PROMPT_LOCAL_NEW_APP.md` を渡しておく（鍵はその PC のフォルダ。同期フォルダには置かない）。
 
 **鍵を Google ドライブなどクラウドのスレッドから読める場所に置かない**（2026-11-09 決定）。
 - この鍵は、ハブ（Home）が「シリーズのアプリ」と信じて入れる APK の目印。漏れると、偽の更新を作って全端末に入れられてしまう。
