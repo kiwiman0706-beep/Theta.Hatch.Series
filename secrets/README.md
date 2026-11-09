@@ -128,3 +128,17 @@ Android は署名が違う APK での上書きを拒否します。共通鍵に�
 | Gemini API キー | 各端末のアプリ内（暗号化）。同じ端末の別アプリへは利用者の承認で貸し借り（`spec/THETA_SHARED_SETTINGS.md` §4。これも**同じ署名鍵のアプリ同士でしか動かない**） |
 | Google の OAuth | 鍵は不要。Google Cloud のプロジェクトは 1 つ、Android 用クライアントをアプリ（パッケージ名）ごとに追加。SHA-1 は上の 1 つ（`spec/THETA_GOOGLE_SETUP.md`） |
 | Mac の署名・Apple ID・winget | DeskHatch だけが使用（`MAC_CSC_LINK` など）。必要になったら同じスクリプトで配る |
+
+## 6. 新しいアプリを作ったとき
+
+1. `tools/repos.txt` に 1 行足す（このリポジトリのスレッドに頼むか、自分で）。
+2. PC で、そのリポジトリだけに Secret を入れる（ローカルの Claude Code に「新しいアプリの Secret を入れて」と頼んでもよい）：
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File tools\sync-secrets.ps1 -OpKeystore "op://個人/APK共通秘密鍵/theta-hatch-release.jks" -OpPassword "op://個人/APK共通秘密鍵/keystore-password.txt" -OnlyRepo kiwiman0706-beep/Theta.Xxx.Hatch
+   ```
+3. 新しいアプリのスレッドには「署名は Secret の 4 つ（登録済み）」と伝えるだけ。**スレッドに鍵そのものは渡さない。**
+
+**鍵を Google ドライブなどクラウドのスレッドから読める場所に置かない**（2026-11-09 決定）。
+- この鍵は、ハブ（Home）が「シリーズのアプリ」と信じて入れる APK の目印。漏れると、偽の更新を作って全端末に入れられてしまう。
+- クラウドのスレッドは GitHub の Secret を登録できないので、鍵を読めても新しいアプリの署名には役立たない（Secret の登録は PC で行う）。
+- Google ドライブには Theta Vault もあり、多くのアプリとつながっている。鍵は 1Password だけに置く。

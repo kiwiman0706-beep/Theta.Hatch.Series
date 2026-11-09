@@ -1,6 +1,7 @@
 ﻿# シリーズ共通の Android 署名鍵を、tools/repos.txt の全リポジトリの GitHub Secret に入れる（Windows）。
 #   鍵ファイルから：  powershell -ExecutionPolicy Bypass -File tools\sync-secrets.ps1 -Keystore C:\path\theta-hatch-release.jks
 #   パスワードもファイルから：  ... -Keystore C:\path\theta-hatch-release.jks -PasswordFile C:\path\keystore-password.txt
+#   新しいアプリ 1 つだけ：  ... -OnlyRepo kiwiman0706-beep/Theta.Xxx.Hatch
 #   1Password から：  powershell -ExecutionPolicy Bypass -File tools\sync-secrets.ps1 -OpKeystore "op://<保管庫>/<アイテム>/theta-hatch-release.jks" -OpPassword "op://<保管庫>/<アイテム>/password"
 # 必要なもの：GitHub CLI（winget install GitHub.cli → gh auth login）。1Password から読むときは 1Password CLI（winget install AgileBits.1Password.CLI）。
 # 詳しくは secrets/README.md
@@ -11,7 +12,9 @@ param(
     [string]$PasswordFile,
     [string]$Alias = "thetahatch",
     [string]$ExpectedSha1 = "A1:13:EA:34:83:60:56:32:E7:F5:94:4E:4E:8C:20:55:DD:AE:28:BA",
-    [string]$Repos = (Join-Path $PSScriptRoot "repos.txt")
+    [string]$Repos = (Join-Path $PSScriptRoot "repos.txt"),
+    # 新しいアプリだけに入れるとき：-OnlyRepo kiwiman0706-beep/Theta.Xxx.Hatch（repos.txt にも 1 行足しておく）
+    [string]$OnlyRepo
 )
 $ErrorActionPreference = "Stop"
 
@@ -63,6 +66,8 @@ try {
 
     $b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes((Resolve-Path $Keystore)))
     $targets = Get-Content $Repos -Encoding UTF8 | ForEach-Object { ($_ -replace "#.*$", "").Trim() } | Where-Object { $_ }
+
+    if ($OnlyRepo) { $targets = @($OnlyRepo) }
 
     $failed = @()
     foreach ($repo in $targets) {
