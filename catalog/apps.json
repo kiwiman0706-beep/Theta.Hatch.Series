@@ -1,6 +1,6 @@
 {
   "spec": 1,
-  "updated": "2026-11-08",
+  "updated": "2026-11-10",
   "owner": "kiwiman0706-beep",
   "note": "シリーズのアプリ一覧（機械が読む用）。current は今、target は揃えた後。autoUpdate は Android のアプリ内自動更新の有無。Theta Home Hatch の Hatch ドロワーはこれを正本にする（spec §6.1）。 settingsExport・integrations は yes / partial / planned / no（README の「連携の対応状況」と同じ）。 updateHub は Android の更新をまとめて行うアプリ（spec §6.1）。 migration.bridge は移行の橋渡し版を作るか、migration.data はデータを移すか（docs/MIGRATION.md §3）。 googleApis は使う Google API（spec/THETA_GOOGLE_SETUP.md の表）。migration.bridgeVersion は橋渡し版のタグ。 hubReady はハブ（Home）から入れられる Release があるか（spec §6.1「ハブが入れられる Release の条件」）。移行が済んだアプリは current を target と同じにする。 previous.packageName は移行前の古い ID（端末に残っていれば、ハブが削除を案内する）。 tv は TV 版の予定（spec/THETA_TV_SPEC.md）：yes 対応済み・planned 予定・maybe 検討。",
   "apps": [
@@ -756,6 +756,41 @@
       "previous": {
         "packageName": "jp.yaegaki.theta.chirashi"
       }
+    },
+    {
+      "id": "camera",
+      "name": "Theta Camera Hatch",
+      "current": {
+        "repo": "Theta.Camera.Hatch",
+        "packageName": "app.thetahatch.camera"
+      },
+      "target": {
+        "repo": "Theta.Camera.Hatch",
+        "packageName": "app.thetahatch.camera"
+      },
+      "platforms": [
+        "android"
+      ],
+      "autoUpdate": true,
+      "vault": false,
+      "integrations": {
+        "obsidianVault": "no",
+        "googleDrive": "no",
+        "synology": "no",
+        "secureSignIn": "no"
+      },
+      "settingsExport": "no",
+      "thread": "session_012DXkbx4X64tseX2Fpu1dRb",
+      "migration": {
+        "bridge": false,
+        "data": "none",
+        "previous": {
+          "packageName": "com.theta.camera.hatch",
+          "note": "ChatGPT で作った 0.1.0（別の鍵）。データは写真だけで DCIM に残るので入れ直し"
+        }
+      },
+      "hubReady": true,
+      "remark": "Galaxy Z Fold5 専用のカメラ。純正の置き換えが目標。0.13.1（共通鍵で Release 済み）。ADB の窓口あり"
     },
     {
       "id": "desk",

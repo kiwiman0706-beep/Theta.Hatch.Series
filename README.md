@@ -52,6 +52,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 18 | **Theta.Movie.Hatch**（設計中） | Synology の動画プレイヤー（Video Station）の代わり。NAS 上の Jellyfin（Docker、Tailscale 経由）を土台に、他のソフトでも読めるファイル名規則（`docs/naming-convention.md`）を作成中 | — | [Theta.Movie.Hatch](https://github.com/kiwiman0706-beep/Theta.Movie.Hatch) | [動画プレイヤー代替アプリ](https://claude.ai/code/session_012DXkbxgRpZwVsU9fra6sF1) | 2026-11-03 |
 | 19 | **Theta.File.Hatch**（試作） | Theta Vault を NAS などに置いたまま、フォルダごとにふさわしい見え方で眺めるファイラーの試作。見え方もファイル（`.view.yaml`）で持つ。ブラウザで見られるデモ付き | — | [Theta.File.Hatch](https://github.com/kiwiman0706-beep/Theta.File.Hatch) | [ObsidianFS 構想](https://claude.ai/code/session_012DXkbxcLWLwFVYWM9tVHxb) | 2026-11-05 |
 | 20 | **Theta.Chirashi.Hatch** | 製薬会社の勉強会などのチラシをスキャン → Gemini で読み取り → Google カレンダーに登録（チラシ画像は Drive に保存して添付）。QR コード読み取り、月のカレンダー表示。Meishi.Hatch と同じつくり | 0.2.1（新しい ID、移行済み） | [Theta.Chirashi.Hatch](https://github.com/kiwiman0706-beep/Theta.Chirashi.Hatch) | [アプリ開発](https://claude.ai/code/session_012DXkbxUnbUEgxEY1bfHP77) | 2026-11-06 |
+| 21 | **Theta.Camera.Hatch** | Galaxy Z Fold5 専用のカメラ。起動後ワンタップ録画・録画中の写真、開いたら外画面で自撮り、外画面ライブ、Flex モード、スロー 240fps・HDR、全体を残して表示範囲を記録する HEIF（clap）、イベント・☆・タグ・コメント（XMP／JSON）。純正カメラの置き換えが目標。ADB の窓口あり | 0.13.1（新しい ID・共通鍵） | [Theta.Camera.Hatch](https://github.com/kiwiman0706-beep/Theta.Camera.Hatch) | [カメラアプリ](https://claude.ai/code/session_012DXkbx4X64tseX2Fpu1dRb) | 2026-11-08 |
 
 ### 関連（Theta.xxx.Hatch の名前ではないもの）
 
@@ -91,6 +92,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 18 | Movie | 設計中（サーバーは NAS の Jellyfin） | | | | | | |
 | 19 | File | △ ブラウザのデモ | △ ブラウザのデモ | × | × | Python のデモ作成ツール | × | × |
 | 20 | Chirashi | × | × | ○ | × | — | × | × |
+| 21 | Camera | × | × | ○ Fold5 専用 | × | — | ○（ハブ、無ければ単体） | × |
 | — | DeskHatch | ○ | ○ | × | × | — | ○ | ○ エクスポート・インポート |
 
 - **自動更新**は spec §6.1 で必須。○ は 6 つだけです（Meishi・Memo・Home・KidsHome・DeskHatch、Mensetsu はデスクトップのみ）。
@@ -122,6 +124,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 18 | Movie | △ 作品情報を NFO と Markdown に（予定） | × | 前提（NAS 上の Jellyfin） | × |
 | 19 | File | ○ Theta Vault を表示（`.view.yaml`） | × | 予定（NAS の Vault を表示） | × |
 | 20 | Chirashi | × 端末内（Markdown で保存は可） | ○ チラシ画像を Drive に保存（＋カレンダー） | × | × |
+| 21 | Camera | △ 写真ごとの XMP・JSON（Theta Vault ではない） | × | × | × |
 | — | DeskHatch | △ クリップを Obsidian 向けの Markdown で保存 | △ Drive のフォルダを箱として使う | × | × |
 
 - **Secure SignIn**：Synology の 2 段階認証。アプリからは「確認コード（OTP）を入れる → デバイストークンを受け取って、次からは聞かない」形で対応します（Home・Music の方式）。Secure SignIn アプリの「承認」ボタンでのログインは、アプリからは使えない前提です（未確認）。

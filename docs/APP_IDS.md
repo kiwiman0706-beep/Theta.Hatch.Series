@@ -1,6 +1,6 @@
 # アプリ ID とリポジトリ名（決定版）
 
-生成ファイル：`python tools/gen_app_ids.py` で `catalog/apps.json` から作る（2026-11-08 時点）。
+生成ファイル：`python tools/gen_app_ids.py` で `catalog/apps.json` から作る（2026-11-10 時点）。
 各スレッドはこの表の自分の行に合わせる。ID は `app.thetahatch.<名前>`、リポジトリ名は `Theta.<名前>.Hatch`。
 
 | アプリ | 新しいアプリ ID | 今のアプリ ID | 新しいリポジトリ名 | 今のリポジトリ名 | 変更 |
@@ -25,6 +25,7 @@
 | Theta Movie Hatch（設計中） | `app.thetahatch.movie` | `—` | `Theta.Movie.Hatch` | `Theta.Movie.Hatch` | なし |
 | Theta File Hatch（試作） | `app.thetahatch.file` | `—` | `Theta.File.Hatch` | `Theta.File.Hatch` | なし |
 | Theta Chirashi Hatch | `app.thetahatch.chirashi` | `app.thetahatch.chirashi` | `Theta.Chirashi.Hatch` | `Theta.Chirashi.Hatch` | なし |
+| Theta Camera Hatch | `app.thetahatch.camera` | `app.thetahatch.camera` | `Theta.Camera.Hatch` | `Theta.Camera.Hatch` | なし |
 | DeskHatch | `app.thetahatch.desk` | `—` | `deskhatch` | `deskhatch` | なし |
 
 - Google Cloud（プロジェクト `meishi-512311`）の Android 用 OAuth クライアントに、上の「新しいアプリ ID」21 個（DeskHatch を含む）を共通の SHA-1 で登録済み（2026-11-06）。
