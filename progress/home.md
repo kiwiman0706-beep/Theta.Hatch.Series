@@ -2,7 +2,7 @@
 
 - 更新：2026-11-07
 - スレッド：https://claude.ai/code/session_01GMSgoGarRChJJQLGtjAFKY
-- 状態：1.4.0 公開済み（adb で試す受け口・β 版。実機の確認はこれから）
+- 状態：1.5.0 を CI で公開中（貼り付けて登録・SCAN の入口。実機の確認はこれから）
 
 ## 今と目標
 
@@ -110,6 +110,16 @@
 - `query /secret/<キー>` → 列 `key`・`value`（`gemini.key`・`nas.password`・`nas.deviceToken`。無ければ 0 行、ほかのキーは null）
 - `update /info`（ContentValues：キー → 値の文字列）→ 受け付けた数。`key`・`token`・`secret`・`password` を含む名前は受け付けない。知らない項目も預かって `info` で返す
 - 書いたアプリは呼び出し元のパッケージ名から catalog の id で記録
+
+### 「撮って登録」の入口（Meishi・Chirashi）— spec に足してほしい
+
+Home 1.5.0 は、PEOPLE のタブに「名刺を撮る（Meishi）」、予定のタブに「チラシを撮る（Chirashi）」を置く用意がある（相手が対応したら自動で出る）。共通の形を spec に入れて、Meishi・Chirashi のスレッドに伝えてほしい。
+
+- `Intent("app.thetahatch.action.SCAN")`（アクティビティ、`category.DEFAULT`、exported。権限は要らない：開くだけなので）
+- 呼ぶ側は `setPackage(<そのアプリ>)` で送る。extra：`source`（呼んだアプリの id。例 `home`）、`mode`（`camera` 既定・`pick`＝画像を選ぶ）
+- 受けた側：すぐカメラ（`pick` なら画像選び）を開き、読み取り → 確認 → 登録までを自分の画面で行う。終わったら finish（`RESULT_OK`、やめたら `RESULT_CANCELED`）
+- Chirashi は読み取った予定を端末のカレンダーへ入れるところまで（Home の予定のタブに出る）
+- 呼ぶ側は `resolveActivity` で対応を確かめ、無ければボタンを出さない（古い ID でも新しい ID でも）
 
 ### 橋渡し版の見分け方
 
