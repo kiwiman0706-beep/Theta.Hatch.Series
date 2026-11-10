@@ -2,7 +2,7 @@
 
 - 更新：2026-11-07
 - スレッド：https://claude.ai/code/session_01GMSgoGarRChJJQLGtjAFKY
-- 状態：1.5.0 を CI で公開中（貼り付けて登録・SCAN の入口。実機の確認はこれから）
+- 状態：1.5.0 公開済み（貼り付けて登録・SCAN の入口。実機の確認はこれから）
 
 ## 今と目標
 
