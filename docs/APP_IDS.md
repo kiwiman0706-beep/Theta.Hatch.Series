@@ -16,7 +16,7 @@
 | Theta Oekaki Hatch | `app.thetahatch.oekaki` | `jp.theta.oekakihatch` | `Theta.Oekaki.Hatch` | `Theta.Oekaki.Hatch` | ID |
 | Theta Mensetsu Hatch | `app.thetahatch.mensetsu` | `jp.yaegaki.theta.mensetsu` | `Theta.Mensetsu.Hatch` | `Theta.Mensetsu.Hatch` | ID |
 | Theta Home Hatch | `app.thetahatch.home` | `app.thetahatch.home` | `Theta.Home.Hatch` | `Theta.Home.Hatch` | なし |
-| Theta Memo Hatch | `app.thetahatch.memo` | `jp.yaegaki.theta.memo` | `Theta.Memo.Hatch` | `Theta.Memo.Hatch` | ID |
+| Theta Memo Hatch | `app.thetahatch.memo` | `app.thetahatch.memo` | `Theta.Memo.Hatch` | `Theta.Memo.Hatch` | なし |
 | Theta KidsHome Hatch | `app.thetahatch.kidshome` | `app.thetahatch.kidshome` | `Theta.KidsHome.Hatch` | `Theta.KidsHome.Hatch` | なし |
 | Theta Hitsudan Hatch | `app.thetahatch.hitsudan` | `—` | `Theta.Hitsudan.Hatch` | `Theta.Hitsudan.Hatch` | なし |
 | Theta Music Hatch | `app.thetahatch.music` | `com.thetahatch.theta_music` | `Theta.Music.Hatch` | `Theta.Music.Hatch` | ID |

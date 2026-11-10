@@ -1,8 +1,8 @@
 # Theta Memo Hatch（memo）の移行メモ
 
-- 更新：2026-11-07
+- 更新：2026-11-10
 - スレッド：https://claude.ai/code/session_01H9m1j4wPmRzXQbzu7zWADS
-- 状態：実機確認待ち（0.3.0 のコードは main に。Secret の登録と Release 待ち）
+- 状態：実機確認待ち（0.3.0 を Releases に公開：v0.3.0、APK は app.thetahatch.memo・共通鍵）
 
 ## 今と目標
 
@@ -51,7 +51,8 @@
 - [x] スキン → 画面の枠はスキン、メモのカードは Keep の 12 色（スキンの明暗に合わせる）（2026-11-07）
 - [x] Windows・Mac 版 → 次の版から（2026-11-07）
 - [x] 既定ブランチを `main` に → `main` を作成済み。GitHub の Settings → Branches で既定を `main` に切り替えるのは利用者（Claude の道具では変えられない）
-- [ ] Theta.Hatch.Series の README の作品一覧（Memo の版 0.3.0・NAS 対応）と `catalog/apps.json`（integrations.synology・current）を、Release 後に直す（このスレッドは自分の progress だけ触る）
+- [x] Theta.Hatch.Series の README の作品一覧（0.3.0・NAS 対応）・`catalog/apps.json`（current・synology・secureSignIn）・APP_IDS を Release に合わせた（2026-11-10）
+- [ ] 既定ブランチを `main` に切り替える（GitHub の Settings → General → Default branch。利用者）。今は作業ブランチが既定のまま。Release は `main` への push で動く
 
 ## 進み具合
 
@@ -62,9 +63,9 @@
 - [x] update：更新をハブに頼む形に（ハブはハブ機能）
 - [x] settings：共通設定をハブから受け取る（ハブは配る側）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した
-- [ ] release：新しい版を Releases に出した
+- [x] release：新しい版を Releases に出した
 
-メモ：signing は release.yml・build.sh を 4 つの Secret（別名は ANDROID_KEY_ALIAS）に変更済み。Secret の登録と最初の Release はまだ。
+メモ：0.3.0 を 2026-11-10 に公開（`ThetaMemoHatch-0.3.0.apk`＋`SHA256SUMS-0.3.0.txt`、draft・prerelease でない、`tools/check_apk.py` で app.thetahatch.memo 0.3.0・シリーズ共通の鍵を確認）。`main` に版を上げて push すると Actions がタグと Release を自動で作る（spec §6.1 の条件 2）。
 
 ## 実機で確かめること
 

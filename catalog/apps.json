@@ -432,7 +432,7 @@
       "name": "Theta Memo Hatch",
       "current": {
         "repo": "Theta.Memo.Hatch",
-        "packageName": "jp.yaegaki.theta.memo"
+        "packageName": "app.thetahatch.memo"
       },
       "target": {
         "repo": "Theta.Memo.Hatch",
@@ -446,8 +446,8 @@
       "integrations": {
         "obsidianVault": "yes",
         "googleDrive": "yes",
-        "synology": "no",
-        "secureSignIn": "no"
+        "synology": "yes",
+        "secureSignIn": "yes"
       },
       "settingsExport": "no",
       "thread": "session_01H9m1j4wPmRzXQbzu7zWADS",
