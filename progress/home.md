@@ -2,7 +2,7 @@
 
 - 更新：2026-11-07
 - スレッド：https://claude.ai/code/session_01GMSgoGarRChJJQLGtjAFKY
-- 状態：1.3.1 公開済み（実機の確認はこれから）
+- 状態：1.4.0 公開済み（adb で試す受け口・β 版。実機の確認はこれから）
 
 ## 今と目標
 
