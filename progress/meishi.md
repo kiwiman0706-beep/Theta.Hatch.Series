@@ -1,6 +1,6 @@
 # Theta Meishi Hatch（meishi）の移行メモ
 
-- 更新：2026-11-07（1.0.0）
+- 更新：2026-11-11（1.1.0）
 - スレッド：https://claude.ai/code/session_016tfKWDzu24Zp9FBxh4cjKS
 - 状態：実機確認待ち（0.19.0・1.0.0 を Releases に公開。0.19.0 の書き出しは実機で確認済み、Home からの橋渡し版の取得はできなかった）
 
@@ -78,6 +78,14 @@
 - [x] スキン：後の版
 - [x] 新しいアプリは 1.0.0
 - [x] デスクトップの appId も変える（Windows は古い版を手で削除）
+
+## 撮って登録（SCAN、1.1.0）
+
+- 対応済み（spec §6.2）。`ScanActivity`：`Intent("app.thetahatch.action.SCAN")`＋`category.DEFAULT`、exported、権限なし。MainActivity とは別のアクティビティ（MainActivity は singleTask で結果を返せないため）。
+- extra `source`（呼んだアプリの id）・`mode`（`camera` 既定＝名刺スキャナー／`pick`＝端末の画像・PDF）。
+- 流れ：すぐスキャナー（または画像選び）→ 取り込んだ名刺を開く → Gemini の読み取りが済むと確認画面が自動で開く → 「確認済みで保存」で `RESULT_OK` で閉じる。スキャナーを閉じた・一覧や詳細で戻ったときは `RESULT_CANCELED`（撮った名刺は未確認のまま Meishi に残る）。
+- 読み取りはバックグラウンドなので、保存まで数秒〜十数秒 Meishi の画面にいる。Gemini キーが無いときは読み取らずに名刺を開くだけ（手で入力して保存すれば `RESULT_OK`）。
+- 実機で未確認：Home 1.5.0 の PEOPLE タブからの一連の流れ。
 
 ## 進み具合
 
