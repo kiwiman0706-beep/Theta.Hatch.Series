@@ -2,7 +2,7 @@
 
 - 更新：2026-11-07
 - スレッド：https://claude.ai/code/session_01GMSgoGarRChJJQLGtjAFKY
-- 状態：1.5.1 公開済み（貼り付けて登録・SCAN の入口。Chirashi の SCAN は実機で出ている）
+- 状態：1.7.0 公開済み（タスクバーのピン留め・LINE と人の結び付け・よく連絡する人。実機の確認はこれから）
 
 ## 今と目標
 
