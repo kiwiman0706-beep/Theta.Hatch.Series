@@ -751,7 +751,7 @@
         "drive",
         "calendar"
       ],
-      "latestRelease": "0.2.1",
+      "latestRelease": "0.3.0",
       "hubReady": true,
       "previous": {
         "packageName": "jp.yaegaki.theta.chirashi"
