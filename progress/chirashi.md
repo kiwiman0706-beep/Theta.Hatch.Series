@@ -1,6 +1,6 @@
 # Theta Chirashi Hatch（chirashi）の移行メモ
 
-- 更新：2026-11-07（シリーズへの提言を追加）
+- 更新：2026-11-11（撮って登録 SCAN に対応：0.3.0）
 - スレッド：https://claude.ai/code/session_012DXkbxUnbUEgxEY1bfHP77
 - 状態：実機確認待ち
 
@@ -51,6 +51,22 @@ Home から呼ぶときの決まり（`TransferActivity`）：
 - ただしスキャン・QR・カメラはスマホ向けで、PC では「Vault の一覧・カレンダー表示・編集・カレンダー登録」が中心。PC で画像を取り込んで読む（Gemini）ことはできる。
 - 先に Android を Vault 対応にし、PC 版はその次（0.3.0 以降）にしたい。Obsidian で `Chirashi/` を開けば、それまでも PC で一覧は見られる。
 
+### 撮って登録（`app.thetahatch.action.SCAN`）— 0.3.0 で対応（2026-11-11）
+
+spec の「撮って登録」どおり。Home の予定のタブの「チラシを撮る（Chirashi）」から使う。
+
+| | |
+| --- | --- |
+| 受けるアクティビティ | `app.thetahatch.chirashi.ScanActivity`（`exported="true"`、`<action app.thetahatch.action.SCAN>`＋`category.DEFAULT`、**権限なし**）。launchMode は標準なので、呼んだアプリ（Home）のタスクの中に開く |
+| extras | `source`（呼んだアプリの id、例 `home`）、`mode`（`camera` 既定＝ドキュメントスキャナー／`pick`＝画像を選ぶ） |
+| 流れ | 開いたらすぐスキャナー（`pick` は画像選び）→ QR・Gemini で読み取り → 確認画面（チラシの内容）→「カレンダーに登録して戻る」で**端末のカレンダーに直接入れる**（CalendarContract、権限 READ/WRITE_CALENDAR を初回に聞く）→ `finish()` |
+| 結果 | 登録したら `RESULT_OK`、撮るのをやめた・「登録せずに戻る」・戻るボタンは `RESULT_CANCELED`。データは返さない |
+| 端末のカレンダー | 書き込める Google アカウントのカレンダー（Chirashi で選んだアカウントのメイン → ほかのメイン → 最初のもの）。Home の予定のタブにすぐ出る。カレンダーの許可を断られたら、カレンダーアプリを開く形（Intent.ACTION_INSERT）に落とす |
+| 画像の添付 | 確認画面の「Googleカレンダーに画像付きで登録して戻る」でも可。端末に入れた予定にあとから画像を付けるときは、同期済みの同じ予定（`_SYNC_ID`）に Calendar API で添付する（二重にならない。未同期なら端末の予定を消して API で作り直す） |
+| 1 枚に複数の会 | 登録すると、同じスキャンで読み取った次の会の確認画面に進み、全部済んだら戻る |
+
+Home 側で確かめてほしいこと：`resolveActivity(Intent("app.thetahatch.action.SCAN").setPackage("app.thetahatch.chirashi"))` でボタンが出ること、`startActivityForResult` で `RESULT_OK` が返ったら予定のタブを読み直すこと。
+
 ## 決めてほしいこと
 
 - [x] 端末内データの移し方 → **Home がまとめて行う**（橋渡し版 0.1.1 で EXPORT、0.2.0 で IMPORT）。2026-11-07
@@ -83,6 +99,9 @@ Home から呼ぶときの決まり（`TransferActivity`）：
 - [x] release：新しい版を Releases に出した
 
 ## 実機で確かめること
+
+- [ ] Home の「チラシを撮る」→ スキャナー → 読み取り → 「カレンダーに登録して戻る」→ Home の予定のタブに出る（0.3.0）
+- [ ] `mode=pick` で画像選び、撮るのをやめると `RESULT_CANCELED`
 
 - [ ] 共通鍵で署名した APK の SHA-1 が `A1:13:EA:…:28:BA`
 - [x] Google ログイン・Drive への画像のアップロード（2026-11-07、0.2.0）
