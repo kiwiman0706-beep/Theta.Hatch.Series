@@ -151,6 +151,30 @@ Android の更新は **Theta Home Hatch と Theta KidsHome Hatch（＝更新ハ�
 - 設定に「自動で更新する（オン／オフ、既定オン）」と「モバイル回線でも取得する（既定オフ）」。
 - 失敗したときは理由と「Releases ページを開く」ボタン。
 
+### 6.2 アプリ間の呼び出し（Intent の一覧）
+
+シリーズのアプリ同士で使う Intent。名前はすべて `app.thetahatch.action.*`。
+
+| Intent | 受ける側 | 呼ぶ側 | 決まり |
+| --- | --- | --- | --- |
+| `UPDATE` | ハブ（Home・KidsHome） | 各アプリ | §6.1 |
+| `UPDATE_BUSY` | ハブ | もう一方のハブ | §6.1「ハブが両方入っている端末」 |
+| `EXPORT`・`IMPORT` | 橋渡し版・新しい版 | ハブ | `docs/MIGRATION.md` §3 |
+| `SCAN` | Meishi・Chirashi（撮って登録するアプリ） | Home など | 下の「撮って登録」 |
+
+**撮って登録（`SCAN`）**（2026-11-11、Home 1.5.0 の提案から）
+
+ほかのアプリ（主に Home）のボタンから、名刺やチラシを撮って登録する画面をすぐ開くための入口。Home 1.5.0 は、PEOPLE のタブに「名刺を撮る（Meishi）」、予定のタブに「チラシを撮る（Chirashi）」を置く用意があり、相手が対応すると自動でボタンが出る。
+
+- 受ける側：`Intent("app.thetahatch.action.SCAN")` を受けるアクティビティ（`<category android:name="android.intent.category.DEFAULT"/>`、`exported="true"`）。**権限は要らない**（画面を開くだけで、データは渡さない・返さない）。
+- 呼ぶ側：`setPackage(<相手のパッケージ名>)` を付けて送る。extra：
+  - `source`：呼んだアプリの catalog の id（例 `home`）
+  - `mode`：`camera`（既定）か `pick`（端末の画像を選ぶ）
+- 受けた側：すぐにカメラ（`pick` なら画像選び）を開き、読み取り → 確認 → 登録までを**自分の画面で**行う。終わったら `finish()`（登録したら `RESULT_OK`、やめたら `RESULT_CANCELED`）。呼んだ画面に戻る。
+- Chirashi は、読み取った予定を**端末のカレンダーにも入れる**ところまで行う（Home の予定のタブに出るように）。Google カレンダーへの登録（画像の添付）は今までどおり。
+- 呼ぶ側は `resolveActivity`（または `queryIntentActivities`）で相手が対応しているかを確かめ、無ければボタンを出さない。移行の間は古い ID と新しい ID の両方を探す。Manifest の `<queries>` に相手のパッケージ名を書く。
+- 撮って登録するアプリが増えたら（例：Camera・Device）、この表に足す。
+
 ## 7. DeskHatch との統合
 
 - **今**：デスクトップ版がトレイに常駐し、`http://127.0.0.1:<ポート>/?token=<秘密>` で同じUIを配信。DeskHatchの「Webページ」ドロワーに追加して使う。
