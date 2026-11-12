@@ -84,6 +84,14 @@
 - 写真は、Theta Camera Hatch が `ACTION_IMAGE_CAPTURE`（`EXTRA_OUTPUT` に書いて返す）を受けられるならそちらへ。**今の Camera Hatch（0.13 系）にはこの入口が無い**ので、端末のカメラのまま。Camera Hatch のスレッドで入口を足せば Memo 側は変更なしで使われる
 - spec §6.2 の `SCAN` を受ける（Memo：新しいメモでスキャン、`mode=pick` は画像・ファイル選び、メモを閉じると `RESULT_OK` で戻る）。**§6.2 の表に Memo を足すのは Series のスレッドで**
 
+## 0.3.3（2026-11-12）— Camera Hatch の `CAPTURE` を使う
+
+- 「写真を撮る」「スキャン」：`Intent("app.thetahatch.action.CAPTURE").setPackage("app.thetahatch.camera")` を `resolveActivity` で確かめて開く（`source`=memo、`mode`=photo／scan、`modes`=photo・video・scan、`multiple`=true、`scanFormat`=設定の pdf／images）
+- 結果の `ClipData`（無ければ `data`）の各 URI を `openInputStream` ですぐコピーしてメモへ。写真・動画はそのまま、PDF は「スキャン 日時.pdf」の名前で。HEIC はエディタでもサムネイル（JPEG）で表示
+- Camera Hatch が無い・古いときは端末のカメラと Google のスキャナ（0.3.2 のまま）
+- Manifest：`app.thetahatch.permission.SHARE` の uses-permission と `<queries>` の `app.thetahatch.camera` は 0.3.2 から入っている
+- 0.3.2 の「`ACTION_IMAGE_CAPTURE` を Camera Hatch に送る」はやめた（`CAPTURE` に置き換え）
+
 ## 実機で確かめること
 
 - [ ] NAS（DS1825+、Tailscale）：接続・Secure SignIn のコード（次から不要）・自己署名証明書・同期（作成・編集・削除・添付）
@@ -91,5 +99,6 @@
 - [ ] 新しいアプリで Drive の許可と同期（新 ID の OAuth クライアント）
 - [ ] Home（ハブ）からの更新と、ハブが無いときに Releases が開くこと
 - [ ] Home から Gemini キー・スキンを受け取る
+- [ ] Camera Hatch 0.14.0 と：写真・動画・スキャンを何枚か撮って「完了」→ そのメモに全部入る、HEIC が表示される、Camera のギャラリーに残らない
 - [ ] スキャン（1 ページ・複数ページ PDF）、「ホーム画面に置く」でそのメモのウィジェットが出る
 - [ ] Home の「MemoHatch」タブ（棚）にピン留めのメモが並ぶ・写真付きは写真が出る・押すとそのメモが開く・ピン留めを外すと消える
