@@ -120,6 +120,29 @@ Theta Hatch の設定を引き継ぎますか？         （Meishi Hatch で設�
 - 設定の正本は、どの端末でも「最後に変えたアプリ」の値（`at` が新しい方）。同じ端末では、ほかのアプリの `info` を見て、より新しい値があれば「シリーズに合わせる」項目だけ取り込む。
 - デバイストークンを複数のアプリで使い回せるかは、Synology の動き次第（未確認）。使えなければ、アプリごとに一度だけ確認コードを入れる。
 
+### 4.2 アプリの「棚」（`/shelf`）
+
+各アプリが、自分の代表的な中身（ピン留めのメモ、お気に入りのアルバムなど）を Home に見せるための窓口（2026-11-12、Home 1.9.0 の提案から）。Home はアプリごとのタブ（棚）に並べ、Theta Music の棚は音楽が流れていないときにも出す。
+
+- 場所：各アプリの設定のプロバイダ（authority `<applicationId>.theta`、権限 `app.thetahatch.permission.SHARE`、`protectionLevel="signature"`）に `/shelf` を足す。**共通の鍵で署名したアプリ同士でしか読めない**。
+- `query content://<applicationId>.theta/shelf` → 1 行 1 つ。列：
+
+  | 列 | 中身 |
+  | --- | --- |
+  | `section` | まとまりの名前（`pinned`・`favorites`・`recent` など） |
+  | `sectionTitle` | まとまりの見出し（例「ピン留め」「お気に入り」「最近再生」） |
+  | `id` | そのアプリの中での id |
+  | `title`・`subtitle` | 見出しと補足 |
+  | `text` | メモの本文の頭など（数行まで。長すぎない） |
+  | `image` | ジャケット・写真の `content://` URI（同じプロバイダの `openFile` で出す）。無ければ空 |
+  | `action` | 押したときの Intent を `Intent.toUri(Intent.URI_INTENT_SCHEME)` にした文字 |
+  | `color` | `#RRGGBB`（メモの色など）。無ければ空 |
+
+- 並びは出したい順。多くても 30 件くらい。中身が変わったら `notifyChange(content://<applicationId>.theta/shelf)` を呼ぶ（Home が読み直す）。
+- 見せ方（Home）：`image` がある物（アルバム・写真）は横に並べ、無い物（メモ）は縦のカードにする。
+- **安全**：Home は `action` を**そのアプリ宛てに限って**開く（`setPackage(<そのアプリ>)` を付け直し、ほかのアプリの `component` なら開かない）。`/shelf` には秘密（パスワード・トークン・API キー）や、人に見せたくない中身（非公開のメモなど）を入れない。どれを出すかは各アプリの設定で選べるようにする。
+- 最初に対応するアプリ：**Memo**（ピン留めのメモ）、**Music**（お気に入り・最近再生したアルバム。押すと再生）。
+
 ## 5. Google Cloud は1つのプロジェクトで
 
 手順の全体（共通の設定と、アプリごとの設定の分け方）は `THETA_GOOGLE_SETUP.md`。

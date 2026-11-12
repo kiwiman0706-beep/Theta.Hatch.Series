@@ -162,6 +162,8 @@ Android の更新は **Theta Home Hatch と Theta KidsHome Hatch（＝更新ハ�
 | `EXPORT`・`IMPORT` | 橋渡し版・新しい版 | ハブ | `docs/MIGRATION.md` §3 |
 | `SCAN` | Meishi・Chirashi（撮って登録するアプリ） | Home など | 下の「撮って登録」 |
 
+Intent のほかに、ContentProvider（`<applicationId>.theta`）の窓口もある：共通設定（`info`・`secret`、ハブ）と、アプリの棚（`/shelf`、各アプリ）。決まりは `THETA_SHARED_SETTINGS.md` §4.0〜§4.2。
+
 **撮って登録（`SCAN`）**（2026-11-11、Home 1.5.0 の提案から）
 
 ほかのアプリ（主に Home）のボタンから、名刺やチラシを撮って登録する画面をすぐ開くための入口。Home 1.5.0 は、PEOPLE のタブに「名刺を撮る（Meishi）」、予定のタブに「チラシを撮る（Chirashi）」を置く用意があり、相手が対応すると自動でボタンが出る。
