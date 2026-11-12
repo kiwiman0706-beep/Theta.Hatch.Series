@@ -32,7 +32,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 
 | # | 作品 | 概要 | 最新版 | GitHub | Claude スレッド | 開始日 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | **Theta.Book.Hatch**<br>（DSBooks） | 自炊本・PDF・コミック・EPUB・Markdown の本棚／リーダー。全画面読書、見開き・縦スクロール表示。姉妹アプリ Theta.Jisui.Viewer も同じリポジトリ | 1.1.0（新しい ID、移行済み） | [Theta.Book.Hatch](https://github.com/kiwiman0706-beep/Theta.Book.Hatch)（旧 dsbooks） | [Theta.Book.Hatch](https://claude.ai/code/session_01VBri9A5SpavPKRqvCQZARs) | 2026-10-15 |
+| 1 | **Theta.Book.Hatch**<br>（DSBooks） | 自炊本・PDF・コミック・EPUB・Markdown の本棚／リーダー。全画面読書、見開き・縦スクロール表示。Home の「本」に表紙（アプリの棚）。姉妹アプリ Theta.Jisui.Viewer も同じリポジトリ | 1.1.1（新しい ID、移行済み、アプリの棚） | [Theta.Book.Hatch](https://github.com/kiwiman0706-beep/Theta.Book.Hatch)（旧 dsbooks） | [Theta.Book.Hatch](https://claude.ai/code/session_01VBri9A5SpavPKRqvCQZARs) | 2026-10-15 |
 | 2 | **Theta.Meishi.Hatch**<br>（旧 Meishi-Claude） | 名刺を撮影 → Gemini で読み取り → Google 連絡先に登録。名刺画像・メモ・録音を人ごとに保存、カレンダー・地図・Drive 同期。シリーズ共通仕様（Theta Vault）の元 | 1.0.0（新しい ID、移行済み） | [Theta.Meishi.Hatch](https://github.com/kiwiman0706-beep/Theta.Meishi.Hatch)（旧 MeishiApp） | [Theta.Meishi.Hatch](https://claude.ai/code/session_016tfKWDzu24Zp9FBxh4cjKS) | 2026-10-16 |
 | 3 | **Theta.Item.Hatch**<br>（おもいでクローゼット） | 小さくなった子ども服などを手放す前に写真で残し、スマホのクローゼットのように眺めて楽しむ記録アプリ | 1.3.0 | [Theta.Item.Hatch](https://github.com/kiwiman0706-beep/Theta.Item.Hatch) | [Theta.Item.Hatch](https://claude.ai/code/session_01QGzXdJYduLXUGSNC9NMCDu) | 2026-10-17 |
 | 4 | **Theta.Kamigata.Hatch**<br>（くるりヘア） | 子どもの髪型を前後左右・斜め・真上から撮影し、指のドラッグで角度を切り替えて見返す（QuickTime VR の Object Movie 風） | 1.1.0 | [Theta.Kamigata.Hatch](https://github.com/kiwiman0706-beep/Theta.Kamigata.Hatch) | [Theta.Kamigata.Hatch](https://claude.ai/code/session_01De2aFah9Lcgtf5wm3XZKDX) | 2026-10-17 |

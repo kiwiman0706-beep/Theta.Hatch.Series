@@ -1,8 +1,8 @@
 # Theta Book Hatch（book）の移行メモ
 
-- 更新：2026-11-07（2 回目）
+- 更新：2026-11-12
 - スレッド：https://claude.ai/code/session_01VBri9A5SpavPKRqvCQZARs
-- 状態：実機確認待ち（移行まわり）。スキン・共通設定・Vault は作業中
+- 状態：実機確認待ち（移行まわり・アプリの棚）。スキン・共通設定・Vault は作業中
 
 ## 今と目標
 
@@ -60,6 +60,21 @@
 - 今ある（Python＋pywebview、ポート 47817、DeskHatch のドロワー対応）。spec の Electron ではないが、同じ HTML/CSS/JS を共有しているので、そのまま続けたい（決めてほしいこと 5）
 - デスクトップは Home のハブが無いので、設定は今どおりアプリで入力
 
+## アプリの棚（/shelf、THETA_SHARED_SETTINGS §4.2）
+
+1.1.1 で対応（`v1.1.1`、共通鍵のビルドだけ）。
+
+- プロバイダ：authority `app.thetahatch.book.theta`、`android:permission="app.thetahatch.permission.SHARE"`（Book も signature で宣言）
+- `query content://app.thetahatch.book.theta/shelf`：1 行 1 冊、30 冊まで、出したい順、同じ本は 1 回だけ
+  - section：`reading`（読みかけ）→ `favorites`（お気に入り）→ `recent`（最近）。sectionTitle は「読みかけ」「お気に入り」「最近」。各区画 12 冊まで
+  - title：書名。subtitle：著者・巻・`12/200ページ`（ページが無ければ ％、読み終わりは「読了」）。text・color は空
+  - image：`content://app.thetahatch.book.theta/cover/<file>.jpg`（表紙のキャッシュ、縦長、openFile で出す）。まだ表紙を取っていない NAS の本は空
+  - action：`Intent.ACTION_MAIN`＋`MainActivity`＋extra `dsbooks.widget.book_id` を `URI_INTENT_SCHEME` にした文字。その本を続きから開く
+- 本棚を保存するたびに作り直し、中身が変わった時だけ `notifyChange(content://app.thetahatch.book.theta/shelf)`
+- 本文・メモ・NAS の接続先・アカウントは入れない。設定 →「ウィジェット：Theta Home の本棚」で区画を選べる
+- 橋渡し版（`jp.shinwakai.dsbooks.claude`、Claude 版の鍵）とビューアには入れない（別の鍵で同じ signature 権限を宣言すると、後から入れる方がインストールできなくなるため）。Home は新しい ID の方を見てほしい
+- 表紙が後から取れても notifyChange はしない（次に本棚を保存した時に出る）
+
 ## 決めてほしいこと
 
 利用者の答え（2026-11-07）：
@@ -100,3 +115,4 @@
 - [ ] 新しい版を入れ、Home から IMPORT → 本棚・読書位置・栞・メモ・NAS の接続先が戻る（パスワードはハブから or 再入力）
 - [ ] NAS の本を開くと、保存済みだった本は取り直しになり、位置はそのまま
 - [ ] ハブの「更新する」で Releases から更新される
+- [ ] 1.1.1：Home の「本」と「＋」の Book タブに表紙が並び、押すとその本が続きから開く。設定で区画を外すと消える
