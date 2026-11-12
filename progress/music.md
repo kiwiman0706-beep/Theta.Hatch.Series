@@ -2,7 +2,7 @@
 
 - 更新：2026-11-12
 - スレッド：https://claude.ai/code/session_012DXkc2Wd5iBmicj8ba39vG
-- 状態：作業中（計画 OK 2026-11-12。棚 `/shelf` はコード済み）
+- 状態：作業中（コードは `main` に済み：`ff62701`。v1.0.0 の Release を Actions で作成中）
 
 ## 今と目標
 
@@ -80,14 +80,23 @@
 ## 進み具合
 
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
-- [ ] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
-- [ ] appid：アプリ ID を新しい ID に
-- [ ] signing：共通鍵の Secret で署名
-- [ ] update：更新をハブに頼む形に（ハブはハブ機能）
-- [ ] settings：共通設定をハブから受け取る（ハブは配る側）
-- [ ] rename：改名後の名前に合わせて URL・リンクを直した
+- [x] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
+- [x] appid：アプリ ID を新しい ID に（`app.thetahatch.music`、Kotlin も `app/thetahatch/music`）
+- [x] signing：共通鍵の Secret で署名（`release.yml`。別名は `ANDROID_KEY_ALIAS` から。APK の SHA-256 を確かめる）
+- [x] update：更新をハブに頼む形に（`app.thetahatch.action.UPDATE`、無ければ Releases。インストール権限なし）
+- [x] settings：共通設定をハブから受け取る（`ui.skin` に合わせる・変えたら書き戻す。NAS の接続先・パスワード・デバイストークンは「Home の NAS の設定を使う」で）
+- [x] rename：改名後の名前に合わせて URL・リンクを直した（リポジトリ名は変わらず。表示名・通知チャンネル・README）
 - [x] shelf：Home の棚（`/shelf`）に対応（コード済み。効くのは新 ID・共通鍵の版から）
 - [ ] release：新しい版を Releases に出した
+
+## やったこと（2026-11-12）
+
+- スキン：Series の `skins.json` から `lib/ui/hud/skins.g.dart` を生成（`tool/gen_skins.py`）。11 種（system を含む）。作り（角丸・影・書体・背景の模様）も主なところを真似
+- Theta Vault：既定の書き出し先を `Obsidian/Theta Vault/Music`。ノートに `theta: music/album@1`・`artist@1`・`id`（名前から決まる UUID 形）、`nas_path` は `nas://music/…`、リンクは Vault のルートから、`アルバム.base`・`アーティスト.base`（無いときだけ）、`.theta/vault.json` に `music`
+- お気に入りを Vault のノートから戻す（`favorite: true` と曲の表の ★）。WebDAV・File Station の両方で往復を確認
+- パスワード・デバイストークンを端末内で暗号化（flutter_secure_storage。前の版の平文から移す）
+- `main` を作成。`release.yml`（`main` への push でタグ・Release、APK は `ThetaMusicHatch-<版>.apk` 1 つ、パッケージ名・版・鍵を確認）。作業ブランチは `build-apk.yml`（デバッグ鍵）
+- `TESTING.md` に実機で未確認のことを書いた
 
 ## 実機で確かめること
 
