@@ -790,7 +790,7 @@
         }
       },
       "hubReady": true,
-      "remark": "Galaxy Z Fold5 専用のカメラ。純正の置き換えが目標。0.14.0：撮って返す（spec §6.2 CAPTURE）に対応。ADB の窓口あり"
+      "remark": "Galaxy Z Fold5 専用のカメラ。純正の置き換えが目標。0.15.0：撮って返す（spec §6.2 CAPTURE）、端末のカメラとしての入口・ロック画面、QR の自動読み取り。ADB の窓口あり"
     },
     {
       "id": "desk",
