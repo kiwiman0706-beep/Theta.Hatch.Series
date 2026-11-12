@@ -2,7 +2,7 @@
 
 - 更新：2026-11-07
 - スレッド：https://claude.ai/code/session_01GMSgoGarRChJJQLGtjAFKY
-- 状態：1.8.2 公開済み（タスクバーのピン留め・LINE と人の結び付け・よく連絡する人・LINE WORKS などのトーク。実機の確認はこれから）
+- 状態：1.9.0 公開済み（棚・Gmail の重要も）（タスクバーのピン留め・LINE と人の結び付け・よく連絡する人・LINE WORKS などのトーク。実機の確認はこれから）
 
 ## 今と目標
 
@@ -110,6 +110,20 @@
 - `query /secret/<キー>` → 列 `key`・`value`（`gemini.key`・`nas.password`・`nas.deviceToken`。無ければ 0 行、ほかのキーは null）
 - `update /info`（ContentValues：キー → 値の文字列）→ 受け付けた数。`key`・`token`・`secret`・`password` を含む名前は受け付けない。知らない項目も預かって `info` で返す
 - 書いたアプリは呼び出し元のパッケージ名から catalog の id で記録
+
+### Hatch のアプリの「棚」（/shelf）— spec に足してほしい
+
+Home 1.9.0 は、シリーズのアプリごとのタブ（棚）と、音楽が流れていないときの Theta Music の棚を読む用意がある。各アプリが設定のプロバイダ（authority `<applicationId>.theta`、権限 `app.thetahatch.permission.SHARE`）に `/shelf` を足せば、Home に出る。
+
+- `query content://<applicationId>.theta/shelf` → 1 行 1 つ。列：
+  - `section`（`pinned`・`favorites`・`recent` など）、`sectionTitle`（見出し。例「ピン留め」「お気に入り」「最近再生」）
+  - `id`、`title`、`subtitle`、`text`（メモの本文の頭など。長すぎない）
+  - `image`（ジャケット・写真の `content://` URI。同じプロバイダの `openFile` で出す。無ければ空）
+  - `action`（押したときの Intent を `Intent.toUri(Intent.URI_INTENT_SCHEME)` にした文字。Home はそのアプリ宛てに限って開く）
+  - `color`（`#RRGGBB`。メモの色など。無ければ空）
+- 並びは出したい順。多くても 30 件くらい
+- 画像があるもの（アルバムなど）は横に並べ、無いもの（メモなど）は縦のカードで出す
+- まずは **MemoHatch（ピン留めメモ）** と **Theta Music（お気に入り・最近再生したアルバム。押すと再生）**
 
 ### 「撮って登録」の入口（Meishi・Chirashi）— spec に足してほしい
 
