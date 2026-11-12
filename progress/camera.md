@@ -1,6 +1,6 @@
 # Theta Camera Hatch（camera）の移行メモ
 
-- 更新：2026-11-10
+- 更新：2026-11-12
 - スレッド：https://claude.ai/code/session_012DXkbx4X64tseX2Fpu1dRb
 - 状態：作業中（新しい ID・共通鍵で Release 済み。Fold5 実機での確認中）
 
@@ -24,6 +24,8 @@
 - 0.1.0 からの橋渡し版は作らない。端末内のデータは写真ファイルだけで、DCIM に残る。
 - ADB の窓口（StatusService・CommandReceiver、spec/THETA_ADB_SPEC.md）は 0.12.0 で実装済み。カメラ用の命令（PHOTO・VIDEO・ZOOM など）も持つ。テスト手順はリポジトリの TESTING.md。
 
+- 撮って返す（spec §6.2 `CAPTURE`）を 0.14.0 で実装。Memo などから呼んで写真・動画・スキャンを受け取れる
+
 ## 決めてほしいこと
 
 - [ ] スキン（ui.skin）に合わせるか（今はモノクロの線アイコンで固定）
@@ -42,4 +44,5 @@
 ## 実機で確かめること
 
 - [ ] ハブ（Home・KidsHome）の Hatch ドロワーに出て、更新できるか
+- [ ] Memo から撮って返す（写真・動画・スキャン、1 つ／複数）
 - [ ] Fold5 での撮影・録画・録画中の写真・外画面・Flex モード（一覧はリポジトリの TESTING.md）

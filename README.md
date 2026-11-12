@@ -18,7 +18,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 8 | 署名鍵 | Android は**シリーズ共通の鍵**（Meishi の鍵、SHA-1 `A1:13:EA:…:28:BA`）。CI の Secret 名は `ANDROID_KEYSTORE_B64`・`ANDROID_KEYSTORE_PASSWORD`・`ANDROID_KEY_ALIAS`・`ANDROID_KEY_PASSWORD`。`tools/sync-secrets` で全リポジトリへ配る | [secrets](secrets/README.md) |
 | 9 | AI・Google | Gemini は利用者自身の API キー。Google Cloud はシリーズで1プロジェクト、新しいアプリは Android 用 OAuth クライアント（パッケージ名＋共通の SHA-1）を足すだけ。設定手順はアプリ内のガイドで案内 | [Google 連携](spec/THETA_GOOGLE_SETUP.md) |
 | 10 | リリース・**自動更新（必須）** | GitHub Actions の `release.yml` で全プラットフォームを1つの Release に。Web 版は `pages.yml`。**Android の更新は Home・KidsHome（更新ハブ）がまとめて行う**：Releases を12時間ごとに確認、Wi-Fi で取得、SHA-256・パッケージ名・共通鍵の署名を照合して PackageInstaller で更新。ほかのアプリはインストールの権限を持たず、ハブに頼む（ハブが無ければ Releases ページを開く）。リポジトリは公開。**Release の条件**（自動でタグと Release・prerelease にしない・APK は 1 つ・新しい ID・共通鍵）は spec §6.1、APK は `tools/check_apk.py` で確かめる | [spec §6・§6.1](spec/THETA_HATCH_SPEC.md) |
-| 11 | 連携 | デスクトップ版は DeskHatch のドロワーとして表示できるように。テレビへは Theta Link（LAN 内で発見・ペアリング） | [spec §7・§8](spec/THETA_HATCH_SPEC.md) |
+| 11 | 連携 | デスクトップ版は DeskHatch のドロワーとして表示できるように。テレビへは Theta Link（LAN 内で発見・ペアリング）。アプリ同士の呼び出し（ハブへの更新、撮って登録、Camera で撮って返す `CAPTURE` など）は §6.2 の一覧に従う | [spec §6.2・§7・§8](spec/THETA_HATCH_SPEC.md) |
 | 12 | 品質 | Vault の往復テスト、2台の同期テスト、320〜768px 幅ではみ出さない、JS エラー0。実機で確かめていないことは `TESTING.md` に「未確認」と書く | [spec §9](spec/THETA_HATCH_SPEC.md) |
 | 13 | 新しいアプリの手順 | 各アプリの `CLAUDE.md` にこのリポジトリを参照する一文を入れる。完成したら下の作品一覧に追加し、`tools/repos.txt` に足して Secret を配る | [FOR_APP_REPOS](docs/FOR_APP_REPOS.md) |
 | 14 | 移行 | 名前・ID・リポジトリ名・署名鍵を揃える作業中。移行の操作は **Theta Home Hatch がまとめて行う**（橋渡し版への更新 → 書き出し → 新しい版を入れる → 読み込み → 古いアプリの削除）。データを移すのは Meishi・Chirashi・Book だけ、ほかは入れ直し | [MIGRATION](docs/MIGRATION.md) |
@@ -52,7 +52,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 18 | **Theta.Movie.Hatch**（設計中） | Synology の動画プレイヤー（Video Station）の代わり。NAS 上の Jellyfin（Docker、Tailscale 経由）を土台に、他のソフトでも読めるファイル名規則（`docs/naming-convention.md`）を作成中 | — | [Theta.Movie.Hatch](https://github.com/kiwiman0706-beep/Theta.Movie.Hatch) | [動画プレイヤー代替アプリ](https://claude.ai/code/session_012DXkbxgRpZwVsU9fra6sF1) | 2026-11-03 |
 | 19 | **Theta.File.Hatch**（試作） | Theta Vault を NAS などに置いたまま、フォルダごとにふさわしい見え方で眺めるファイラーの試作。見え方もファイル（`.view.yaml`）で持つ。ブラウザで見られるデモ付き | — | [Theta.File.Hatch](https://github.com/kiwiman0706-beep/Theta.File.Hatch) | [ObsidianFS 構想](https://claude.ai/code/session_012DXkbxcLWLwFVYWM9tVHxb) | 2026-11-05 |
 | 20 | **Theta.Chirashi.Hatch** | 製薬会社の勉強会などのチラシをスキャン → Gemini で読み取り → Google カレンダーに登録（チラシ画像は Drive に保存して添付）。QR コード読み取り、月のカレンダー表示。Meishi.Hatch と同じつくり | 0.3.0（撮って登録 SCAN に対応） | [Theta.Chirashi.Hatch](https://github.com/kiwiman0706-beep/Theta.Chirashi.Hatch) | [アプリ開発](https://claude.ai/code/session_012DXkbxUnbUEgxEY1bfHP77) | 2026-11-06 |
-| 21 | **Theta.Camera.Hatch** | Galaxy Z Fold5 専用のカメラ。起動後ワンタップ録画・録画中の写真、開いたら外画面で自撮り、外画面ライブ、Flex モード、スロー 240fps・HDR、全体を残して表示範囲を記録する HEIF（clap）、イベント・☆・タグ・コメント（XMP／JSON）。純正カメラの置き換えが目標。ADB の窓口あり | 0.13.1（新しい ID・共通鍵） | [Theta.Camera.Hatch](https://github.com/kiwiman0706-beep/Theta.Camera.Hatch) | [カメラアプリ](https://claude.ai/code/session_012DXkbx4X64tseX2Fpu1dRb) | 2026-11-08 |
+| 21 | **Theta.Camera.Hatch** | Galaxy Z Fold5 専用のカメラ。起動後ワンタップ録画・録画中の写真、開いたら外画面で自撮り、外画面ライブ、Flex モード、スロー 240fps・HDR、全体を残して表示範囲を記録する HEIF（clap）、イベント・☆・タグ・コメント（XMP／JSON）。純正カメラの置き換えが目標。ADB の窓口あり | 0.14.0（新しい ID・共通鍵、撮って返す） | [Theta.Camera.Hatch](https://github.com/kiwiman0706-beep/Theta.Camera.Hatch) | [カメラアプリ](https://claude.ai/code/session_012DXkbx4X64tseX2Fpu1dRb) | 2026-11-08 |
 
 ### 関連（Theta.xxx.Hatch の名前ではないもの）
 

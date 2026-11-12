@@ -161,6 +161,7 @@ Android の更新は **Theta Home Hatch と Theta KidsHome Hatch（＝更新ハ�
 | `UPDATE_BUSY` | ハブ | もう一方のハブ | §6.1「ハブが両方入っている端末」 |
 | `EXPORT`・`IMPORT` | 橋渡し版・新しい版 | ハブ | `docs/MIGRATION.md` §3 |
 | `SCAN` | Meishi・Chirashi（撮って登録するアプリ） | Home など | 下の「撮って登録」 |
+| `CAPTURE` | Camera | Memo など | 下の「撮って返す」 |
 
 Intent のほかに、ContentProvider（`<applicationId>.theta`）の窓口もある：共通設定（`info`・`secret`、ハブ）と、アプリの棚（`/shelf`、各アプリ）。決まりは `THETA_SHARED_SETTINGS.md` §4.0〜§4.2。
 
@@ -176,6 +177,22 @@ Intent のほかに、ContentProvider（`<applicationId>.theta`）の窓口も�
 - Chirashi は、読み取った予定を**端末のカレンダーにも入れる**ところまで行う（Home の予定のタブに出るように）。Google カレンダーへの登録（画像の添付）は今までどおり。
 - 呼ぶ側は `resolveActivity`（または `queryIntentActivities`）で相手が対応しているかを確かめ、無ければボタンを出さない。移行の間は古い ID と新しい ID の両方を探す。Manifest の `<queries>` に相手のパッケージ名を書く。
 - 撮って登録するアプリが増えたら（例：Camera・Device）、この表に足す。
+
+**撮って返す（`CAPTURE`）**（2026-11-12、Memo の依頼から。Camera 0.14.0 で実装）
+
+ほかのアプリの「写真を撮る」「スキャン」から Camera Hatch を開き、撮ったものを受け取る入口。撮影画面の中で写真・動画・スキャンを切り替えられる。
+
+- 受ける側：Camera Hatch のアクティビティ（`exported="true"`、`<category android:name="android.intent.category.DEFAULT"/>`）。**データを返すので、権限 `app.thetahatch.permission.SHARE`（`protectionLevel="signature"`）で守る**。呼ぶ側は Manifest に `<uses-permission android:name="app.thetahatch.permission.SHARE"/>` と、`<queries>` に `app.thetahatch.camera` を書く。
+- 呼ぶ側：`Intent("app.thetahatch.action.CAPTURE").setPackage("app.thetahatch.camera")` を `startActivityForResult`（または `ActivityResultContracts.StartActivityForResult`）で開く。extra：
+  - `source`：呼んだアプリの catalog の id（例 `memo`）
+  - `mode`：最初に開くモード。`photo`（既定）・`video`・`scan`
+  - `modes`：切り替えてよいモード（`String[]`、例 `["photo","video","scan"]`）。無ければ全部
+  - `multiple`：`true` なら何枚・何本でも撮れて、「完了」で返す。`false`（既定）は 1 つ撮ったらすぐ返す
+  - `scanFormat`：スキャンの返し方。`pdf`（既定。複数ページを 1 つの PDF）か `images`（ページごとの JPEG）
+- 撮影画面：上に「↩ ○○ Hatch へ」の帯、下に「やめる｜写真｜動画｜スキャン｜完了（n）」。スキャンは ML Kit のスキャナ（端の検出と補正）。`mode` が `scan` なら開いてすぐスキャナを出す。
+- 返し方：`RESULT_OK`。撮ったものは **1 つでも `ClipData`** に入れ、各項目は `content://` の URI（Camera の FileProvider）で `FLAG_GRANT_READ_URI_PERMISSION` を付ける。`ClipDescription` に MIME（`image/jpeg`・`image/heic`・`video/mp4`・`application/pdf`）を入れ、`getType` でも分かる。最初の項目は `Intent.data` にも入れる。返したファイルは 30 分以上残す（受け取ったらすぐコピーする）。やめたら `RESULT_CANCELED`。
+- 呼ばれたときは Camera のギャラリー・フォルダに保存しない。Camera の設定「呼ばれたときも自分にも保存」で残せる。XMP などのメタデータはファイルの中に入ったままでよい。
+- 呼ぶ側は `resolveActivity` で対応を確かめ、無ければ今までどおり端末のカメラ（`ACTION_IMAGE_CAPTURE` など）や Google のスキャナを使う。
 
 ## 7. DeskHatch との統合
 

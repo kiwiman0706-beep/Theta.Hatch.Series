@@ -1,6 +1,6 @@
 # アプリ ID とリポジトリ名（決定版）
 
-生成ファイル：`python tools/gen_app_ids.py` で `catalog/apps.json` から作る（2026-11-10 時点）。
+生成ファイル：`python tools/gen_app_ids.py` で `catalog/apps.json` から作る（2026-11-12 時点）。
 各スレッドはこの表の自分の行に合わせる。ID は `app.thetahatch.<名前>`、リポジトリ名は `Theta.<名前>.Hatch`。
 
 | アプリ | 新しいアプリ ID | 今のアプリ ID | 新しいリポジトリ名 | 今のリポジトリ名 | 変更 |
