@@ -2,7 +2,7 @@
 
 - 更新：2026-11-12
 - スレッド：https://claude.ai/code/session_012DXkc2Wd5iBmicj8ba39vG
-- 状態：作業中（コードは `main` に済み：`ff62701`。v1.0.0 の Release を Actions で作成中）
+- 状態：実機確認待ち（1.0.0 を Releases に公開：v1.0.0、APK は app.thetahatch.music・共通鍵。`tools/check_apk.py` で確認済み）
 
 ## 今と目標
 
@@ -87,7 +87,7 @@
 - [x] settings：共通設定をハブから受け取る（`ui.skin` に合わせる・変えたら書き戻す。NAS の接続先・パスワード・デバイストークンは「Home の NAS の設定を使う」で）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した（リポジトリ名は変わらず。表示名・通知チャンネル・README）
 - [x] shelf：Home の棚（`/shelf`）に対応（コード済み。効くのは新 ID・共通鍵の版から）
-- [ ] release：新しい版を Releases に出した
+- [x] release：新しい版を Releases に出した（v1.0.0、2026-11-12。`ThetaMusicHatch-1.0.0.apk`・SHA256SUMS）
 
 ## やったこと（2026-11-12）
 
