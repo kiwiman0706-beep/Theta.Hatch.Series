@@ -1,6 +1,6 @@
 # Theta Memo Hatch（memo）の移行メモ
 
-- 更新：2026-11-10
+- 更新：2026-11-12
 - スレッド：https://claude.ai/code/session_01H9m1j4wPmRzXQbzu7zWADS
 - 状態：実機確認待ち（0.3.0 を Releases に公開：v0.3.0、APK は app.thetahatch.memo・共通鍵）
 
@@ -67,6 +67,16 @@
 
 メモ：0.3.0 を 2026-11-10 に公開（`ThetaMemoHatch-0.3.0.apk`＋`SHA256SUMS-0.3.0.txt`、draft・prerelease でない、`tools/check_apk.py` で app.thetahatch.memo 0.3.0・シリーズ共通の鍵を確認）。`main` に版を上げて push すると Actions がタグと Release を自動で作る（spec §6.1 の条件 2）。
 
+## 棚（`/shelf`、spec `THETA_SHARED_SETTINGS.md` §4.2）— 0.3.1 で対応（2026-11-12）
+
+- `content://app.thetahatch.memo.theta/shelf`（権限 `app.thetahatch.permission.SHARE`）：ピン留めしたメモを 1 行 1 つ、最大 30 件、新しい順
+  - `section`=`pinned`、`sectionTitle`=`ピン留め`、`id`、`title`（無ければ本文の 1 行目）、`subtitle`=空、`text`（本文の頭、チェックリストは ☐/☑、200 字まで）、`color`（`#RRGGBB`、色なしは空）
+  - `action`：そのメモを開く Intent（`MainActivity`、extra `open`=id）の `toUri(URI_INTENT_SCHEME)`
+  - `image`：写真・手書きのあるメモだけ `content://app.thetahatch.memo.theta/image/<name>`（同じプロバイダの `openFile` がサムネイルの JPEG を返す。棚に出ているメモの絵だけ）
+- メモが変わると約 2 秒後に `notifyChange(content://app.thetahatch.memo.theta/shelf)`
+- 設定「ピン留めしたメモを Theta Home Hatch の棚に並べる」（既定オン）で出さないようにできる
+- 未確認：Home 1.9.0 以降で実際に並ぶか・押してメモが開くか
+
 ## 実機で確かめること
 
 - [ ] NAS（DS1825+、Tailscale）：接続・Secure SignIn のコード（次から不要）・自己署名証明書・同期（作成・編集・削除・添付）
@@ -74,3 +84,4 @@
 - [ ] 新しいアプリで Drive の許可と同期（新 ID の OAuth クライアント）
 - [ ] Home（ハブ）からの更新と、ハブが無いときに Releases が開くこと
 - [ ] Home から Gemini キー・スキンを受け取る
+- [ ] Home の「MemoHatch」タブ（棚）にピン留めのメモが並ぶ・写真付きは写真が出る・押すとそのメモが開く・ピン留めを外すと消える
