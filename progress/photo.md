@@ -2,7 +2,7 @@
 
 - 更新：2026-11-12
 - スレッド：https://claude.ai/code/session_012DXkby1gTG6FFj5k36BF48
-- 状態：作業中（0.2.0 を main に push、release.yml で Release 中。実機は未確認）
+- 状態：実機確認待ち（0.2.0 を Releases に公開：v0.2.0、APK は app.thetahatch.photo・共通鍵。`tools/check_apk.py` で確認済み）
 
 ## 今と目標
 
@@ -76,7 +76,7 @@
 - [x] update：更新をハブに頼む形に（ハブはハブ機能）
 - [x] settings：共通設定をハブから受け取る（ハブは配る側）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した
-- [ ] release：新しい版を Releases に出した
+- [x] release：新しい版を Releases に出した
 
 ## 実機で確かめること
 
