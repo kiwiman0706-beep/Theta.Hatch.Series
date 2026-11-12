@@ -1,8 +1,8 @@
 # Theta Music Hatch（music）の移行メモ
 
-- 更新：2026-11-10
+- 更新：2026-11-12
 - スレッド：https://claude.ai/code/session_012DXkc2Wd5iBmicj8ba39vG
-- 状態：計画OK待ち
+- 状態：計画OK待ち（棚 `/shelf` はコード済み：`1fc66d6`。Home から読めるのは新 ID・共通鍵の版から）
 
 ## 今と目標
 
@@ -47,6 +47,18 @@
 | お気に入り（DS audio の曲） | NAS の★評価なので移行不要 |
 | 見た目・再生の設定（スキン・クリック音・シャッフルなど） | 入れ直し（数項目）。スキンはハブの `ui.skin` |
 
+### Home の棚（`/shelf`、spec §4.2）— コード済み（2026-11-12、`1fc66d6`）
+
+- `ShelfProvider`（authority `${applicationId}.theta`、読み書きとも権限 `app.thetahatch.permission.SHARE`）。`query /shelf` で 1 行 1 つ：
+  - `favorites`「お気に入り」：お気に入りの曲（1 枚にまとめる）・アルバム・アーティスト
+  - `recent`「最近再生」：最近再生したアルバム（新しい順、最大 20）
+  - 合わせて 30 件まで。`text`・`color` は空。プレイリストはアプリに無いので出さない
+- `image`：`content://<id>.theta/art/<md5>.img`（同じプロバイダの `openFile`、`r` だけ）
+- `action`：`MainActivity` 宛ての `Intent`（action `app.thetahatch.music.PLAY`、extra `kind`＝album／artist／favsongs・`key`）を `toUri(URI_INTENT_SCHEME)`。押すと再生して Now Playing を出す
+- 中身は Dart が `files/shelf/shelf.json` とジャケットに書くので、アプリが動いていなくても返せる。変わったら `notifyChange(content://<id>.theta/shelf)`
+- 何を出すかは設定で選べる（お気に入り・最近再生、それぞれオン・オフ）
+- 権限 `app.thetahatch.permission.SHARE` の**定義**は、本番の鍵で署名するときだけマニフェストに入れる（`src/series/`）。デバッグ鍵の APK に入れると、同じ権限を定義している Home（共通鍵）とぶつかって入らないため。今の ID のままだと authority は `com.thetahatch.theta_music.theta` なので、Home の棚に出るのは新 ID・共通鍵の版から
+
 ### Windows・Mac
 
 - Flutter のデスクトップ版（Windows・macOS）でビルドできる見込み。WebDAV・Audio Station・スキャン・Vault への書き出しはそのまま動く
@@ -72,6 +84,7 @@
 - [ ] update：更新をハブに頼む形に（ハブはハブ機能）
 - [ ] settings：共通設定をハブから受け取る（ハブは配る側）
 - [ ] rename：改名後の名前に合わせて URL・リンクを直した
+- [x] shelf：Home の棚（`/shelf`）に対応（コード済み。効くのは新 ID・共通鍵の版から）
 - [ ] release：新しい版を Releases に出した
 
 ## 実機で確かめること
@@ -81,3 +94,4 @@
 - [ ] 「更新する」でハブの更新画面が開く／ハブが無ければ Releases が開く
 - [ ] Theta Vault への書き出しと、ノートからのお気に入りの復元
 - [ ] 再生・バックグラウンド再生・音声検索・クリック音（いずれも実機未確認）
+- [ ] Home の棚にお気に入り・最近再生のジャケットが並び、押すと再生する（実機未確認）
