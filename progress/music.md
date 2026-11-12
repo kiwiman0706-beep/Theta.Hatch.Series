@@ -2,7 +2,7 @@
 
 - 更新：2026-11-12
 - スレッド：https://claude.ai/code/session_012DXkc2Wd5iBmicj8ba39vG
-- 状態：計画OK待ち（棚 `/shelf` はコード済み：`1fc66d6`。Home から読めるのは新 ID・共通鍵の版から）
+- 状態：作業中（計画 OK 2026-11-12。棚 `/shelf` はコード済み）
 
 ## 今と目標
 
@@ -67,13 +67,15 @@
 
 ## 決めてほしいこと
 
-- [ ] iPod のクリックホイールの見た目を、このアプリ独自のスキンとして残すか（`ui.skin` は Theta スキン側に当てる案）
-- [ ] Theta スキンを 11 種に増やすか（今は 6 種。増やすなら term・braun・soft・window・lcd は色と主な作り）
-- [ ] ハブから NAS を受け取ったときの接続方式：DS audio（`nas.url` は DSM の URL なのでそのまま使える）を既定にするか、WebDAV も選べるようにするか
-- [ ] Obsidian の書き出し先：NAS の Theta Vault（`Obsidian/Theta Vault/Music/`）に固定でよいか。Google ドライブの Theta Vault にも書くか（音楽は NAS にあるので NAS のみを提案）
-- [ ] 書き出しのノートの形：Dataview のクエリをやめて `.base`（Obsidian Bases）に変えてよいか
-- [ ] 最初の Release の版番号（今 `pubspec.yaml` は 1.0.0。0.x から始めるなら変える）
-- [ ] Windows・Mac 版を次の版でよいか
+- [x] 移行の計画 → この計画で進める（2026-11-12）
+- [x] iPod の見た目 → このアプリ独自の見た目として残す。`ui.skin` は Theta スキン側に当てる（2026-11-12）
+- [x] Theta スキン → シリーズの 11 種に増やす（2026-11-12）
+- [x] ハブから NAS を受け取ったときの方式 → DS audio を既定、WebDAV も選べる（2026-11-12）
+- [x] ノートの書き出し先 → NAS の Theta Vault だけ（`Obsidian/Theta Vault/Music/`）（2026-11-12）
+- [x] ノートの形 → Dataview をやめて `.base`、`theta: music/album@1`・`id` を付ける（2026-11-12）
+- [x] 最初の Release の版 → 1.0.0（2026-11-12）
+- [x] Windows・Mac → 次の版で Flutter のデスクトップ版（2026-11-12）
+- [ ] 既定ブランチを `main` に切り替える（GitHub の Settings → General → Default branch。利用者）
 
 ## 進み具合
 
