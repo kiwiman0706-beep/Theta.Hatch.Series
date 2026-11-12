@@ -2,20 +2,20 @@
 
 - 更新：2026-11-12
 - スレッド：https://claude.ai/code/session_012DXkby1gTG6FFj5k36BF48
-- 状態：計画OK待ち
+- 状態：作業中（0.2.0 を main に push、release.yml で Release 中。実機は未確認）
 
 ## 今と目標
 
-| | 今（0.1.0、ブランチ `claude/laughing-galileo-hsri6y`） | 目標 |
+| | 今（0.2.0、`main`。0.1.0 はデバッグ鍵） | 目標 |
 | --- | --- | --- |
-| リポジトリ名 | `Theta.Photo.Hatch`（ブランチは作業ブランチだけ。`main`・Release・タグ無し） | 同じ（改名なし）。`main` を作って既定ブランチに |
-| アプリ ID | `photo.theta.theta_photo_hatch`（Kotlin の package も同じ）。表示名「Photo Hatch」 | `app.thetahatch.photo`、表示名「Theta Photo Hatch」 |
-| 署名 | デバッグ鍵（`flutter build apk` の既定。0.1.0 はスレッドから直接渡した APK） | 共通鍵（Secret の 4 つ、別名は `ANDROID_KEY_ALIAS`）。`release.yml` で `ThetaPhotoHatch-<版>.apk` を 1 つ |
-| 更新 | 仕組み無し。インストール権限も無い | ハブに頼む（`app.thetahatch.action.UPDATE`、無ければ Releases を開く）。設定に「今の版」「更新を確認」 |
-| 共通設定 | 無し（スキンも NAS もまだ無い） | ハブの `info`（`ui.skin`・`nas.url`・`nas.user`・`nas.shareRoot`・`google.account`）と `secret/nas.password`・`secret/nas.deviceToken`（承認つき）。ハブが無ければこのアプリで入力 |
+| リポジトリ名 | `Theta.Photo.Hatch`（改名なし）。`main` を作った（既定ブランチの切り替えは利用者） | 同じ |
+| アプリ ID | `app.thetahatch.photo`、表示名「Theta Photo Hatch」（0.1.0 は `photo.theta.theta_photo_hatch`） | 同じ |
+| 署名 | 共通鍵（Secret 4 つ、別名は `ANDROID_KEY_ALIAS`）。`release.yml` が main への push で `v<版>` と `ThetaPhotoHatch-<版>.apk` | 同じ |
+| 更新 | ハブに頼む（`Series.kt`、無ければ Releases）。インストール権限なし | 同じ |
+| 共通設定 | ハブから（下の目標どおり実装済み） | ハブの `info`（`ui.skin`・`nas.url`・`nas.user`・`nas.shareRoot`・`google.account`）と `secret/nas.password`・`secret/nas.deviceToken`（承認つき）。ハブが無ければこのアプリで入力 |
 | データの置き場所 | 写真は端末の `Pictures/Hatch_*`（Amazon フォト・Synology Photos のバックアップに任せる）。分類・イベント・☆・キーワードは XMP（JPEG は埋め込み、ほかは `.xmp`）。仕分けの記録（元に戻す用）と設定は端末内 | 写真は NAS の `photo`・各自の `Photos`（ライブラリ規則 §5）。XMP はそのまま。イベントの索引だけ Theta Vault の `Photo/`（`theta: photo/event@1`、`Photo/イベント.base`）。NAS は Tailscale ＋ File Station API、Secure SignIn に対応 |
-| 対応 OS | Android 11 以降 | Android＋Windows・Mac（Flutter のデスクトップ版。カメラ・GoPro の SD カードの仕分けとアップ） |
-| スキン | 無し（Material 3 のオレンジ） | `ui.skin` の 11 種（`skins.json` から Flutter のテーマを作る） |
+| 対応 OS | Android 11 以降（Windows・Mac はまだ） | Android＋Windows・Mac（Flutter のデスクトップ版。カメラ・GoPro の SD カードの仕分けとアップ） |
+| スキン | `ui.skin` の 11 種（`skins.json` から `skins.g.dart` を生成、色と書体） | 同じ |
 
 ## 方針
 
@@ -61,20 +61,21 @@
 
 ## 決めてほしいこと
 
-- [ ] Photo と Camera を一体化するか（提案：別アプリのまま、Camera のギャラリーを Photo に任せる）
-- [ ] Camera の写真を Photo が動かしてよいか（動かすと Camera のギャラリー・索引から見えなくなる。Camera 側にも読み戻しが要る）
-- [ ] 端末から消す役：Synology Photos の「空き容量を確保」のままか、Photo が NAS へ上げて確かめてから消すか
-- [ ] UI は Flutter のままでよいか（シリーズの HTML 共有 UI にしない）
-- [ ] XMP の独自名前空間の新しい名前（案：`https://thetahatch.app/ns/photo/1.0/`）
+- [x] Photo と Camera を一体化するか → **別アプリのまま**。Camera のギャラリー（ビューア）を Photo に任せる（2026-11-12 OK）。Photo は ACTION_VIEW（image/*）を受ける。Camera のサムネイルから Photo を開くのは Camera 側の作業
+- [x] Camera の写真を Photo が動かしてよいか → **選べるように**（設定：移す／Camera に残してコピー。0.2.0 で実装）
+- [ ] 端末から消す役（Synology Photos の「空き容量を確保」か、Photo が NAS へ上げて確かめてから消すか）→ **保留**。0.2.0 は上げて確かめるところまで、消さない
+- [x] UI は Flutter のままでよいか → OK
+- [x] スキン → `skins.json` をアプリで Flutter のテーマにする（Music と同じ `tool/gen_skins.py`）。OK
+- [x] XMP の独自名前空間 → `https://thetahatch.app/ns/photo/1.0/`（0.1.0 の名前も読む）
 
 ## 進み具合
 
-- [ ] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
-- [ ] appid：アプリ ID を新しい ID に
-- [ ] signing：共通鍵の Secret で署名
-- [ ] update：更新をハブに頼む形に（ハブはハブ機能）
-- [ ] settings：共通設定をハブから受け取る（ハブは配る側）
-- [ ] rename：改名後の名前に合わせて URL・リンクを直した
+- [x] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
+- [x] appid：アプリ ID を新しい ID に
+- [x] signing：共通鍵の Secret で署名
+- [x] update：更新をハブに頼む形に（ハブはハブ機能）
+- [x] settings：共通設定をハブから受け取る（ハブは配る側）
+- [x] rename：改名後の名前に合わせて URL・リンクを直した
 - [ ] release：新しい版を Releases に出した
 
 ## 実機で確かめること
