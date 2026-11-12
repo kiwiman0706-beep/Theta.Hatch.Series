@@ -2,7 +2,7 @@
 
 - 更新：2026-11-07
 - スレッド：https://claude.ai/code/session_01GMSgoGarRChJJQLGtjAFKY
-- 状態：1.10.0 公開済み（棚・Gmail の重要・Gemini でアプリの読み）（タスクバーのピン留め・LINE と人の結び付け・よく連絡する人・LINE WORKS などのトーク。実機の確認はこれから）
+- 状態：1.13.1 公開済み（棚のタイル・本の区画・フォルダの並べ替え・すぐ記録は MemoHatch へ）（タスクバーのピン留め・LINE と人の結び付け・よく連絡する人・LINE WORKS などのトーク。実機の確認はこれから）
 
 ## 今と目標
 
