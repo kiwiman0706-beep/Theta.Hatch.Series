@@ -1,8 +1,8 @@
 # Theta Music Hatch（music）の移行メモ
 
-- 更新：2026-11-12
+- 更新：2026-11-13
 - スレッド：https://claude.ai/code/session_012DXkc2Wd5iBmicj8ba39vG
-- 状態：実機確認待ち（1.0.0 を Releases に公開：v1.0.0、APK は app.thetahatch.music・共通鍵。`tools/check_apk.py` で確認済み）
+- 状態：実機確認待ち（1.0.1 を Releases に公開：v1.0.1。Theta スキンで横向きに対応。APK は app.thetahatch.music・共通鍵、`tools/check_apk.py` で確認済み）
 
 ## 今と目標
 
@@ -98,6 +98,11 @@
 - `main` を作成。`release.yml`（`main` への push でタグ・Release、APK は `ThetaMusicHatch-<版>.apk` 1 つ、パッケージ名・版・鍵を確認）。作業ブランチは `build-apk.yml`（デバッグ鍵）
 - `TESTING.md` に実機で未確認のことを書いた
 
+### 1.0.1（2026-11-13）
+
+- Theta スキンは縦横どちらでも（タブレットの横向き）。iPod スキンは縦に固定のまま
+- 幅が広いと Now Playing を 2 列、低い画面（横向きのスマホ）はタブを印に・見出しを小さく
+
 ## 実機で確かめること
 
 - [ ] 共通鍵の APK が入る（古いアプリはアンインストールしてから）
@@ -106,3 +111,4 @@
 - [ ] Theta Vault への書き出しと、ノートからのお気に入りの復元
 - [ ] 再生・バックグラウンド再生・音声検索・クリック音（いずれも実機未確認）
 - [ ] Home の棚にお気に入り・最近再生のジャケットが並び、押すと再生する（実機未確認）
+- [ ] タブレットの横向き・回転（Theta スキン）
