@@ -2,7 +2,7 @@
 
 - 更新：2026-11-13
 - スレッド：https://claude.ai/code/session_012DXkc2Wd5iBmicj8ba39vG
-- 状態：実機確認待ち（1.2.0 を Releases に公開予定：Android Auto・再生中の通知・ビジュアライザー。1.1.0 で Theta スキンを iPod 型の配置に）
+- 状態：実機確認待ち（1.2.0 を Releases に公開（v1.2.0、check_apk.py で確認済み）：Android Auto・再生中の通知・ビジュアライザー。1.1.0 で Theta スキンを iPod 型の配置に）
 
 ## 今と目標
 
