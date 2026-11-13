@@ -92,6 +92,15 @@
 - Manifest：`app.thetahatch.permission.SHARE` の uses-permission と `<queries>` の `app.thetahatch.camera` は 0.3.2 から入っている
 - 0.3.2 の「`ACTION_IMAGE_CAPTURE` を Camera Hatch に送る」はやめた（`CAPTURE` に置き換え）
 
+## 0.3.4（2026-11-13）— 撮ったものを落とさない
+
+- 一覧の下のバー：📷（カメラが 1 回で起動）と 🖼（写真・ファイルを選ぶ）を分けた。メモの下のバーにも 📷
+- Camera Hatch から `RESULT_OK` 以外で戻っても、`ClipData` があれば取り込む
+- 待っている依頼（どのメモへ入れるか）を保存しておき、Memo が閉じられていても戻ったらそのメモ（無ければ新しいメモ）に入れる
+- `SCAN`（Home から）は、Camera Hatch があればカメラ（写真・動画・スキャン）を開く
+- **Camera Hatch への依頼**：`CAPTURE` でも写真と動画のシャッターを両方出す／「完了」を押さずに戻る・ホームへ出るときも撮った分を返す（黙って消さない）
+- **Home Hatch への依頼**：「撮影」は Memo 経由（`SCAN`＋`setPackage("app.thetahatch.memo")`）にすると Memo に入る
+
 ## 実機で確かめること
 
 - [ ] NAS（DS1825+、Tailscale）：接続・Secure SignIn のコード（次から不要）・自己署名証明書・同期（作成・編集・削除・添付）
