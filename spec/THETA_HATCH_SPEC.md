@@ -189,8 +189,8 @@ Intent のほかに、ContentProvider（`<applicationId>.theta`）の窓口も�
   - `modes`：切り替えてよいモード（`String[]`、例 `["photo","video","scan"]`）。無ければ全部
   - `multiple`：`true` なら何枚・何本でも撮れて、「完了」で返す。`false`（既定）は 1 つ撮ったらすぐ返す
   - `scanFormat`：スキャンの返し方。`pdf`（既定。複数ページを 1 つの PDF）か `images`（ページごとの JPEG）
-- 撮影画面：上に「↩ ○○ Hatch へ」の帯、下に「やめる｜写真｜動画｜スキャン｜完了（n）」。スキャンは ML Kit のスキャナ（端の検出と補正）。`mode` が `scan` なら開いてすぐスキャナを出す。
-- 返し方：`RESULT_OK`。撮ったものは **1 つでも `ClipData`** に入れ、各項目は `content://` の URI（Camera の FileProvider）で `FLAG_GRANT_READ_URI_PERMISSION` を付ける。`ClipDescription` に MIME（`image/jpeg`・`image/heic`・`video/mp4`・`application/pdf`）を入れ、`getType` でも分かる。最初の項目は `Intent.data` にも入れる。返したファイルは 30 分以上残す（受け取ったらすぐコピーする）。やめたら `RESULT_CANCELED`。
+- 撮影画面：上に「↩ ○○ Hatch へ」の帯。下に「やめる」「完了（n）」と、`modes` で許されたシャッター（写真・動画・スキャン）を**全部並べる**（ふつうのカメラと同じく、切り替えずに写真も動画も撮れる。録画中の写真も）。スキャンは ML Kit のスキャナ（端の検出と補正）。`mode` が `scan` なら開いてすぐスキャナを出す。（Camera 0.15.1、Memo 0.3.4 の依頼）
+- 返し方：`RESULT_OK`。撮ったものは **1 つでも `ClipData`** に入れ、各項目は `content://` の URI（Camera の FileProvider）で `FLAG_GRANT_READ_URI_PERMISSION` を付ける。`ClipDescription` に MIME（`image/jpeg`・`image/heic`・`video/mp4`・`application/pdf`）を入れ、`getType` でも分かる。最初の項目は `Intent.data` にも入れる。返したファイルは 30 分以上残す（受け取ったらすぐコピーする）。**撮ったものを黙って消さない**：撮るたびに `RESULT_OK`＋`ClipData` を入れておき、「完了」を押さずに戻る・ホームに出る・最近のアプリから閉じても撮った分を返す。消すのは利用者が「捨てる」をはっきり選んだときだけ（確認の既定は「残す」）。何も撮らずにやめたら `RESULT_CANCELED`。呼ぶ側は、`RESULT_OK` 以外でも `ClipData` があれば取り込む。
 - 呼ばれたときは Camera のギャラリー・フォルダに保存しない。Camera の設定「呼ばれたときも自分にも保存」で残せる。XMP などのメタデータはファイルの中に入ったままでよい。
 - 呼ぶ側は `resolveActivity` で対応を確かめ、無ければ今までどおり端末のカメラ（`ACTION_IMAGE_CAPTURE` など）や Google のスキャナを使う。
 
