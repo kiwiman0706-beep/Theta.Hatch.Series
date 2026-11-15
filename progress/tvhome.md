@@ -4,7 +4,7 @@
 
 - 更新：2026-11-15
 - スレッド：https://claude.ai/code/session_012DXkbyha4qRNRU1wCiPjQm
-- 状態：実機確認待ち（0.1.0 をコミット。Release は Secret の登録後）
+- 状態：実機確認待ち（0.1.0 を Releases に出した）
 
 ## 今と目標
 
@@ -12,7 +12,7 @@
 | --- | --- | --- |
 | リポジトリ名 | Theta.TVhome.Hatch（新しく作った） | 同じ |
 | アプリ ID | app.thetahatch.tvhome | 同じ |
-| 署名 | 共通鍵（Secret の 4 つ）を release.yml が読む。**Secret はまだ配っていない** | 共通鍵（Secret の 4 つ、別名 thetahatch） |
+| 署名 | 共通鍵（Secret の 4 つ）。v0.1.0 で SHA-256 を確認済み | 共通鍵（Secret の 4 つ、別名 thetahatch） |
 | 更新 | **ハブ**（TV ではこのアプリ）。自分と Hatch アプリを 12 時間ごと、SHA-256・ID・共通鍵を照合して PackageInstaller | 同じ |
 | 共通設定 | 設定のハブ `content://app.thetahatch.tvhome.theta`（Home 1.0.0 と同じ返し方） | 同じ |
 | データの置き場所 | 端末の中だけ（並び・入口・秘密は Keystore で暗号化） | 並びは Vault の `apps.tvhome` も検討 |
@@ -30,7 +30,7 @@
 ## シリーズへの依頼（このリポジトリのスレッドへ）
 
 - [ ] `catalog/apps.json` に tvhome を足す（platforms `androidtv`、`updateHub: true`、repo `Theta.TVhome.Hatch`）
-- [ ] `tools/repos.txt` に `kiwiman0706-beep/Theta.TVhome.Hatch` を足し、PC で Secret を配る（`-OnlyRepo kiwiman0706-beep/Theta.TVhome.Hatch`）
+- [x] `tools/repos.txt` に `kiwiman0706-beep/Theta.TVhome.Hatch` を足し、Secret を配った
 - [ ] spec §6.1・共通設定 §4.0 の「ハブ」に TVhome を足す。受け持ちの決まり（実装済み）：既定のホームが TVhome なら TVhome、Home・KidsHome なら そちら、どれでもなければ Home・KidsHome が入っていない時だけ TVhome。`UPDATE_BUSY` は 3 つの間で送り合う
 - [ ] ほかのアプリの `<queries>`・`UPDATE` の送り先に `app.thetahatch.tvhome` を足す（TV に入れる Music・Book・Photo・Movie）
 - [ ] THETA_TV_SPEC §2・§3 を「Home の TV 版は TVhome（別 APK）」に直す
@@ -45,11 +45,11 @@
 
 - [x] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
 - [x] appid：アプリ ID を新しい ID に
-- [ ] signing：共通鍵の Secret で署名（release.yml は対応済み。Secret の登録待ち）
+- [x] signing：共通鍵の Secret で署名
 - [x] update：更新をハブに頼む形に（ハブはハブ機能）
 - [x] settings：共通設定をハブから受け取る（ハブは配る側）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した
-- [ ] release：新しい版を Releases に出した
+- [x] release：新しい版を Releases に出した（v0.1.0）
 
 ## 実機で確かめること
 
