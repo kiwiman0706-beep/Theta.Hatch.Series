@@ -4,7 +4,7 @@
 
 - 更新：2026-11-15
 - スレッド：https://claude.ai/code/session_012DXkbyha4qRNRU1wCiPjQm
-- 状態：実機確認待ち（0.1.0 を Releases に出した）
+- 状態：実機確認待ち（0.2.0 を Releases に出した。ホームの形：キッズ・クロスバー・たな）
 
 ## 今と目標
 
@@ -49,7 +49,7 @@
 - [x] update：更新をハブに頼む形に（ハブはハブ機能）
 - [x] settings：共通設定をハブから受け取る（ハブは配る側）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した
-- [x] release：新しい版を Releases に出した（v0.1.0）
+- [x] release：新しい版を Releases に出した（v0.2.0）
 
 ## 実機で確かめること
 
