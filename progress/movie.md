@@ -4,7 +4,7 @@
 
 - 更新：2026-11-17
 - スレッド：https://claude.ai/code/session_012DXkbxgRpZwVsU9fra6sF1
-- 状態：実機確認待ち（0.1.0 を Releases に公開：v0.1.0、check_apk.py で確認済み）
+- 状態：実機確認待ち（0.2.0 を Releases に公開：Music Hatch と同じ Theta スキン＋ホイールの画面、再生しながら一覧を見られる）
 
 ## 今と目標
 
@@ -23,6 +23,7 @@
 
 ### 作り
 
+- 画面は **Theta Music Hatch と同じ作り**（Theta スキン＋クリックホイール。上に一覧、下に動画のパネルとホイール。再生しながら一覧を見られる。全画面は長押し・横向き・ダブルタップ）（0.2.0、2026-11-17 利用者の提案）
 - **Flutter＋mpv（`media_kit`）**。mkv・HEVC・DTS・ARIB 字幕・二か国語の .ts を端末でそのまま再生（ダイレクト再生）するため、WebView の video では足りない。Music と同じく spec §4（共通 Web UI＋Electron）の例外
 - NAS（DS1825+）は内蔵 GPU が無く変換が弱いので、**変換しないのが前提**。外では「家の Wi-Fi で先にダウンロード（オフラインのキャッシュ）」と「事前に作った軽い版」で補う
 - 動画の読み方：NAS の `video` を直接読む（DSM の File Station API＝Secure SignIn の確認コード・デバイストークンに対応、または WebDAV）。作品の情報は `.nfo`・`poster.jpg`（ファイル名規則）と Vault のノートから。**Jellyfin は無くても動く**が、あれば公式アプリ・webOS 用に並べて使える（決めてほしいこと）
