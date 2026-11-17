@@ -1,6 +1,6 @@
 # アプリ ID とリポジトリ名（決定版）
 
-生成ファイル：`python tools/gen_app_ids.py` で `catalog/apps.json` から作る（2026-11-12 時点）。
+生成ファイル：`python tools/gen_app_ids.py` で `catalog/apps.json` から作る（2026-11-17 時点）。
 各スレッドはこの表の自分の行に合わせる。ID は `app.thetahatch.<名前>`、リポジトリ名は `Theta.<名前>.Hatch`。
 
 | アプリ | 新しいアプリ ID | 今のアプリ ID | 新しいリポジトリ名 | 今のリポジトリ名 | 変更 |
@@ -22,7 +22,7 @@
 | Theta Music Hatch | `app.thetahatch.music` | `com.thetahatch.theta_music` | `Theta.Music.Hatch` | `Theta.Music.Hatch` | ID |
 | Theta Photo Hatch | `app.thetahatch.photo` | `photo.theta.theta_photo_hatch` | `Theta.Photo.Hatch` | `Theta.Photo.Hatch` | ID |
 | Theta Mitene Hatch（構想中） | `app.thetahatch.mitene` | `—` | `Theta.Mitene.Hatch` | `Theta.Mitene.Hatch` | なし |
-| Theta Movie Hatch（設計中） | `app.thetahatch.movie` | `—` | `Theta.Movie.Hatch` | `Theta.Movie.Hatch` | なし |
+| Theta Movie Hatch | `app.thetahatch.movie` | `—` | `Theta.Movie.Hatch` | `Theta.Movie.Hatch` | なし |
 | Theta File Hatch（試作） | `app.thetahatch.file` | `—` | `Theta.File.Hatch` | `Theta.File.Hatch` | なし |
 | Theta Chirashi Hatch | `app.thetahatch.chirashi` | `app.thetahatch.chirashi` | `Theta.Chirashi.Hatch` | `Theta.Chirashi.Hatch` | なし |
 | Theta Camera Hatch | `app.thetahatch.camera` | `app.thetahatch.camera` | `Theta.Camera.Hatch` | `Theta.Camera.Hatch` | なし |
