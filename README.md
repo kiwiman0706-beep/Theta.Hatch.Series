@@ -89,7 +89,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 15 | Music | × | × | ○ | × | — | × | × |
 | 16 | Photo | 予定（Flutter の雛形あり） | 予定（同左） | ○ | × | — | × | × |
 | 17 | Mitene | 構想中 | | | | | | |
-| 18 | Movie | 設計中（サーバーは NAS の Jellyfin） | | | | | | |
+| 18 | Movie | 予定（Flutter のデスクトップ版） | 予定（同左） | ○ | 予定（同じ APK） | webOS は Web 版を予定 | ○ ハブに頼む | × |
 | 19 | File | △ ブラウザのデモ | △ ブラウザのデモ | × | × | Python のデモ作成ツール | × | × |
 | 20 | Chirashi | × | × | ○ | × | — | × | × |
 | 21 | Camera | × | × | ○ Fold5 専用 | × | — | ○（ハブ、無ければ単体） | × |
@@ -121,7 +121,7 @@ Theta.xxx.Hatch シリーズの作品一覧と、シリーズ共通のガイド�
 | 15 | Music | △ NAS 上の Vault にライブラリを書き出し（Dataview。Theta Vault ではない） | × | ○ Audio Station API・WebDAV・File Station | ○ 確認コード＋デバイストークン |
 | 16 | Photo | 予定（イベントの索引・日記。写真は NAS のパスで参照） | × | △ Synology Photos のバックアップ機能に任せる（API 接続なし） | × |
 | 17 | Mitene | 構想中 | | 前提（Synology Photos） | |
-| 18 | Movie | △ 作品情報を NFO と Markdown に（予定） | × | 前提（NAS 上の Jellyfin） | × |
+| 18 | Movie | 予定（作品・人物・視聴の記録を `Movie/` に） | × | ○ File Station・WebDAV で `video` を直接読む（Jellyfin は並べて使う） | 予定（確認コード＋デバイストークン） |
 | 19 | File | ○ Theta Vault を表示（`.view.yaml`） | × | 予定（NAS の Vault を表示） | × |
 | 20 | Chirashi | × 端末内（Markdown で保存は可） | ○ チラシ画像を Drive に保存（＋カレンダー） | × | × |
 | 21 | Camera | △ 写真ごとの XMP・JSON（Theta Vault ではない） | × | × | × |
