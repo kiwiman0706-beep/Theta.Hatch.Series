@@ -35,7 +35,6 @@
 
 - 無し（新しいアプリで、最初から `app.thetahatch.movie`・`Theta.Movie.Hatch`）
 - 注意：`spec/THETA_LIBRARY_SPEC.md` が `docs/naming-convention.md` を参照しているので、**このファイルの場所は変えない**
-- catalog の `remark`「NAS の Jellyfin＋ファイル名規則」は、決まったらこのリポジトリのスレッドに直してもらう
 
 ### 端末の中にしか無いデータ
 
@@ -48,7 +47,7 @@
 
 ## シリーズへの依頼（このリポジトリのスレッドへ）
 
-- [ ] `catalog/apps.json` の movie：`platforms` に `android`、`autoUpdate` を true、`vault` は false のまま、`remark` を「Flutter＋mpv。NAS を直接読む（File Station・WebDAV）。Jellyfin は並べて使う」に（Home がハブとして一覧に出し、更新できるように）
+- [x] `catalog/apps.json` の movie（2026-11-17 済み）：`platforms` に `android`、`autoUpdate` を true、`vault` は false のまま、`remark` を「Flutter＋mpv。NAS を直接読む（File Station・WebDAV）。Jellyfin は並べて使う」に（Home がハブとして一覧に出し、更新できるように）
 - [x] `tools/repos.txt` に `Theta.Movie.Hatch` を足して、Secret 4 つを配る（2026-11-17 済み）
 
 ## 決めてほしいこと
