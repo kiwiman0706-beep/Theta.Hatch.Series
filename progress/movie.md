@@ -2,9 +2,9 @@
 
 <!-- このアプリのスレッドが書く。ほかのアプリのファイルは触らない -->
 
-- 更新：2026-11-17
+- 更新：2026-11-17（0.1.0 のコード）
 - スレッド：https://claude.ai/code/session_012DXkbxgRpZwVsU9fra6sF1
-- 状態：計画OK待ち
+- 状態：作業中（0.1.0：一覧・再生・続きから。Release は Secret の登録待ち）
 
 ## 今と目標
 
@@ -48,21 +48,25 @@
 
 ## 決めてほしいこと
 
-- [ ] この計画で進めてよいか
-- [ ] Jellyfin の扱い：(A) 入れない（NAS を直接読む＋Vault）／(B) **並べて入れる（公式アプリ・webOS 用。Movie は直接読む）**（おすすめ）／(C) Movie も Jellyfin を通して読む
-- [ ] 再生エンジン：**mpv（`media_kit`、Android・Win・Mac で同じコード）**（おすすめ）／VLC（libVLC。Android とデスクトップで作りが分かれる）
-- [ ] NAS への読み方の既定：**File Station API（2 段階認証に対応）**／WebDAV
-- [ ] 最初の版でやること：一覧・再生・続きから・オフラインのキャッシュ（おすすめ）。整理ツールとメタデータ取得はその次
+- [x] この計画で進める。小分けに出す（0.1.0：一覧・再生・続きから → オフライン → Vault → Video Station の移行・整理ツール → TV → Win・Mac）（2026-11-17）
+- [x] Jellyfin：並べて入れる（公式アプリ・webOS 用）。Movie は NAS を直接読む（2026-11-17）
+- [x] 再生エンジン：mpv（`media_kit`）（2026-11-17）
+- [x] NAS の読み方：File Station API（既定・2 段階認証）と WebDAV の両方を選べる（2026-11-17）
+- [x] 劇場版：標準の置き方（映画フォルダに独立、`<set>` でつなぐ）。アニメ映画は `アニメ映画/` に分ける。アニメの期はシーズン（2026-11-17、`docs/naming-convention.md` v0.2）
+- [x] `video` は暗号化していない（2026-11-17）
+- [x] Video Station の書き出しはローカルの Claude に任せる（依頼文：`docs/PROMPT_VIDEOSTATION_BACKUP.md`）（2026-11-17）
+- [ ] このリポジトリに Secret 4 つを登録（`tools/repos.txt` に `Theta.Movie.Hatch` を足して sync-secrets：このリポジトリのスレッドか利用者）
+- [ ] 既定ブランチを `main` にするか（今は `ccr-59e6bcc5-seucnb`。`release.yml` は両方で動く）
 
 ## 進み具合
 
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
-- [ ] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
-- [ ] appid：アプリ ID を新しい ID に
-- [ ] signing：共通鍵の Secret で署名
-- [ ] update：更新をハブに頼む形に（ハブはハブ機能）
-- [ ] settings：共通設定をハブから受け取る（ハブは配る側）
-- [ ] rename：改名後の名前に合わせて URL・リンクを直した
+- [x] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
+- [x] appid：アプリ ID を新しい ID に（最初から `app.thetahatch.movie`）
+- [ ] signing：共通鍵の Secret で署名（`release.yml` は Secret 4 つで署名・SHA-256 を照合。Secret の登録待ち）
+- [x] update：更新をハブに頼む形に（ハブはハブ機能）（インストール権限なし、`app.thetahatch.action.UPDATE`、無ければ Releases）
+- [x] settings：共通設定をハブから受け取る（ハブは配る側）（`ui.skin` に追従、NAS の URL・ユーザー・パスワード・デバイストークン）
+- [x] rename：改名後の名前に合わせて URL・リンクを直した（改名なし）
 - [ ] release：新しい版を Releases に出した
 
 ## 実機で確かめること
