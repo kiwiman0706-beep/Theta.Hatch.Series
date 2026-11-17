@@ -46,6 +46,11 @@
 - Flutter のデスクトップ版と `media_kit` で、Android と同じコードで動く見込み。オフラインのキャッシュも同じ仕組み
 - webOS は Flutter が動かないので Web 版を別に作る。再生はテレビの video なので、対応していない形式は Jellyfin の変換（HLS）か事前の軽い版が要る。最後に回す
 
+## シリーズへの依頼（このリポジトリのスレッドへ）
+
+- [ ] `catalog/apps.json` の movie：`platforms` に `android`、`autoUpdate` を true、`vault` は false のまま、`remark` を「Flutter＋mpv。NAS を直接読む（File Station・WebDAV）。Jellyfin は並べて使う」に（Home がハブとして一覧に出し、更新できるように）
+- [ ] `tools/repos.txt` に `Theta.Movie.Hatch` を足して、Secret 4 つを配る（初めての Release に要る）
+
 ## 決めてほしいこと
 
 - [x] この計画で進める。小分けに出す（0.1.0：一覧・再生・続きから → オフライン → Vault → Video Station の移行・整理ツール → TV → Win・Mac）（2026-11-17）
