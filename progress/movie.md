@@ -2,9 +2,9 @@
 
 <!-- このアプリのスレッドが書く。ほかのアプリのファイルは触らない -->
 
-- 更新：2026-11-17（0.1.0 のコード）
+- 更新：2026-11-17
 - スレッド：https://claude.ai/code/session_012DXkbxgRpZwVsU9fra6sF1
-- 状態：作業中（0.1.0：一覧・再生・続きから。Release は Secret の登録待ち）
+- 状態：実機確認待ち（0.1.0 を Releases に公開：v0.1.0、check_apk.py で確認済み）
 
 ## 今と目標
 
@@ -49,7 +49,7 @@
 ## シリーズへの依頼（このリポジトリのスレッドへ）
 
 - [ ] `catalog/apps.json` の movie：`platforms` に `android`、`autoUpdate` を true、`vault` は false のまま、`remark` を「Flutter＋mpv。NAS を直接読む（File Station・WebDAV）。Jellyfin は並べて使う」に（Home がハブとして一覧に出し、更新できるように）
-- [ ] `tools/repos.txt` に `Theta.Movie.Hatch` を足して、Secret 4 つを配る（初めての Release に要る）
+- [x] `tools/repos.txt` に `Theta.Movie.Hatch` を足して、Secret 4 つを配る（2026-11-17 済み）
 
 ## 決めてほしいこと
 
@@ -60,7 +60,7 @@
 - [x] 劇場版：標準の置き方（映画フォルダに独立、`<set>` でつなぐ）。アニメ映画は `アニメ映画/` に分ける。アニメの期はシーズン（2026-11-17、`docs/naming-convention.md` v0.2）
 - [x] `video` は暗号化していない（2026-11-17）
 - [x] Video Station の書き出しはローカルの Claude に任せる（依頼文：`docs/PROMPT_VIDEOSTATION_BACKUP.md`）（2026-11-17）
-- [ ] このリポジトリに Secret 4 つを登録（`tools/repos.txt` に `Theta.Movie.Hatch` を足して sync-secrets：このリポジトリのスレッドか利用者）
+- [x] このリポジトリに Secret 4 つを登録（2026-11-17、`tools/repos.txt` にも追加済み）
 - [ ] 既定ブランチを `main` にするか（今は `ccr-59e6bcc5-seucnb`。`release.yml` は両方で動く）
 
 ## 進み具合
@@ -68,11 +68,11 @@
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
 - [x] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
 - [x] appid：アプリ ID を新しい ID に（最初から `app.thetahatch.movie`）
-- [ ] signing：共通鍵の Secret で署名（`release.yml` は Secret 4 つで署名・SHA-256 を照合。Secret の登録待ち）
+- [x] signing：共通鍵の Secret で署名（v0.1.0 の APK：署名 v2/v3、SHA-1 `A1:13:EA:…:28:BA`）
 - [x] update：更新をハブに頼む形に（ハブはハブ機能）（インストール権限なし、`app.thetahatch.action.UPDATE`、無ければ Releases）
 - [x] settings：共通設定をハブから受け取る（ハブは配る側）（`ui.skin` に追従、NAS の URL・ユーザー・パスワード・デバイストークン）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した（改名なし）
-- [ ] release：新しい版を Releases に出した
+- [x] release：新しい版を Releases に出した（v0.1.0、`ThetaMovieHatch-0.1.0.apk` 61MB・ARM だけ、`REQUEST_INSTALL_PACKAGES` なし）
 
 ## 実機で確かめること
 
