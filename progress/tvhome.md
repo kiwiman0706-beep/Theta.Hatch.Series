@@ -4,7 +4,7 @@
 
 - 更新：2026-11-15
 - スレッド：https://claude.ai/code/session_012DXkbyha4qRNRU1wCiPjQm
-- 状態：実機確認待ち（0.5.1 を Releases に出した。カレンダーで先の週・月へ。試作のデザインのクロスバー・レスキュー。実機はローカルの Claude に依頼予定：docs/PROMPT_LOCAL_INSTALL.md）
+- 状態：実機確認待ち（0.6.0 を Releases に出した。予定は Google カレンダーの API（家族の共用アカウント）。試作のデザインのクロスバー・レスキュー。実機はローカルの Claude に依頼予定：docs/PROMPT_LOCAL_INSTALL.md）
 
 ## 今と目標
 
@@ -29,6 +29,8 @@
 
 ## シリーズへの依頼（このリポジトリのスレッドへ）
 
+- [ ] spec/THETA_GOOGLE_SETUP.md の API の表に「Google Calendar API：TVhome（予定、0.6.0〜）」を足す。テストユーザーに家族の共用アカウント（TVhome で使う）
+
 - [ ] `catalog/apps.json` に tvhome を足す（platforms `androidtv`、`updateHub: true`、repo `Theta.TVhome.Hatch`）
 - [x] `tools/repos.txt` に `kiwiman0706-beep/Theta.TVhome.Hatch` を足し、Secret を配った
 - [ ] spec §6.1・共通設定 §4.0 の「ハブ」に TVhome を足す。受け持ちの決まり（実装済み）：既定のホームが TVhome なら TVhome、Home・KidsHome なら そちら、どれでもなければ Home・KidsHome が入っていない時だけ TVhome。`UPDATE_BUSY` は 3 つの間で送り合う
@@ -51,7 +53,7 @@
 - [x] update：更新をハブに頼む形に（ハブはハブ機能）
 - [x] settings：共通設定をハブから受け取る（ハブは配る側）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した
-- [x] release：新しい版を Releases に出した（v0.5.1）
+- [x] release：新しい版を Releases に出した（v0.6.0）
 
 ## 実機で確かめること
 
