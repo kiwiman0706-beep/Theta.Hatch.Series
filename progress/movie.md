@@ -4,7 +4,7 @@
 
 - 更新：2026-11-18
 - スレッド：https://claude.ai/code/session_012DXkbxgRpZwVsU9fra6sF1
-- 状態：実機確認待ち（0.3.1：バックグラウンド再生・VLC のジェスチャー・チャプター・字幕 2 つ同時・DVD/BD の画像字幕）
+- 状態：実機確認待ち（0.3.3：整理の準備。ルールは Theta.Movie.Hatch の docs/naming-convention.md v1.0 に 1 つにまとめた）
 
 ## 今と目標
 
@@ -52,6 +52,7 @@
 
 ## シリーズへの依頼（このリポジトリのスレッドへ）
 
+- [ ] `spec/THETA_LIBRARY_SPEC.md` §1・§3 を実際に合わせる：動画の共有フォルダは `video` ではなく **`/8Tube`**、棚は **`▶` で始まるフォルダ**（`▶映画`・`▶アニメ`…、独自の棚も可。▶ の無いフォルダは読まない）。詳しくは Theta.Movie.Hatch の `docs/naming-convention.md` v1.0（2026-11-18 利用者が決定）
 - [x] `catalog/apps.json` の movie（2026-11-17 済み）：`platforms` に `android`、`autoUpdate` を true、`vault` は false のまま、`remark` を「Flutter＋mpv。NAS を直接読む（File Station・WebDAV）。Jellyfin は並べて使う」に（Home がハブとして一覧に出し、更新できるように）
 - [x] `tools/repos.txt` に `Theta.Movie.Hatch` を足して、Secret 4 つを配る（2026-11-17 済み）
 
