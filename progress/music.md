@@ -2,7 +2,7 @@
 
 - 更新：2026-11-15
 - スレッド：https://claude.ai/code/session_012DXkc2Wd5iBmicj8ba39vG
-- 状態：実機確認待ち（1.7.0 を Releases に公開：v1.7.0、check_apk.py で確認済み）
+- 状態：実機確認待ち（1.7.1 を Releases に公開：v1.7.1、check_apk.py で確認済み）
 
 ## 今と目標
 
@@ -128,6 +128,7 @@
 
 - Theta：Fold の広げた画面など、幅 600 以上で縦横がほぼ同じ画面も横並びに（設定 → Layout：Auto・Wide・Tall）
 - 左のタブに文字も出せる（設定 → Tab Labels）。モードの一覧で MENU → タブが文字付きに広がる → もう一度で再生中へ
+- 1.7.1：いちばん上の階層でタブが文字付きのときは、右のモードの一覧を出さず、タブだけが左側いっぱいに（同じ一覧を 2 つ出さない）。Movie Hatch 向けの伝言は Theta.Music.Hatch の `docs/PROMPT_MOVIE_LAYOUT.md`
 
 ## 実機で確かめること
 
