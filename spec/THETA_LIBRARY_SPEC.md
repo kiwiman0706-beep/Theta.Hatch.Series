@@ -9,8 +9,8 @@ NAS（Synology DS1825+）に置いた**映画・音楽・写真・本**の並べ
 
 | 共有フォルダ | 中身 | 読むもの |
 | --- | --- | --- |
-| `video` | 映画・ドラマ・アニメ・テレビ録画・ライブ・ホームビデオ | Jellyfin（Theta Movie Hatch）、TV |
-| `music` | 音楽 | Theta Music Hatch（Audio Station・WebDAV）、Jellyfin |
+| `video`（実際は `8Tube`） | 映画・ドラマ・アニメ・テレビ録画・ライブ。**ミュージックビデオは置かない**（§4.1） | Jellyfin（Theta Movie Hatch）、TV |
+| `music` | 音楽・**ミュージックビデオ**（§4.1） | Theta Music Hatch（Audio Station・WebDAV）、Jellyfin |
 | `photo`・各自の `Photos` | 写真・スマホの動画 | Synology Photos、Theta Photo Hatch、Mitene |
 | `book` | 電子書籍・自炊 PDF・漫画・オーディオブック | Theta Book Hatch |
 | `Obsidian` | Theta Vault（ノート）。作品のメモ・索引はここ | 各アプリ、Obsidian（`THETA_VAULT_SPEC.md`） |
@@ -64,6 +64,13 @@ music/
 - 必ず入れるタグ：曲名・アーティスト・**アルバムアーティスト**・アルバム・年・トラック番号・ディスク番号・ジャケット（埋め込みか `cover.jpg`）。オムニバスはアルバムアーティストを `Various Artists`。
 - アーティスト名のゆれ（全角・半角、「The」の有無）は 1 つにそろえる。読みは `ARTISTSORT`・`ALBUMSORT`。
 - アルバム・アーティストのメモは Theta Music Hatch が Vault に書き出す（`Obsidian/…/Music/`）。
+
+### 4.1 ミュージックビデオ（2026-11-19 決定）
+
+- ミュージックビデオ（PV・MV、ライブ映像の 1 曲分、YouTube の MV を含む）は **`music` に置き、Theta Music Hatch で視聴・管理する**。動画の共有フォルダ（`8Tube`）・Theta Movie Hatch では扱わない。
+- 置き場所と名前の形（アーティスト／曲との結び付け、タグ・付属ファイル）は **Theta Music Hatch のスレッドで決めて、ここに書く**。Music Hatch の版上げ（動画の再生）が必要。
+- それまでの仮置き：`music/_ミュージックビデオ/`（`_` で始まるので、ライブラリとしては読まない）。8Tube の `▶ミュージックビデオ`・`▶YouTube/Music` から移した物が入っている。
+- 中身は変えない（再エンコードしない）。動画のタグも書き換えない。
 
 ## 5. 写真・スマホの動画（`photo`・`Photos`）
 
