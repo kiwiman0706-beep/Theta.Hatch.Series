@@ -72,6 +72,7 @@
 - [x] Theta スキン → シリーズの 11 種に増やす（2026-11-12）
 - [x] ハブから NAS を受け取ったときの方式 → DS audio を既定、WebDAV も選べる（2026-11-12）
 - [x] ノートの書き出し先 → NAS の Theta Vault だけ（`Obsidian/Theta Vault/Music/`）（2026-11-12）
+- [ ] ノートの書き出し先の既定を `music/_Theta Vault/Music/` に変える（ライブラリと同じ共有フォルダ。2026-11-20 決定、`THETA_VAULT_SPEC.md` §4）
 - [x] ノートの形 → Dataview をやめて `.base`、`theta: music/album@1`・`id` を付ける（2026-11-12）
 - [x] 最初の Release の版 → 1.0.0（2026-11-12）
 - [x] Windows・Mac → 次の版で Flutter のデスクトップ版（2026-11-12）

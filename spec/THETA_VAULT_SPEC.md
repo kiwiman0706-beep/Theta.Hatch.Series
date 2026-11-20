@@ -148,15 +148,24 @@ Obsidian で開いたときに「一覧」や「ギャラリー」で見られ�
 
 ### NAS の置き場所
 
-| データ | NAS の共有フォルダ | 備考 |
-| --- | --- | --- |
-| Theta Vault（ノート・添付） | **`Obsidian`** の中（既定は `Obsidian/Theta Vault/`。アプリの設定で変えられる） | PC の Obsidian はこの共有フォルダを保管庫として開く |
-| 音楽 | 音楽用の共有フォルダ（例 `music`） | Vault には入れない。Theta Music Hatch は Audio Station・WebDAV で直接読む。書き出すノート（アルバム・アーティスト）は Vault へ |
-| 動画 | 動画用の共有フォルダ（Jellyfin のライブラリ） | Vault には入れない。作品の情報は `.nfo` と、必要なら Vault のノート（Theta Movie Hatch） |
-| 写真 | Synology Photos の共有フォルダ（`photo`・各自の `Photos`） | Vault には入れない。XMP がファイルに付く。イベントの索引だけ Vault に（Theta Photo Hatch） |
+**Vault の置き場所は 2 種類**（2026-11-20 決定）：
 
-- **大きなメディア（音楽・動画・写真）は、それぞれの共有フォルダに置いたまま**。Vault のノートからは NAS 上のパス（`nas://<共有フォルダ>/…` の形。アプリが接続先に読み替える）で参照し、Vault にコピーしない。
-- それ以外のアプリのデータ（名刺・メモ・面接・おえかき・チラシなど）は、Google ドライブの Theta Vault と同じ形で `Obsidian` 共有フォルダに置ける。どちらを使うか（Drive／NAS／両方）はアプリの設定。両方のときは同じ中身を持つ。
+1. **Vault そのものがデータのアプリ**（名刺・メモ・面接・おえかき・チラシなど。ライブラリを持たない）→ **`Obsidian` 共有フォルダ**の `Theta Vault/`
+2. **ライブラリを持つアプリ**（Music・Movie・Book・Photo。曲・動画・本・写真が別の共有フォルダにある）→ **そのライブラリと同じ共有フォルダ**の `_Theta Vault/`。ライブラリとノートが離れないので、共有フォルダごとのスナップショット・バックアップ・移動でノートだけが置き去りにならない
+
+| データ | NAS の置き場所 | 備考 |
+| --- | --- | --- |
+| Theta Vault（名刺・メモなど） | **`Obsidian/Theta Vault/`**（アプリの設定で変えられる） | PC の Obsidian はこのフォルダを保管庫として開く |
+| 音楽と、そのノート | 曲は `music` の棚（`▶…`）。ノートは **`music/_Theta Vault/Music/`** | Theta Music Hatch は Audio Station・WebDAV で曲を直接読む |
+| 動画と、そのノート | 動画は `8Tube` の棚。ノートは **`8Tube/_Theta Vault/Movie/`** | 作品の情報は `.nfo` が先。Vault のノートは必要なら（Theta Movie Hatch） |
+| 本と、そのノート | 本は `8Books` の棚。ノートは **`8Books/_Theta Vault/Book/`** | 今の PC ツールの書誌・メモは `_DSBooksCache/metadata/<bookId>.md`（そのまま使う） |
+| 写真と、そのノート | 写真は `photo`・各自の `Photos`。ノートは **`photo/_Theta Vault/Photo/`** | XMP がファイルに付く。Vault はイベントの索引だけ（Theta Photo Hatch） |
+
+- `_Theta Vault/` は、中の形が `Theta Vault/` と同じ（`.theta/vault.json`・`<アプリ>/`・`<アプリ>/_files/`・`.base`）。Obsidian では**それぞれを別の保管庫として開く**
+- 先頭が `_` なので、各アプリの棚（`▶…`）としては読まれない（Movie・Music・Book の決まりで `_` のフォルダは記録・置き場）
+- 別の保管庫どうしは `[[…]]` でつながらない。名刺・メモからライブラリのノートを指すときは、NAS のパス（`nas://…`）で書く
+- **大きなメディア（音楽・動画・本・写真）は、それぞれの共有フォルダに置いたまま**。ノートからは NAS 上のパス（`nas://<共有フォルダ>/…` の形。アプリが接続先に読み替える）で参照し、Vault にコピーしない。
+- 1. のアプリのデータは、Google ドライブの Theta Vault と同じ形で `Obsidian` 共有フォルダに置ける。どちらを使うか（Drive／NAS／両方）はアプリの設定。両方のときは同じ中身を持つ。
 - NAS の接続先・ログイン（確認コード＋デバイストークン）は、設定のハブ（Home・KidsHome）から受け取れる（`THETA_SHARED_SETTINGS.md` §4）。
 
 Obsidian Sync（有料・独自形式）はアプリから直接は使わないが、PCでObsidian Syncを使っていても、ローカルフォルダ方式なら共存できる。
@@ -191,4 +200,5 @@ Google Cast（Chromecast）は受信側アプリをGoogleに登録・公開す�
 
 - Vaultのルート名は `Theta Vault`、既定の置き場所はGoogle Driveのマイドライブ直下（名前で探し、無ければ作る）。
 - フォルダ名は英語、ノートのファイル名は日本語。
+- NAS では、ライブラリを持つアプリ（Music・Movie・Book・Photo）のノートは**ライブラリと同じ共有フォルダの `_Theta Vault/`**、Vault そのものがデータのアプリは `Obsidian/Theta Vault/`（2026-11-20、§4「NAS の置き場所」）。
 - Obsidianでの編集は frontmatter・`## メモ`・`## 名刺の全文`・自由記述を取り込む。

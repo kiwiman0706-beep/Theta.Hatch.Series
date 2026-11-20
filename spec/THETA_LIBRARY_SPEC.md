@@ -13,8 +13,9 @@ NAS（Synology DS1825+）に置いた**映画・音楽・写真・本**の並べ
 | `music` | 音楽・**ミュージックビデオ**（§4.1） | Theta Music Hatch（Audio Station・WebDAV）、Jellyfin |
 | `photo`・各自の `Photos` | 写真・スマホの動画 | Synology Photos、Theta Photo Hatch、Mitene |
 | `book` | 電子書籍・自炊 PDF・漫画・オーディオブック | Theta Book Hatch |
-| `Obsidian` | Theta Vault（ノート）。作品のメモ・索引はここ | 各アプリ、Obsidian（`THETA_VAULT_SPEC.md`） |
+| `Obsidian` | Theta Vault（名刺・メモなど、Vault そのものがデータのアプリ） | 各アプリ、Obsidian（`THETA_VAULT_SPEC.md`） |
 
+- **ライブラリを持つアプリ（Music・Movie・Book・Photo）のノートは、ライブラリと同じ共有フォルダの `_Theta Vault/`** に置く（例 `music/_Theta Vault/Music/`。2026-11-20 決定、`THETA_VAULT_SPEC.md` §4）。ライブラリとノートを離さないため
 - 名前は**実際の共有フォルダ名に合わせて直す**（未確認）。メディアは Vault にコピーせず、Vault のノートから NAS のパスで参照する。
 
 ## 2. 全部に共通の名前の決まり
@@ -73,7 +74,7 @@ music/
 - タグは ID3v2.4（MP3）・Vorbis Comment（FLAC）・iTunes タグ（M4A）で、**UTF-8**。Shift_JIS の古い ID3 は UTF-8 に直す。
 - 必ず入れるタグ：曲名・アーティスト・**アルバムアーティスト**・アルバム・年・トラック番号・ディスク番号・ジャケット（埋め込みか `cover.jpg`）。オムニバスはアルバムアーティストを `Various Artists`。
 - アーティスト名のゆれ（全角・半角、「The」の有無）は 1 つにそろえる（棚をまたいでも同じ表記）。読みは `ARTISTSORT`・`ALBUMSORT`。
-- アルバム・アーティストのメモは Theta Music Hatch が Vault に書き出す（`Obsidian/…/Music/`）。
+- アルバム・アーティストのメモは Theta Music Hatch が Vault に書き出す（`music/_Theta Vault/Music/`。§1）。
 
 ### 4.1 ミュージックビデオ（2026-11-19 決定）
 
