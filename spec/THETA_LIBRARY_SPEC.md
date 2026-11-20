@@ -10,7 +10,7 @@ NAS（Synology DS1825+）に置いた**映画・音楽・写真・本**の並べ
 | 共有フォルダ | 中身 | 読むもの |
 | --- | --- | --- |
 | `video`（実際は `8Tube`） | 映画・ドラマ・アニメ・テレビ録画・ライブ。**ミュージックビデオは置かない**（§4.1） | Jellyfin（Theta Movie Hatch）、TV |
-| `music` | 音楽・**ミュージックビデオ**（§4.1） | Theta Music Hatch（Audio Station・WebDAV）、Jellyfin |
+| `music` | 音楽・**ミュージックビデオ**（§4.1） | Theta Music Hatch（File Station・Audio Station・WebDAV）、Jellyfin |
 | `photo`・各自の `Photos` | 写真・スマホの動画 | Synology Photos、Theta Photo Hatch、Mitene |
 | `book` | 電子書籍・自炊 PDF・漫画・オーディオブック | Theta Book Hatch |
 | `Obsidian` | Theta Vault（名刺・メモなど、Vault そのものがデータのアプリ） | 各アプリ、Obsidian（`THETA_VAULT_SPEC.md`） |

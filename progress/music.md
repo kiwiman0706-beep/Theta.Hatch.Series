@@ -2,7 +2,7 @@
 
 - 更新：2026-11-15
 - スレッド：https://claude.ai/code/session_012DXkc2Wd5iBmicj8ba39vG
-- 状態：実機確認待ち（1.8.0 を Releases に公開：v1.8.0、check_apk.py で確認済み）
+- 状態：実機確認待ち（1.9.0 を Releases に公開：v1.9.0、check_apk.py で確認済み）
 
 ## 今と目標
 
@@ -140,6 +140,11 @@
 
 - 整理の記録（`/music/_整理の記録/<日時>.csv`、Movie と同じ形）を読んで、曲のお気に入りを新しい場所に付け替える（スキャンのたび、未適用の記録だけ）
 - 音楽の整理ルール `docs/naming-convention.md` と頼む文 `docs/PROMPT_LOCAL_ORGANIZE.md` を作った（Movie の 8Tube と同じ形）
+
+### 1.9.0（2026-11-20）
+
+- 接続方式に File Station を足した（Movie・Book と同じ。WebDAV Server・Audio Station 不要。ログインは DS audio と同じでセッションは `FileStation`）。WebDAV・DS audio も残す。シークに要る Range への応答は、本物の DSM で未確認（Movie と同じ確認待ち）
+- 残り：Vault の置き場所が `/music/_Theta Vault/Music/` に変わった（THETA_VAULT_SPEC §4、2026-11-20）ので、アプリの書き出しの既定を次の版で合わせる
 
 ## 実機で確かめること
 
