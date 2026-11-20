@@ -4,7 +4,7 @@
 
 - 更新：2026-11-15
 - スレッド：https://claude.ai/code/session_012DXkbyha4qRNRU1wCiPjQm
-- 状態：実機確認待ち（0.6.0 を Releases に出した。予定は Google カレンダーの API（家族の共用アカウント）。試作のデザインのクロスバー・レスキュー。実機はローカルの Claude に依頼予定：docs/PROMPT_LOCAL_INSTALL.md）
+- 状態：実機確認待ち（0.7.0 を Releases に出した。NAS のおんがくを内蔵。試作のデザインのクロスバー・レスキュー。実機はローカルの Claude に依頼予定：docs/PROMPT_LOCAL_INSTALL.md）
 
 ## 今と目標
 
@@ -21,6 +21,8 @@
 
 ## 方針
 
+- **Movie・Music・Book の機能は TVhome に内蔵**（2026-11-20）：おんがく（0.7.0、File Station・ExoPlayer・別プロセス）→ えいが（mpv、DTS・ARIB 字幕まで）→ ほん（PDF・漫画）。NAS の並べ方は THETA_LIBRARY_SPEC、つなぎ方は File Station（Movie・Book と同じ、2 段階認証は初回だけ）。家の外は Tailscale（入っていなければ案内）。元のアプリの新しい版は tools/sibling_updates.py で洗い出し、docs/SIBLINGS.md で取り込むか決める
+
 - Home・KidsHome から一部を切り出した、**テレビ専用の軽いホーム**（Compose の foundation だけ、APK 約 2.5MB）。THETA_TV_SPEC §3 の「Home の TV 版」を、Home と**別の APK**で作る（利用者が決定、2026-11-15）
 - 子どもでも迷わない：大きなタイル・ひらがな、子どもモードとおうちの人の番号
 - テレビの入口（地デジ・BS・録画・HDMI）は機種ごとに違うので、ADB で調べて `SET entry.<key>` で入れる（手順はアプリの `docs/ADB.md`）
@@ -28,6 +30,8 @@
 - これからの順番：アプリの `docs/ROADMAP.md`（USB HDD → NAS・キャッシュ → SwitchBot → 家族の通話（Chat Plus／Meet β）→ Tapo の小窓）
 
 ## シリーズへの依頼（このリポジトリのスレッドへ）
+
+- [ ] **TV では Movie・Music・Book の機能を TVhome に内蔵する**（利用者が決定、2026-11-20）。THETA_TV_SPEC §1・§2・§5 を「TV では各アプリの TV 版を作らず TVhome に内蔵。つなぎ方は DSM の File Station、NAS の並べ方は THETA_LIBRARY_SPEC。取り込む機能は TVhome の docs/SIBLINGS.md と tools/sibling_updates.py で追う」に直す。Movie・Music の進捗メモの「Android TV」の予定も合わせて
 
 - [ ] spec/THETA_GOOGLE_SETUP.md の API の表に「Google Calendar API：TVhome（予定、0.6.0〜）」を足す。テストユーザーに家族の共用アカウント（TVhome で使う）
 
@@ -53,7 +57,7 @@
 - [x] update：更新をハブに頼む形に（ハブはハブ機能）
 - [x] settings：共通設定をハブから受け取る（ハブは配る側）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した
-- [x] release：新しい版を Releases に出した（v0.6.0）
+- [x] release：新しい版を Releases に出した（v0.7.0）
 
 ## 実機で確かめること
 
