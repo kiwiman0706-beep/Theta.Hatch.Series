@@ -4,7 +4,7 @@
 
 - 更新：2026-11-15
 - スレッド：https://claude.ai/code/session_012DXkbyha4qRNRU1wCiPjQm
-- 状態：実機確認待ち（0.7.0 を Releases に出した。NAS のおんがくを内蔵。試作のデザインのクロスバー・レスキュー。実機はローカルの Claude に依頼予定：docs/PROMPT_LOCAL_INSTALL.md）
+- 状態：実機確認待ち（0.8.0 を Releases に出す。NAS のえいが（mpv）・おんがく・しゃしん・ほんを内蔵。試作のデザインのクロスバー・レスキュー。実機はローカルの Claude に依頼予定：docs/PROMPT_LOCAL_INSTALL.md）
 
 ## 今と目標
 
@@ -20,6 +20,8 @@
 | スキン | シリーズの 10 種（ThetaSkins.kt の写し）。TV の既定は dark | 同じ |
 
 ## 方針
+
+- **ホームの置き換え**（2026-11-21、利用者が決定）：純正のホームの優先度が高く、既定のホームにしても効かない（職場の R4-SH で確認）。まず職場のテレビで試し、軌道に乗ったら自宅も純正のホームを止めて置き換える（止める前に、レスキューから純正を戻す手順を確かめる）
 
 - **Movie・Music・Book の機能は TVhome に内蔵**（2026-11-20）：おんがく（0.7.0、File Station・ExoPlayer・別プロセス）→ えいが（mpv、DTS・ARIB 字幕まで）→ ほん（PDF・漫画）。NAS の並べ方は THETA_LIBRARY_SPEC、つなぎ方は File Station（Movie・Book と同じ、2 段階認証は初回だけ）。家の外は Tailscale（入っていなければ案内）。元のアプリの新しい版は tools/sibling_updates.py で洗い出し、docs/SIBLINGS.md で取り込むか決める
 
@@ -57,7 +59,7 @@
 - [x] update：更新をハブに頼む形に（ハブはハブ機能）
 - [x] settings：共通設定をハブから受け取る（ハブは配る側）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した
-- [x] release：新しい版を Releases に出した（v0.7.0）
+- [x] release：新しい版を Releases に出した（v0.8.0）
 
 ## 実機で確かめること
 
