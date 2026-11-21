@@ -1,6 +1,6 @@
 # Theta Book Hatch（book）の移行メモ
 
-- 更新：2026-11-20
+- 更新：2026-11-21
 - スレッド：https://claude.ai/code/session_01VBri9A5SpavPKRqvCQZARs
 - 状態：実機確認待ち（移行まわり・アプリの棚）。スキン・共通設定・Vault は作業中
 
@@ -60,6 +60,10 @@
 - 今ある（Python＋pywebview、ポート 47817、DeskHatch のドロワー対応）。spec の Electron ではないが、同じ HTML/CSS/JS を共有しているので、そのまま続けたい（決めてほしいこと 5）
 - デスクトップは Home のハブが無いので、設定は今どおりアプリで入力
 
+## TVhome を更新のハブに（1.1.3）
+
+- progress/tvhome.md の依頼どおり、`<queries>` と `UPDATE` の送り先に `app.thetahatch.tvhome` を足した。既定のホームがハブ（Home・KidsHome・TVhome）ならそこ、無ければ Home → KidsHome → TVhome。EXPORT を受ける相手（移行のハブ）には足していない
+
 ## FullOCR の新しい出力（1.1.2）
 
 - `v1.1.2`（versionCode 79）。FullOCR のスレッドが用意したブランチ `claude/fullocr-callout-math` を取り込み、レビューで 2 つ直した
@@ -109,6 +113,7 @@
   - 案 1：`SYNO.FileStation.Search`（`recursive=true`、`pattern` に拡張子）で棚ごとに 1 回の検索にする（プロトタイプ `dsbooks-prototype.html` の 249 行目は Search を使っている）
   - 案 2：進み具合に「残りの見込み」を出し、途中で止めても見つかった分は本棚に出す。次回は前回の続きから（変わったフォルダだけ）
   - NAS 側でも、青空文庫を `▶青空文庫/<著者>/<題名>.epub` に平らにしてフォルダを約 1,000 に減らす案を利用者に出している
+  - **→ 1.1.3 で対応（2026-11-21）**：案 1 のとおり、接頭辞の棚も `SYNO.FileStation.Search` を 1 回（棚をまとめて `folder_path` に）で調べるようにした。フォルダごとの一覧は Search API の無い DSM だけ。案 2（途中から続ける）は Search で要らなくなったのでしていない。青空文庫を平らにするかは NAS の都合で決めてよい（Book はどちらでも読める。シリーズの「次巻」は同じフォルダの中だけなので、平らにすると著者のフォルダの中でつながる）
 
 ## 進み具合
 
@@ -130,5 +135,6 @@
 - [ ] 新しい版を入れ、Home から IMPORT → 本棚・読書位置・栞・メモ・NAS の接続先が戻る（パスワードはハブから or 再入力）
 - [ ] NAS の本を開くと、保存済みだった本は取り直しになり、位置はそのまま
 - [ ] ハブの「更新する」で Releases から更新される
+- [ ] 1.1.3：接頭辞 ▶ で 8Books のスキャンがすぐ終わる。TV で「更新を確認」→ TVhome
 - [ ] 1.1.2：NAS の X.pdf と X.jisui が 1 冊、「原文 p.N」と「本文へ」で行き来できる、表のテキスト・数式・引用の見た目（Android と PC）
 - [ ] 1.1.1：Home の「本」と「＋」の Book タブに表紙が並び、押すとその本が続きから開く。設定で区画を外すと消える
