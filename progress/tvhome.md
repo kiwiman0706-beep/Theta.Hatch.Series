@@ -21,6 +21,8 @@
 
 ## 方針
 
+- **NAS の整理の順番**（2026-11-21、利用者）：music → video → photo → book → **ホーム（homes）** → 全部。TVhome はそれぞれの並べ方に合わせて読む（TVhome の docs/ROADMAP.md）。ホームの整理のときに、TVhome に「ファイル」（書類を見る）を足す
+
 - **ホームの置き換え**（2026-11-21、利用者が決定）：純正のホームの優先度が高く、既定のホームにしても効かない（職場の R4-SH で確認）。まず職場のテレビで試し、軌道に乗ったら自宅も純正のホームを止めて置き換える（止める前に、レスキューから純正を戻す手順を確かめる）
 
 - **Movie・Music・Book の機能は TVhome に内蔵**（2026-11-20）：おんがく（0.7.0、File Station・ExoPlayer・別プロセス）→ えいが（mpv、DTS・ARIB 字幕まで）→ ほん（PDF・漫画）。NAS の並べ方は THETA_LIBRARY_SPEC、つなぎ方は File Station（Movie・Book と同じ、2 段階認証は初回だけ）。家の外は Tailscale（入っていなければ案内）。元のアプリの新しい版は tools/sibling_updates.py で洗い出し、docs/SIBLINGS.md で取り込むか決める
@@ -32,6 +34,8 @@
 - これからの順番：アプリの `docs/ROADMAP.md`（USB HDD → NAS・キャッシュ → SwitchBot → 家族の通話（Chat Plus／Meet β）→ Tapo の小窓）
 
 ## シリーズへの依頼（このリポジトリのスレッドへ）
+
+- [ ] THETA_LIBRARY_SPEC に、ホーム（`homes/<ユーザー>`）の整理の決まりの節を足す（書類・家族の物・スマホのバックアップの置き場所）。§1 の共有フォルダの一覧も NAS の実際の名前にそろえる（最後に NAS 全部を整理するため）
 
 - [ ] **TV では Movie・Music・Book の機能を TVhome に内蔵する**（利用者が決定、2026-11-20）。THETA_TV_SPEC §1・§2・§5 を「TV では各アプリの TV 版を作らず TVhome に内蔵。つなぎ方は DSM の File Station、NAS の並べ方は THETA_LIBRARY_SPEC。取り込む機能は TVhome の docs/SIBLINGS.md と tools/sibling_updates.py で追う」に直す。Movie・Music の進捗メモの「Android TV」の予定も合わせて
 
