@@ -103,6 +103,13 @@
 - EXPORT／IMPORT の約束：Book は Home の案（progress/home.md「ファイルの受け渡しの約束」）どおりに作った。`docs/MIGRATION.md` §3 に入れてもらえると Meishi・Chirashi とそろう。Book が足しているもの：EXPORT の結果に extra `packageName`・`format`（`theta-export-1`）・`versionName`・`sha256`、`ClipData` にも URI。呼び出し元がハブ（新旧の Home・KidsHome の ID）でなければ書き出さずに保存先を選ぶ画面にする。取り消しは `RESULT_CANCELED`
 - Book のリポジトリの Release には、これまでのデスクトップ版・ビューア・Android（v0.9.x〜v1.0.0-claude、すべて prerelease）が並ぶ。ハブが見る `releases/latest` は v1.1.0（prerelease でない）になる
 
+## NAS 整理のスレからの依頼（2026-11-22）
+
+- **NAS の「フォルダ検索」が終わらない**：`/8Books` を ▶ 棚に整理した後、設定で 8Books・接頭辞 `▶` を選んで検索すると「指定フォルダ内を確認中… 1370フォルダ・24644項目・対象5047件」のまま長く続く。原因は `▶青空文庫` が **1 冊 1 フォルダ（著者/題名/本.epub＋.opf）で 9,771 フォルダ**あるため（ほかの ▶ 棚は全部で約 270 フォルダ）。フォルダを 1 つずつ一覧する今の方式だと 1 万回近く DSM を呼ぶ
+  - 案 1：`SYNO.FileStation.Search`（`recursive=true`、`pattern` に拡張子）で棚ごとに 1 回の検索にする（プロトタイプ `dsbooks-prototype.html` の 249 行目は Search を使っている）
+  - 案 2：進み具合に「残りの見込み」を出し、途中で止めても見つかった分は本棚に出す。次回は前回の続きから（変わったフォルダだけ）
+  - NAS 側でも、青空文庫を `▶青空文庫/<著者>/<題名>.epub` に平らにしてフォルダを約 1,000 に減らす案を利用者に出している
+
 ## 進み具合
 
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
