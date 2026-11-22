@@ -116,6 +116,9 @@
   - **→ 1.1.3 で対応（2026-11-21）**：案 1 のとおり、接頭辞の棚も `SYNO.FileStation.Search` を 1 回（棚をまとめて `folder_path` に）で調べるようにした。フォルダごとの一覧は Search API の無い DSM だけ。案 2（途中から続ける）は Search で要らなくなったのでしていない。青空文庫を平らにするかは NAS の都合で決めてよい（Book はどちらでも読める。シリーズの「次巻」は同じフォルダの中だけなので、平らにすると著者のフォルダの中でつながる）
   - **→ 1.1.4（2026-11-22）**：1.1.3 で検索はすぐ終わるようになったが、約 1.5 万冊の本棚の一覧が WebView の localStorage の上限を超え「'dsbooks.catalog' exceeded the quota」で保存できなかった。Android は一覧をアプリのファイル（`files/store/`）に置くようにした。PC 版は同じ上限があり、まだ直していない（PC 版を 1.1 系にそろえる時に一緒に）
 
+- **本棚の「Markdown」で FullOCR の本が 1 冊も出ない**（1.1.4、2026-11-22）：NAS には `X.pdf` の隣に `X.jisui` が 100 冊以上ある（FullOCR 一括変換中、11/29〜30 に約 1,160 冊）。原因はコード側：絞り込みが `b.type===activeType` だけで（`dsbooks-prototype.html` の `['PDF','ePub','Markdown','Comic'].includes(activeType)&&b.type!==activeType`）、`.jisui` は type `Jisui`、しかも 5b504c6 で `X.pdf`＋`X.jisui` は 1 冊にまとまり顔は PDF になるので、どの絞り込みでも「Markdown」に当たらない
+  - 案：「Markdown」の絞り込みに **MD で読める本（type Markdown・Jisui、または PDF＋JISUI のまとまり）** を含める。名前を「Markdown・OCR済み」にするか、チップ「OCR済み（JISUI）」を足す。カードにも `PDF+MD` の印
+
 ## 進み具合
 
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
