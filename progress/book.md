@@ -1,6 +1,6 @@
 # Theta Book Hatch（book）の移行メモ
 
-- 更新：2026-11-22
+- 更新：2026-11-22（2 回目）
 - スレッド：https://claude.ai/code/session_01VBri9A5SpavPKRqvCQZARs
 - 状態：実機確認待ち（移行まわり・アプリの棚）。スキン・共通設定・Vault は作業中
 
@@ -118,6 +118,7 @@
 
 - **本棚の「Markdown」で FullOCR の本が 1 冊も出ない**（1.1.4、2026-11-22）：NAS には `X.pdf` の隣に `X.jisui` が 100 冊以上ある（FullOCR 一括変換中、11/29〜30 に約 1,160 冊）。原因はコード側：絞り込みが `b.type===activeType` だけで（`dsbooks-prototype.html` の `['PDF','ePub','Markdown','Comic'].includes(activeType)&&b.type!==activeType`）、`.jisui` は type `Jisui`、しかも 5b504c6 で `X.pdf`＋`X.jisui` は 1 冊にまとまり顔は PDF になるので、どの絞り込みでも「Markdown」に当たらない
   - 案：「Markdown」の絞り込みに **MD で読める本（type Markdown・Jisui、または PDF＋JISUI のまとまり）** を含める。名前を「Markdown・OCR済み」にするか、チップ「OCR済み（JISUI）」を足す。カードにも `PDF+MD` の印
+  - **→ 1.1.5 で対応（2026-11-22）**：「Markdown」の絞り込みを、作品のまとまりに Markdown か JISUI があれば出すように（表紙は PDF のまま）。ボタンの名前は「Markdown・JISUI」。カードの形式の印は 1.1.2 から `JISUI + PDF` と出ているので足していない。PDF・ePub・コミックの絞り込みは変えていない
 
 ## 進み具合
 
@@ -139,6 +140,7 @@
 - [ ] 新しい版を入れ、Home から IMPORT → 本棚・読書位置・栞・メモ・NAS の接続先が戻る（パスワードはハブから or 再入力）
 - [ ] NAS の本を開くと、保存済みだった本は取り直しになり、位置はそのまま
 - [ ] ハブの「更新する」で Releases から更新される
+- [ ] 1.1.5：「Markdown・JISUI」で FullOCR の本（PDF＋JISUI、JISUI だけ）が出る
 - [ ] 1.1.4：▶ で 8Books をスキャン → 保存できる（quota のエラーが出ない）、開き直しても本が残る
 - [ ] 1.1.3：接頭辞 ▶ で 8Books のスキャンがすぐ終わる。TV で「更新を確認」→ TVhome
 - [ ] 1.1.2：NAS の X.pdf と X.jisui が 1 冊、「原文 p.N」と「本文へ」で行き来できる、表のテキスト・数式・引用の見た目（Android と PC）
