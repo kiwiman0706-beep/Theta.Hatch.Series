@@ -2,7 +2,7 @@
 
 - 更新：2026-11-07
 - スレッド：https://claude.ai/code/session_01GMSgoGarRChJJQLGtjAFKY
-- 状態：1.21.0 公開済み（スキン DUSK・NOTE を追加・skins.json への登録は未・閉じた画面に開いた画面の並びが残るのを直す・同梱の apps.json を新しく・Movie を一覧に・MemoHatch のタブに最近のメモ 6 件・MemoHatch のボタンを端末に直接たずねて名指しで開く・棚のタイル・本の区画・フォルダの並べ替え・すぐ記録は MemoHatch へ）（タスクバーのピン留め・LINE と人の結び付け・よく連絡する人・LINE WORKS などのトーク。実機の確認はこれから）
+- 状態：1.22.0 公開済み（設定をまとまりの一覧に整理・スキン DUSK・NOTE を追加・skins.json への登録は未・閉じた画面に開いた画面の並びが残るのを直す・同梱の apps.json を新しく・Movie を一覧に・MemoHatch のタブに最近のメモ 6 件・MemoHatch のボタンを端末に直接たずねて名指しで開く・棚のタイル・本の区画・フォルダの並べ替え・すぐ記録は MemoHatch へ）（タスクバーのピン留め・LINE と人の結び付け・よく連絡する人・LINE WORKS などのトーク。実機の確認はこれから）
 
 ## 今と目標
 
