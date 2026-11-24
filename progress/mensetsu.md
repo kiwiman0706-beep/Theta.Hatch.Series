@@ -1,8 +1,8 @@
 # Theta Mensetsu Hatch（mensetsu）の移行メモ
 
-- 更新：2026-11-24
+- 更新：2026-11-24（1.0.0）
 - スレッド：https://claude.ai/code/session_01UZcNkbW2pixSpi59267B3r
-- 状態：計画OK待ち
+- 状態：作業中（1.0.0 を main に push。Release の完了待ち）
 
 ## 今と目標
 
@@ -62,24 +62,26 @@
 
 ## 決めてほしいこと
 
-- [ ] 1. 新しいアプリの版：**1.0.0**（Meishi と同じ）でよいか
-- [ ] 2. NAS（Synology、Tailscale）：今回やるか、後の版か。PC はすでに「フォルダの同期に任せる」で NAS のフォルダを Vault にできる。Android は WebDAV か File Station API＋Secure SignIn（確認コード・デバイストークン）が要る。ブラウザ版は NAS の CORS の設定が要るので Drive のまま
-- [ ] 3. スキン：今回やるか、後の版か（全画面の色を役割に置き換える作業。Meishi は後の版にした）
+決まったこと（2026-11-24）：新しい版は 1.0.0／NAS・スキン・SCAN は後の版／デスクトップの appId も変える／一括の書き出し・読み込みを 1.0.0 に入れる（形式は Mensetsu の `docs/IMPORT_FORMAT.md`）／APK を急ぐ。4（設定を Vault へ）は説明待ち。
+
+- [x] 1. 新しいアプリの版：**1.0.0**（Meishi と同じ）でよいか
+- [x] 2. （後の版）NAS（Synology、Tailscale）：今回やるか、後の版か。PC はすでに「フォルダの同期に任せる」で NAS のフォルダを Vault にできる。Android は WebDAV か File Station API＋Secure SignIn（確認コード・デバイストークン）が要る。ブラウザ版は NAS の CORS の設定が要るので Drive のまま
+- [x] 3. （後の版）スキン：今回やるか、後の版か（全画面の色を役割に置き換える作業。Meishi は後の版にした）
 - [ ] 4. アプリの設定を Vault の `apps.mensetsu` に移してよいか
-- [ ] 5. デスクトップの appId も `app.thetahatch.mensetsu` に変えてよいか（Windows は古い版を手で削除）
-- [ ] 6. 撮って登録（`SCAN`）にも対応するか（Home から「履歴書を撮る」）
-- [ ] 7. 一括の書き出し・読み込みを、移行の作業と同じ版（1.0.0）に入れてよいか
+- [x] 5. デスクトップの appId も `app.thetahatch.mensetsu` に変えてよいか（Windows は古い版を手で削除）
+- [x] 6. （後の版）撮って登録（`SCAN`）にも対応するか（Home から「履歴書を撮る」）
+- [x] 7. 一括の書き出し・読み込みを、移行の作業と同じ版（1.0.0）に入れてよいか
 - [ ] 8. このリポジトリに 4 つの Secret が入っているか（2026-11-06 に配布済みと聞いている）
 
 ## 進み具合
 
 <!-- 移行ボードの手順と同じ名前。済んだら [x]。確認スクリプトがこの行を読む -->
-- [ ] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
-- [ ] appid：アプリ ID を新しい ID に
-- [ ] signing：共通鍵の Secret で署名
-- [ ] update：更新をハブに頼む形に（ハブはハブ機能）
-- [ ] settings：共通設定をハブから受け取る（ハブは配る側）
-- [ ] rename：改名後の名前に合わせて URL・リンクを直した
+- [x] claudemd：CLAUDE.md に Theta.Hatch.Series への参照（1.0.0）
+- [x] appid：アプリ ID を新しい ID に（1.0.0：`app.thetahatch.mensetsu`、Java のパッケージ・デスクトップの appId も）
+- [x] signing：共通鍵の Secret で署名（1.0.0：4 つの Secret。無ければ失敗。APK のパッケージ名・版・共通鍵の SHA-256 を CI で確かめる。開発用の鍵は削除）
+- [x] update：更新をハブに頼む形に（1.0.0：メニュー「更新を確認」→ `app.thetahatch.action.UPDATE`、無ければ Releases。インストール権限なし）
+- [x] settings：共通設定をハブから受け取る（1.0.0：`info` の `gemini.model`・`google.account`、`secret/gemini.key` は利用者が選んだとき。書き戻しもする。スキンは後の版）
+- [x] rename：改名後の名前に合わせて URL・リンクを直した（リポジトリ名は変わらない。古い ID・個人名を検索して直した）
 - [ ] release：新しい版を Releases に出した
 
 ## 実機で確かめること
