@@ -1,5 +1,5 @@
 /* 生成ファイル：tools/gen_skins.py で design/skins/skins.json から作る。手で直さない。
-   <html data-theta-skin="dark|light|pop|alert|scifi|term|braun|soft|window|lcd|system">（html 以外の要素に付けてもその中だけ切り替わる）。無い・system は端末のダーク／ライトに合わせる。
+   <html data-theta-skin="dark|light|pop|alert|scifi|term|braun|soft|window|lcd|dusk|system">（html 以外の要素に付けてもその中だけ切り替わる）。無い・system は端末のダーク／ライトに合わせる。
    書体：<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
    （アプリに同梱するときは design/hud-kit/compose/res/font/ の ttf とライセンスを使う） */
 :root {
@@ -292,6 +292,30 @@
   --mono: "Share Tech Mono", ui-monospace, "Noto Sans JP", monospace;
   color-scheme: light;
 }
+[data-theta-skin="dusk"] {
+  --bg: #243A3C;
+  --panel: #2C4346;
+  --raised: #36504F;
+  --fg: #F5ECE6;
+  --muted: #CDBFB7;
+  --faint: #A3ADA9;
+  --line: #5A7471;
+  --accent: #FF8E7E;
+  --on-accent: #3A2422;
+  --widget: #86D9C4;
+  --launch: #D69BE8;
+  --zebra: rgba(255,255,255,0.059);
+  --accent2: #F2C46B;
+  --accent3: #86D9C4;
+  --radius: 10px;
+  --line-width: 1px;
+  --hazard: 0px;
+  --shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent), 0 0 14px color-mix(in srgb, var(--accent) 35%, transparent);
+  --icon-radius: 24%;
+  --display: system-ui, "Noto Sans JP", sans-serif;
+  --mono: system-ui, "Noto Sans JP", sans-serif;
+  color-scheme: dark;
+}
 
 /* 背景の模様。地を塗る要素に .theta-backdrop を付ける */
 [data-theta-skin="alert"] .theta-backdrop, .theta-backdrop[data-theta-skin="alert"] {
@@ -311,5 +335,10 @@
 [data-theta-skin="lcd"] .theta-backdrop, .theta-backdrop[data-theta-skin="lcd"] {
   background-image: repeating-linear-gradient(to bottom, color-mix(in srgb, var(--fg) 3.5%, transparent) 0 1px, transparent 1px 3px);
 }
-/* ボタン・台の影（POP・WINDOW は右下にずらした影、BRAUN・SOFT は浮き出し） */
+[data-theta-skin="dusk"] .theta-backdrop, .theta-backdrop[data-theta-skin="dusk"] {
+  background-image: repeating-linear-gradient(to right, rgba(255,255,255,.04) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(to bottom, rgba(255,255,255,.04) 0 1px, transparent 1px 40px),
+    linear-gradient(to bottom right, #B8705F, #6A5B5C, #2F4547, #213638);
+}
+/* ボタン・台の影（POP・WINDOW は右下にずらした影、BRAUN・SOFT は浮き出し、DUSK は accent 色で光る縁） */
 .theta-pop-shadow { box-shadow: var(--shadow); }

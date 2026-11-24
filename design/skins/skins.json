@@ -1,6 +1,6 @@
 {
   "spec": 1,
-  "source": "Theta.Home.Hatch 0.27.0-alpha（Theme.kt）＋ 0.36 で足した 5 つ（progress/home.md、2026-11-07）",
+  "source": "Theta.Home.Hatch 0.27.0-alpha（Theme.kt）＋ 0.36 で足した 5 つ（progress/home.md、2026-11-07）＋ dusk（Home 1.20.0）",
   "setting": {
     "key": "ui.skin",
     "values": [
@@ -14,7 +14,8 @@
       "braun",
       "soft",
       "window",
-      "lcd"
+      "lcd",
+      "dusk"
     ],
     "default": "system",
     "system": "端末がダークなら dark、ライトなら light"
@@ -315,12 +316,40 @@
       "font": "mono",
       "shadow": "none",
       "iconShape": "square"
+    },
+    "dusk": {
+      "label": "DUSK（夕暮れのガラス）",
+      "summary": "夕暮れの青緑の地にコーラル・ミント・紫・黄。台は accent 色でぼんやり光る細い縁、角丸、ゴシック。背景は夕焼けから青緑へのグラデーションに白い方眼",
+      "color": {
+        "bg": "#243A3C",
+        "panel": "#2C4346",
+        "raised": "#36504F",
+        "fg": "#F5ECE6",
+        "muted": "#CDBFB7",
+        "faint": "#A3ADA9",
+        "line": "#5A7471",
+        "accent": "#FF8E7E",
+        "onAccent": "#3A2422",
+        "widget": "#86D9C4",
+        "launch": "#D69BE8",
+        "zebra": "#0FFFFFFF",
+        "accent2": "#F2C46B",
+        "accent3": "#86D9C4"
+      },
+      "pop": false,
+      "backdrop": "dusk",
+      "hazard": 0,
+      "style": "soft",
+      "radius": 10,
+      "font": "sans",
+      "shadow": "glow",
+      "iconShape": "round"
     }
   },
   "shape": {
     "hud": "角は丸めない（0dp）。ボタン・入力欄だけ左上を 8dp 斜めに落とす（Chamfer）。線は 1dp",
     "pop": "角は 10dp（ボタン・入力欄は 8dp）。線は 1.5dp。ボタンに右下 3dp の fg 色の影",
-    "fields": "style：作り（hud・pop・term・braun・soft・window・lcd。枠・時計・見出しの形の種類）／radius：角丸 dp／font：hud＝Oswald＋Share Tech Mono・sans＝端末のゴシック・mono＝全部 Share Tech Mono／shadow：none・hard（右下 3dp の fg 色の影）・soft（ぼかした浮き出し）／iconShape：square・round（角丸 24%）・circle"
+    "fields": "style：作り（hud・pop・term・braun・soft・window・lcd。枠・時計・見出しの形の種類）／radius：角丸 dp／font：hud＝Oswald＋Share Tech Mono・sans＝端末のゴシック・mono＝全部 Share Tech Mono／shadow：none・hard（右下 3dp の fg 色の影）・soft（ぼかした浮き出し）・glow（accent 色で縁がぼんやり光る＋細い縁）／iconShape：square・round（角丸 24%）・circle"
   },
   "font": {
     "display": "Oswald（Light・Regular・SemiBold）— 見出し・時計・大きな数字。POP は端末のゴシック",
@@ -332,7 +361,8 @@
     "grid": "方眼：28dp ごとに 1px、widget の 7%",
     "rain": "縦に流れる文字の列：18dp ごとの列に accent の点、最大 10%",
     "lines": "白い方眼：36dp ごと、白の 22%",
-    "pixel": "液晶の横線：3dp ごと、fg の 3.5%"
+    "pixel": "液晶の横線：3dp ごと、fg の 3.5%",
+    "dusk": "夕暮れのグラデーション：左上→右下に #B8705F → #6A5B5C → #2F4547 → #213638、その上に白 4% の 40dp 方眼"
   },
   "note": "WebView 版などで作り（style）まで真似できないときは、色だけ使えば十分"
 }

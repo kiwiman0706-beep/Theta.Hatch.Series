@@ -25,7 +25,7 @@
 - **同じ APK** に TV 用の画面を足す（`THETA_HATCH_SPEC.md` §4）。TV 用の Activity に `LEANBACK_LAUNCHER`、Manifest に `<uses-feature android:name="android.software.leanback" android:required="false"/>` と `<uses-feature android:name="android.hardware.touchscreen" android:required="false"/>`、TV のバナー（320×180）。
 - **リモコンだけで全部できる**：十字キーで動く、選んでいる所がはっきり分かる（accent の太い枠と少し拡大）、戻るボタンで必ず 1 つ前へ。再生・一時停止・早送りのボタン（`KEYCODE_MEDIA_*`）。
 - **10 フィートの画面**：周り 5% は空ける（テレビの端が切れるため）、文字は大きく（本文 24sp 以上の目安）、1 画面に詰め込まない。横 1 行の棚を縦に並べる形（Netflix 型）を基本に。
-- **スキン**：`design/skins` の 10 種をそのまま使う（暗いスキンが既定）。TV では縞模様や細い線は太めに。
+- **スキン**：`design/skins` の 11 種をそのまま使う（暗いスキンが既定）。TV では縞模様や細い線は太めに。
 - **軽く**：起動は速く、裏で重い処理をしない。広告・トラッキングは入れない。
 - **NAS へのつなぎ方**：家の LAN を優先。外からは Tailscale（Android TV 用のアプリ有り）。NAS のログインは Home（設定のハブ）から受け取る。
 - **入れ方**：Home（TV 版）が更新のハブ。最初の 1 本は ADB（`THETA_ADB_SPEC.md` §4）で入れる。Google TV のホームを Home に替えるのも ADB で行う（`cmd package set-home-activity …`。Google TV の更新で戻ることがある）。

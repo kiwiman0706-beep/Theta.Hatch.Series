@@ -23,7 +23,7 @@ data class Palette(
     val accent3: Color,
     /** POP：角を丸め、線を太く、ボタンに影、書体はゴシック。 */
     val pop: Boolean = false,
-    /** 背景の模様："" なし・"scan"（走査線）・"grid"（方眼）。 */
+    /** 背景の模様："" なし・scan（走査線）・grid（方眼）・rain・lines・pixel・dusk（夕暮れのグラデーション＋方眼）。 */
     val backdrop: String = "",
     /** 見出しの上の警告の帯の太さ。 */
     val hazard: Dp = 4.dp,
@@ -33,7 +33,7 @@ data class Palette(
     val radius: Dp = 0.dp,
     /** 書体：hud＝Oswald＋Share Tech Mono・sans＝端末のゴシック・mono＝全部 Share Tech Mono。 */
     val font: String = "hud",
-    /** 影：none・hard（右下 3dp の fg 色）・soft（ぼかした浮き出し）。 */
+    /** 影：none・hard（右下 3dp の fg 色）・soft（ぼかした浮き出し）・glow（accent 色で縁がぼんやり光る＋細い縁）。 */
     val shadow: String = "none",
     /** アイコンの台：square・round（角丸 24%）・circle。 */
     val iconShape: String = "square",
@@ -305,7 +305,33 @@ val LcdPalette = Palette(
     iconShape = "square",
 )
 
-/** 設定 ui.skin の値（system・dark・light・pop・alert・scifi・term・braun・soft・window・lcd）から配色を決める。 */
+/** DUSK（夕暮れのガラス）：夕暮れの青緑の地にコーラル・ミント・紫・黄。台は accent 色でぼんやり光る細い縁、角丸、ゴシック。背景は夕焼けから青緑へのグラデーションに白い方眼 */
+val DuskPalette = Palette(
+    bg = Color(0xFF243A3C),
+    panel = Color(0xFF2C4346),
+    raised = Color(0xFF36504F),
+    fg = Color(0xFFF5ECE6),
+    muted = Color(0xFFCDBFB7),
+    faint = Color(0xFFA3ADA9),
+    line = Color(0xFF5A7471),
+    accent = Color(0xFFFF8E7E),
+    onAccent = Color(0xFF3A2422),
+    widget = Color(0xFF86D9C4),
+    launch = Color(0xFFD69BE8),
+    zebra = Color(0x0FFFFFFF),
+    accent2 = Color(0xFFF2C46B),
+    accent3 = Color(0xFF86D9C4),
+    pop = false,
+    backdrop = "dusk",
+    hazard = 0.dp,
+    style = "soft",
+    radius = 10.dp,
+    font = "sans",
+    shadow = "glow",
+    iconShape = "round",
+)
+
+/** 設定 ui.skin の値（system・dark・light・pop・alert・scifi・term・braun・soft・window・lcd・dusk）から配色を決める。 */
 fun paletteFor(skin: String, systemDark: Boolean): Palette = when (skin) {
     "dark" -> DarkPalette
     "light" -> LightPalette
@@ -317,5 +343,6 @@ fun paletteFor(skin: String, systemDark: Boolean): Palette = when (skin) {
     "soft" -> SoftPalette
     "window" -> WindowPalette
     "lcd" -> LcdPalette
+    "dusk" -> DuskPalette
     else -> if (systemDark) DarkPalette else LightPalette
 }

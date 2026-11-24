@@ -13,13 +13,14 @@ COLOR_KEYS = ["bg", "panel", "raised", "fg", "muted", "faint", "line", "accent",
               "widget", "launch", "zebra", "accent2", "accent3"]
 KT_NAMES = {"dark": "DarkPalette", "light": "LightPalette", "pop": "PopPalette",
             "alert": "AlertPalette", "scifi": "SciFiPalette", "term": "TermPalette", "braun": "BraunPalette",
-            "soft": "SoftPalette", "window": "WindowPalette", "lcd": "LcdPalette"}
+            "soft": "SoftPalette", "window": "WindowPalette", "lcd": "LcdPalette", "dusk": "DuskPalette"}
 GOTHIC = 'system-ui, "Noto Sans JP", sans-serif'
 OSWALD = '"Oswald", "Noto Sans JP", sans-serif'
 TECH = '"Share Tech Mono", ui-monospace, "Noto Sans JP", monospace'
 # font の種類 → (見出し, ラベル・数字)
 FONTS = {"hud": (OSWALD, TECH), "sans": (GOTHIC, GOTHIC), "mono": (TECH, TECH)}
-SHADOWS = {"none": "none", "hard": "3px 3px 0 var(--fg)", "soft": "0 6px 16px rgba(0,0,0,.18)"}
+SHADOWS = {"none": "none", "hard": "3px 3px 0 var(--fg)", "soft": "0 6px 16px rgba(0,0,0,.18)",
+           "glow": "0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent), 0 0 14px color-mix(in srgb, var(--accent) 35%, transparent)"}
 ICON_RADIUS = {"square": "0", "round": "24%", "circle": "50%"}
 # 背景の模様（.theta-backdrop に付ける）
 BACKDROPS = {
@@ -30,6 +31,9 @@ BACKDROPS = {
     "lines": ("repeating-linear-gradient(to right, rgba(255,255,255,.22) 0 1px, transparent 1px 36px),\n"
               "    repeating-linear-gradient(to bottom, rgba(255,255,255,.22) 0 1px, transparent 1px 36px)"),
     "pixel": "repeating-linear-gradient(to bottom, color-mix(in srgb, var(--fg) 3.5%, transparent) 0 1px, transparent 1px 3px)",
+    "dusk": ("repeating-linear-gradient(to right, rgba(255,255,255,.04) 0 1px, transparent 1px 40px),\n"
+             "    repeating-linear-gradient(to bottom, rgba(255,255,255,.04) 0 1px, transparent 1px 40px),\n"
+             "    linear-gradient(to bottom right, #B8705F, #6A5B5C, #2F4547, #213638)"),
 }
 
 
@@ -98,7 +102,7 @@ def make_css(data):
             out += [f"[data-theta-skin=\"{name}\"] .theta-backdrop, .theta-backdrop[data-theta-skin=\"{name}\"] {{",
                     f"  background-image: {BACKDROPS[skin['backdrop']]};", "}"]
     out += [
-        "/* ボタン・台の影（POP・WINDOW は右下にずらした影、BRAUN・SOFT は浮き出し） */",
+        "/* ボタン・台の影（POP・WINDOW は右下にずらした影、BRAUN・SOFT は浮き出し、DUSK は accent 色で光る縁） */",
         ".theta-pop-shadow { box-shadow: var(--shadow); }",
         "",
     ]
@@ -121,7 +125,7 @@ def make_kt(data):
     out += [
         "    /** POP：角を丸め、線を太く、ボタンに影、書体はゴシック。 */",
         "    val pop: Boolean = false,",
-        "    /** 背景の模様：\"\" なし・\"scan\"（走査線）・\"grid\"（方眼）。 */",
+        "    /** 背景の模様：\"\" なし・scan（走査線）・grid（方眼）・rain・lines・pixel・dusk（夕暮れのグラデーション＋方眼）。 */",
         "    val backdrop: String = \"\",",
         "    /** 見出しの上の警告の帯の太さ。 */",
         "    val hazard: Dp = 4.dp,",
@@ -131,7 +135,7 @@ def make_kt(data):
         "    val radius: Dp = 0.dp,",
         "    /** 書体：hud＝Oswald＋Share Tech Mono・sans＝端末のゴシック・mono＝全部 Share Tech Mono。 */",
         "    val font: String = \"hud\",",
-        "    /** 影：none・hard（右下 3dp の fg 色）・soft（ぼかした浮き出し）。 */",
+        "    /** 影：none・hard（右下 3dp の fg 色）・soft（ぼかした浮き出し）・glow（accent 色で縁がぼんやり光る＋細い縁）。 */",
         "    val shadow: String = \"none\",",
         "    /** アイコンの台：square・round（角丸 24%）・circle。 */",
         "    val iconShape: String = \"square\",",
