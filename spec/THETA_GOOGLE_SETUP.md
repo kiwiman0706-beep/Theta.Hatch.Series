@@ -34,6 +34,8 @@ Google Cloud の設定は **シリーズで1つのプロジェクト** にまと
    | Google Drive API | 全アプリ（Theta Vault の同期・取り込み）、Chirashi（チラシ画像の保存）、Home（ファイラー） | 済み |
    | Google Calendar API | Chirashi（Android から直接。画像を添付するため）、Meishi の Web 版 | **要確認**（2026-11-07、Chirashi で SERVICE_DISABLED） |
    | Google People API | Meishi・Mensetsu の Web 版（Android は端末の連絡先経由） | 要確認 |
+   | Navigation SDK for Android | Navi（API キー。アプリ制限は `app.thetahatch.navi`＋共通の SHA-1。課金の設定が要る） | 要確認 |
+   | Places API (New) | Navi（検索候補の Place ID から位置。Navigation と同じキーでよい） | 要確認 |
 3. **同意画面**（Google Auth Platform →「ブランディング」「対象」）：アプリ名、サポートメール、対象は「外部」、公開ステータスは「テスト」のまま。
 4. **テストユーザー**（Google Auth Platform →「対象」→「テストユーザー」）：利用者自身の Google アカウント（と、使う家族のアカウント）。
    **プロジェクトに1回だけ**で、アプリを増やすたびに確かめる必要はありません（同じプロジェクトの全アプリに効きます）。

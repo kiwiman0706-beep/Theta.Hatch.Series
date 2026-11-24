@@ -2,7 +2,7 @@
 
 - 更新：2026-11-24
 - スレッド：https://claude.ai/code/session_012DXkc1s7r9pPQgcG7FqRha
-- 状態：実機確認待ち（v0.3.0 を Releases に公開。catalog への登録は Series のスレッドで）
+- 状態：実機確認待ち（v0.3.0 を Releases に公開。catalog に登録済み）
 
 ## 今と目標
 
@@ -26,7 +26,7 @@
 
 ## 決めてほしいこと
 
-- [ ] `catalog/apps.json` に navi を足す（このスレッドからは足していない。Series のスレッドで）
+- [x] `catalog/apps.json` に navi を足す（2026-11-24、利用者の了承でこのスレッドから）
 - [ ] Home 連動の Intent・ContentProvider を spec §6.2 に足すか
 
 ## 進み具合
