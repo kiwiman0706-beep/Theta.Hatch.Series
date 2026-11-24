@@ -2,7 +2,7 @@
 
 - 更新：2026-11-24（1.0.0）
 - スレッド：https://claude.ai/code/session_01UZcNkbW2pixSpi59267B3r
-- 状態：作業中（1.0.0 を main に push。Release の完了待ち）
+- 状態：実機確認待ち（1.0.0 を Releases に公開、2026-11-24。Android・Windows・Mac）
 
 ## 今と目標
 
@@ -82,7 +82,7 @@
 - [x] update：更新をハブに頼む形に（1.0.0：メニュー「更新を確認」→ `app.thetahatch.action.UPDATE`、無ければ Releases。インストール権限なし）
 - [x] settings：共通設定をハブから受け取る（1.0.0：`info` の `gemini.model`・`google.account`、`secret/gemini.key` は利用者が選んだとき。書き戻しもする。スキンは後の版）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した（リポジトリ名は変わらない。古い ID・個人名を検索して直した）
-- [ ] release：新しい版を Releases に出した
+- [x] release：新しい版を Releases に出した（1.0.0、2026-11-24。APK は共通鍵で署名、CI でパッケージ名・版・SHA-256 を確認）
 
 ## 実機で確かめること
 
