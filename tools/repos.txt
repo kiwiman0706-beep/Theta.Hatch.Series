@@ -18,3 +18,4 @@ kiwiman0706-beep/Theta.Chirashi.Hatch
 kiwiman0706-beep/Theta.Camera.Hatch
 kiwiman0706-beep/Theta.TVhome.Hatch
 kiwiman0706-beep/Theta.Movie.Hatch
+kiwiman0706-beep/Theta.Navi.Hatch
