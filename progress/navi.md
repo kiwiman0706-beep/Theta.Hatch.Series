@@ -2,7 +2,7 @@
 
 - 更新：2026-11-24
 - スレッド：https://claude.ai/code/session_012DXkc1s7r9pPQgcG7FqRha
-- 状態：作業中（0.3.0 で新しい ID・共通鍵。実車確認はこれから）
+- 状態：実機確認待ち（v0.3.0 を Releases に公開。catalog への登録は Series のスレッドで）
 
 ## 今と目標
 
@@ -33,11 +33,11 @@
 
 - [x] claudemd：CLAUDE.md に Theta.Hatch.Series への参照
 - [x] appid：アプリ ID を新しい ID に
-- [ ] signing：共通鍵の Secret で署名（`release.yml` は用意。Secret を配って Release が通ったら済）
+- [x] signing：共通鍵の Secret で署名（release.yml で SHA-256 を照合済み）
 - [x] update：更新をハブに頼む形に（ハブはハブ機能）
 - [ ] settings：共通設定をハブから受け取る（ハブは配る側）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した
-- [ ] release：新しい版を Releases に出した
+- [x] release：新しい版を Releases に出した（v0.3.0、2026-11-24）
 
 ## 実機で確かめること
 
