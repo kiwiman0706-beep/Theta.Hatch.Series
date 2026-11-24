@@ -47,6 +47,15 @@
 - Obsidian Bases：`Mensetsu/応募者.base` を無いときだけ作る（Vault 仕様）
 - URL（Releases・Pages）はリポジトリ名が変わらないのでそのまま
 
+### データの一括の書き出し・読み込み（利用者の依頼、2026-11-24）
+
+- メニューに「すべて書き出す」「書き出したファイルを読み込む」（Android・Windows・Mac・Web の全版）。
+- 1 つの zip：`manifest.json`（`format`＝`theta-export-1`、元のアプリと版、作った日時、ファイル一覧と各 SHA-256）＋ Vault と同じ形（`Mensetsu/Applicants/*.md`、`Mensetsu/_files/` の履歴書の画像・PDF 原本・顔写真・書類・録音・手書き）＋ `apps.mensetsu` の設定。zip を開けばそのまま Obsidian で読める。
+- 書き出し画面で、件数・大きさと「録音を含める」などを選べる。全員か、今の絞り込みの人だけ。API キー・トークンは入れない。
+- 読み込みは足すだけ（同じ id は新しい方を残す。画像・PDF は同じ名前なら飛ばす）。読み込む前に件数を見せる。
+- Android では `app.thetahatch.action.EXPORT`／`IMPORT`（`docs/MIGRATION.md` §3）でも同じ処理を呼べるようにする（ハブからの移行・機種変更に使える）。
+- 同期を使っていない端末からの引っ越しにも使う（上の「端末の中だけのデータ」）。
+
 ### Windows・Mac
 
 すでに Electron で動いている（Windows はインストーラーと自動更新、Mac は通知）。appId を変えると Windows では別アプリになるので、新しい版の初回に古い版の削除を案内する。
@@ -59,7 +68,8 @@
 - [ ] 4. アプリの設定を Vault の `apps.mensetsu` に移してよいか
 - [ ] 5. デスクトップの appId も `app.thetahatch.mensetsu` に変えてよいか（Windows は古い版を手で削除）
 - [ ] 6. 撮って登録（`SCAN`）にも対応するか（Home から「履歴書を撮る」）
-- [ ] 7. このリポジトリに 4 つの Secret が入っているか（2026-11-06 に配布済みと聞いている）
+- [ ] 7. 一括の書き出し・読み込みを、移行の作業と同じ版（1.0.0）に入れてよいか
+- [ ] 8. このリポジトリに 4 つの Secret が入っているか（2026-11-06 に配布済みと聞いている）
 
 ## 進み具合
 
