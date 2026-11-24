@@ -23,11 +23,11 @@ data class Palette(
     val accent3: Color,
     /** POP：角を丸め、線を太く、ボタンに影、書体はゴシック。 */
     val pop: Boolean = false,
-    /** 背景の模様："" なし・scan（走査線）・grid（方眼）・rain・lines・pixel・dusk（夕暮れのグラデーション＋方眼）。 */
+    /** 背景の模様："" なし・scan（走査線）・grid（方眼）・rain・lines・pixel・dusk（夕暮れのグラデーション＋方眼）・dots（手帳の点）。 */
     val backdrop: String = "",
     /** 見出しの上の警告の帯の太さ。 */
     val hazard: Dp = 4.dp,
-    /** 作り：hud・pop・term・braun・soft・window・lcd（枠・時計・見出しの形の種類）。 */
+    /** 作り：hud・pop・term・braun・soft・window・lcd・note（枠・時計・見出しの形の種類）。 */
     val style: String = "hud",
     /** 角丸の大きさ。 */
     val radius: Dp = 0.dp,
@@ -37,7 +37,11 @@ data class Palette(
     val shadow: String = "none",
     /** アイコンの台：square・round（角丸 24%）・circle。 */
     val iconShape: String = "square",
+    /** 区画の台の色（省略可。Unspecified なら panel。DUSK は地が透けるガラス）。 */
+    val card: Color = Color.Unspecified,
 ) {
+    /** 区画の台に塗る色。 */
+    val cardBg: Color get() = if (card == Color.Unspecified) panel else card
     fun group(g: Int) = when (g) {
         0 -> accent
         1 -> widget
@@ -305,7 +309,7 @@ val LcdPalette = Palette(
     iconShape = "square",
 )
 
-/** DUSK（夕暮れのガラス）：夕暮れの青緑の地にコーラル・ミント・紫・黄。台は accent 色でぼんやり光る細い縁、角丸、ゴシック。背景は夕焼けから青緑へのグラデーションに白い方眼 */
+/** DUSK（夕暮れのガラス）：明るい珊瑚色から青緑へのグラデーションに薄い方眼。区画の台は地が透ける暗い青緑のガラス、縁が accent 色でぼんやり光る。コーラル・ミント・紫・黄、角丸、ゴシック */
 val DuskPalette = Palette(
     bg = Color(0xFF243A3C),
     panel = Color(0xFF2C4346),
@@ -321,7 +325,7 @@ val DuskPalette = Palette(
     zebra = Color(0x0FFFFFFF),
     accent2 = Color(0xFFF2C46B),
     accent3 = Color(0xFF86D9C4),
-    pop = false,
+    pop = true,
     backdrop = "dusk",
     hazard = 0.dp,
     style = "soft",
@@ -329,9 +333,36 @@ val DuskPalette = Palette(
     font = "sans",
     shadow = "glow",
     iconShape = "round",
+    card = Color(0xC72C4346),
 )
 
-/** 設定 ui.skin の値（system・dark・light・pop・alert・scifi・term・braun・soft・window・lcd・dusk）から配色を決める。 */
+/** NOTE（手帳）：薄いラベンダーの地に点の方眼、紺の太い線の白いカード。見出しはフォルダの耳のような色の札（青・緑・桃）、端のタブはパステルの丸い札 */
+val NotePalette = Palette(
+    bg = Color(0xFFF1EEFA),
+    panel = Color(0xFFFFFFFF),
+    raised = Color(0xFFEEF0FB),
+    fg = Color(0xFF1F2340),
+    muted = Color(0xFF454A68),
+    faint = Color(0xFF62678A),
+    line = Color(0xFF1F2340),
+    accent = Color(0xFFA9B8F0),
+    onAccent = Color(0xFF1F2340),
+    widget = Color(0xFFA8E6C1),
+    launch = Color(0xFFF6B8C8),
+    zebra = Color(0x0D1F2340),
+    accent2 = Color(0xFFF7DC8A),
+    accent3 = Color(0xFFF6B8C8),
+    pop = true,
+    backdrop = "dots",
+    hazard = 0.dp,
+    style = "note",
+    radius = 14.dp,
+    font = "sans",
+    shadow = "none",
+    iconShape = "round",
+)
+
+/** 設定 ui.skin の値（system・dark・light・pop・alert・scifi・term・braun・soft・window・lcd・dusk・note）から配色を決める。 */
 fun paletteFor(skin: String, systemDark: Boolean): Palette = when (skin) {
     "dark" -> DarkPalette
     "light" -> LightPalette
@@ -344,5 +375,6 @@ fun paletteFor(skin: String, systemDark: Boolean): Palette = when (skin) {
     "window" -> WindowPalette
     "lcd" -> LcdPalette
     "dusk" -> DuskPalette
+    "note" -> NotePalette
     else -> if (systemDark) DarkPalette else LightPalette
 }

@@ -15,7 +15,8 @@
       "soft",
       "window",
       "lcd",
-      "dusk"
+      "dusk",
+      "note"
     ],
     "default": "system",
     "system": "端末がダークなら dark、ライトなら light"
@@ -34,7 +35,8 @@
     "launch": "群2（起動）の色",
     "zebra": "一覧の縞（地に薄く重ねる）",
     "accent2": "2色目（POP のイエロー、ALERT の赤、SCI-FI の水色）",
-    "accent3": "3色目（POP のミント、ALERT の緑、SCI-FI の緑）"
+    "accent3": "3色目（POP のミント、ALERT の緑、SCI-FI の緑）",
+    "card": "区画の台（省略可。無ければ panel。DUSK は地が透けるガラス）"
   },
   "skins": {
     "dark": {
@@ -319,7 +321,7 @@
     },
     "dusk": {
       "label": "DUSK（夕暮れのガラス）",
-      "summary": "夕暮れの青緑の地にコーラル・ミント・紫・黄。台は accent 色でぼんやり光る細い縁、角丸、ゴシック。背景は夕焼けから青緑へのグラデーションに白い方眼",
+      "summary": "明るい珊瑚色から青緑へのグラデーションに薄い方眼。区画の台は地が透ける暗い青緑のガラス、縁が accent 色でぼんやり光る。コーラル・ミント・紫・黄、角丸、ゴシック",
       "color": {
         "bg": "#243A3C",
         "panel": "#2C4346",
@@ -334,9 +336,10 @@
         "launch": "#D69BE8",
         "zebra": "#0FFFFFFF",
         "accent2": "#F2C46B",
-        "accent3": "#86D9C4"
+        "accent3": "#86D9C4",
+        "card": "#C72C4346"
       },
-      "pop": false,
+      "pop": true,
       "backdrop": "dusk",
       "hazard": 0,
       "style": "soft",
@@ -344,12 +347,40 @@
       "font": "sans",
       "shadow": "glow",
       "iconShape": "round"
+    },
+    "note": {
+      "label": "NOTE（手帳）",
+      "summary": "薄いラベンダーの地に点の方眼、紺の太い線の白いカード。見出しはフォルダの耳のような色の札（青・緑・桃）、端のタブはパステルの丸い札",
+      "color": {
+        "bg": "#F1EEFA",
+        "panel": "#FFFFFF",
+        "raised": "#EEF0FB",
+        "fg": "#1F2340",
+        "muted": "#454A68",
+        "faint": "#62678A",
+        "line": "#1F2340",
+        "accent": "#A9B8F0",
+        "onAccent": "#1F2340",
+        "widget": "#A8E6C1",
+        "launch": "#F6B8C8",
+        "zebra": "#0D1F2340",
+        "accent2": "#F7DC8A",
+        "accent3": "#F6B8C8"
+      },
+      "pop": true,
+      "backdrop": "dots",
+      "hazard": 0,
+      "style": "note",
+      "radius": 14,
+      "font": "sans",
+      "shadow": "none",
+      "iconShape": "round"
     }
   },
   "shape": {
     "hud": "角は丸めない（0dp）。ボタン・入力欄だけ左上を 8dp 斜めに落とす（Chamfer）。線は 1dp",
     "pop": "角は 10dp（ボタン・入力欄は 8dp）。線は 1.5dp。ボタンに右下 3dp の fg 色の影",
-    "fields": "style：作り（hud・pop・term・braun・soft・window・lcd。枠・時計・見出しの形の種類）／radius：角丸 dp／font：hud＝Oswald＋Share Tech Mono・sans＝端末のゴシック・mono＝全部 Share Tech Mono／shadow：none・hard（右下 3dp の fg 色の影）・soft（ぼかした浮き出し）・glow（accent 色で縁がぼんやり光る＋細い縁）／iconShape：square・round（角丸 24%）・circle"
+    "fields": "style：作り（hud・pop・term・braun・soft・window・lcd・note。枠・時計・見出しの形の種類）／radius：角丸 dp／font：hud＝Oswald＋Share Tech Mono・sans＝端末のゴシック・mono＝全部 Share Tech Mono／shadow：none・hard（右下 3dp の fg 色の影）・soft（ぼかした浮き出し）・glow（accent 色で縁がぼんやり光る＋細い縁）／iconShape：square・round（角丸 24%）・circle"
   },
   "font": {
     "display": "Oswald（Light・Regular・SemiBold）— 見出し・時計・大きな数字。POP は端末のゴシック",
@@ -362,7 +393,8 @@
     "rain": "縦に流れる文字の列：18dp ごとの列に accent の点、最大 10%",
     "lines": "白い方眼：36dp ごと、白の 22%",
     "pixel": "液晶の横線：3dp ごと、fg の 3.5%",
-    "dusk": "夕暮れのグラデーション：左上→右下に #B8705F → #6A5B5C → #2F4547 → #213638、その上に白 4% の 40dp 方眼"
+    "dusk": "夕暮れのグラデーション：左上→右下に #D8957F → #9C8078 → #4E6766 → #263D3F、その上に白 4% の 40dp 方眼",
+    "dots": "手帳の点の方眼：18dp ごとに半径 1.3dp の点、fg の 13%"
   },
   "note": "WebView 版などで作り（style）まで真似できないときは、色だけ使えば十分"
 }

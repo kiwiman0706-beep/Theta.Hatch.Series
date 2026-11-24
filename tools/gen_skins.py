@@ -13,7 +13,7 @@ COLOR_KEYS = ["bg", "panel", "raised", "fg", "muted", "faint", "line", "accent",
               "widget", "launch", "zebra", "accent2", "accent3"]
 KT_NAMES = {"dark": "DarkPalette", "light": "LightPalette", "pop": "PopPalette",
             "alert": "AlertPalette", "scifi": "SciFiPalette", "term": "TermPalette", "braun": "BraunPalette",
-            "soft": "SoftPalette", "window": "WindowPalette", "lcd": "LcdPalette", "dusk": "DuskPalette"}
+            "soft": "SoftPalette", "window": "WindowPalette", "lcd": "LcdPalette", "dusk": "DuskPalette", "note": "NotePalette"}
 GOTHIC = 'system-ui, "Noto Sans JP", sans-serif'
 OSWALD = '"Oswald", "Noto Sans JP", sans-serif'
 TECH = '"Share Tech Mono", ui-monospace, "Noto Sans JP", monospace'
@@ -33,8 +33,11 @@ BACKDROPS = {
     "pixel": "repeating-linear-gradient(to bottom, color-mix(in srgb, var(--fg) 3.5%, transparent) 0 1px, transparent 1px 3px)",
     "dusk": ("repeating-linear-gradient(to right, rgba(255,255,255,.04) 0 1px, transparent 1px 40px),\n"
              "    repeating-linear-gradient(to bottom, rgba(255,255,255,.04) 0 1px, transparent 1px 40px),\n"
-             "    linear-gradient(to bottom right, #B8705F, #6A5B5C, #2F4547, #213638)"),
+             "    linear-gradient(to bottom right, #D8957F, #9C8078, #4E6766, #263D3F)"),
+    "dots": "radial-gradient(circle, color-mix(in srgb, var(--fg) 13%, transparent) 1.3px, transparent 1.6px)",
 }
+# 模様の繰り返しの大きさ（background-image に書けないもの）
+BACKDROP_SIZE = {"dots": "18px 18px"}
 
 
 def css_name(key):
@@ -57,6 +60,8 @@ def kt_color(v):
 
 def css_block(skin):
     lines = [f"  {css_name(k)}: {css_color(skin['color'][k])};" for k in COLOR_KEYS]
+    # 区画の台（省略可。無ければ panel）
+    lines.append(f"  --card: {css_color(skin['color']['card']) if 'card' in skin['color'] else 'var(--panel)'};")
     display, mono = FONTS[skin.get("font", "hud")]
     lines += [
         f"  --radius: {skin.get('radius', 0)}px;",
@@ -100,7 +105,10 @@ def make_css(data):
     for name, skin in s.items():
         if skin.get("backdrop"):
             out += [f"[data-theta-skin=\"{name}\"] .theta-backdrop, .theta-backdrop[data-theta-skin=\"{name}\"] {{",
-                    f"  background-image: {BACKDROPS[skin['backdrop']]};", "}"]
+                    f"  background-image: {BACKDROPS[skin['backdrop']]};"]
+            if skin["backdrop"] in BACKDROP_SIZE:
+                out.append(f"  background-size: {BACKDROP_SIZE[skin['backdrop']]};")
+            out.append("}")
     out += [
         "/* ボタン・台の影（POP・WINDOW は右下にずらした影、BRAUN・SOFT は浮き出し、DUSK は accent 色で光る縁） */",
         ".theta-pop-shadow { box-shadow: var(--shadow); }",
@@ -125,11 +133,11 @@ def make_kt(data):
     out += [
         "    /** POP：角を丸め、線を太く、ボタンに影、書体はゴシック。 */",
         "    val pop: Boolean = false,",
-        "    /** 背景の模様：\"\" なし・scan（走査線）・grid（方眼）・rain・lines・pixel・dusk（夕暮れのグラデーション＋方眼）。 */",
+        "    /** 背景の模様：\"\" なし・scan（走査線）・grid（方眼）・rain・lines・pixel・dusk（夕暮れのグラデーション＋方眼）・dots（手帳の点）。 */",
         "    val backdrop: String = \"\",",
         "    /** 見出しの上の警告の帯の太さ。 */",
         "    val hazard: Dp = 4.dp,",
-        "    /** 作り：hud・pop・term・braun・soft・window・lcd（枠・時計・見出しの形の種類）。 */",
+        "    /** 作り：hud・pop・term・braun・soft・window・lcd・note（枠・時計・見出しの形の種類）。 */",
         "    val style: String = \"hud\",",
         "    /** 角丸の大きさ。 */",
         "    val radius: Dp = 0.dp,",
@@ -139,7 +147,11 @@ def make_kt(data):
         "    val shadow: String = \"none\",",
         "    /** アイコンの台：square・round（角丸 24%）・circle。 */",
         "    val iconShape: String = \"square\",",
+        "    /** 区画の台の色（省略可。Unspecified なら panel。DUSK は地が透けるガラス）。 */",
+        "    val card: Color = Color.Unspecified,",
         ") {",
+        "    /** 区画の台に塗る色。 */",
+        "    val cardBg: Color get() = if (card == Color.Unspecified) panel else card",
         "    fun group(g: Int) = when (g) {",
         "        0 -> accent",
         "        1 -> widget",
@@ -161,6 +173,7 @@ def make_kt(data):
             f"    font = \"{skin.get('font', 'hud')}\",",
             f"    shadow = \"{skin.get('shadow', 'none')}\",",
             f"    iconShape = \"{skin.get('iconShape', 'square')}\",",
+        ] + ([f"    card = Color({kt_color(skin['color']['card'])}),"] if 'card' in skin['color'] else []) + [
             ")",
             "",
         ]

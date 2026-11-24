@@ -1,5 +1,5 @@
 /* 生成ファイル：tools/gen_skins.py で design/skins/skins.json から作る。手で直さない。
-   <html data-theta-skin="dark|light|pop|alert|scifi|term|braun|soft|window|lcd|dusk|system">（html 以外の要素に付けてもその中だけ切り替わる）。無い・system は端末のダーク／ライトに合わせる。
+   <html data-theta-skin="dark|light|pop|alert|scifi|term|braun|soft|window|lcd|dusk|note|system">（html 以外の要素に付けてもその中だけ切り替わる）。無い・system は端末のダーク／ライトに合わせる。
    書体：<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
    （アプリに同梱するときは design/hud-kit/compose/res/font/ の ttf とライセンスを使う） */
 :root {
@@ -17,6 +17,7 @@
   --zebra: rgba(0,0,0,0.051);
   --accent2: #B8400C;
   --accent3: #B8400C;
+  --card: var(--panel);
   --radius: 0px;
   --line-width: 1px;
   --hazard: 4px;
@@ -42,6 +43,7 @@
     --zebra: rgba(255,255,255,0.059);
     --accent2: #FF6B1A;
     --accent3: #FF6B1A;
+    --card: var(--panel);
     --radius: 0px;
     --line-width: 1px;
     --hazard: 4px;
@@ -67,6 +69,7 @@
   --zebra: rgba(255,255,255,0.059);
   --accent2: #FF6B1A;
   --accent3: #FF6B1A;
+  --card: var(--panel);
   --radius: 0px;
   --line-width: 1px;
   --hazard: 4px;
@@ -91,6 +94,7 @@
   --zebra: rgba(0,0,0,0.051);
   --accent2: #B8400C;
   --accent3: #B8400C;
+  --card: var(--panel);
   --radius: 0px;
   --line-width: 1px;
   --hazard: 4px;
@@ -115,6 +119,7 @@
   --zebra: rgba(245,200,66,0.149);
   --accent2: #F5C842;
   --accent3: #A8E2CF;
+  --card: var(--panel);
   --radius: 10px;
   --line-width: 1.5px;
   --hazard: 4px;
@@ -139,6 +144,7 @@
   --zebra: rgba(255,122,0,0.078);
   --accent2: #FF2A2A;
   --accent3: #39E07A;
+  --card: var(--panel);
   --radius: 0px;
   --line-width: 1px;
   --hazard: 10px;
@@ -163,6 +169,7 @@
   --zebra: rgba(63,208,232,0.071);
   --accent2: #3FD0E8;
   --accent3: #7BE38B;
+  --card: var(--panel);
   --radius: 0px;
   --line-width: 1px;
   --hazard: 6px;
@@ -187,6 +194,7 @@
   --zebra: rgba(61,255,127,0.078);
   --accent2: #C9FFD9;
   --accent3: #2E9E58;
+  --card: var(--panel);
   --radius: 8px;
   --line-width: 1px;
   --hazard: 0px;
@@ -211,6 +219,7 @@
   --zebra: rgba(0,0,0,0.039);
   --accent2: #5E7A68;
   --accent3: #C9C5BA;
+  --card: var(--panel);
   --radius: 14px;
   --line-width: 1.5px;
   --hazard: 4px;
@@ -235,6 +244,7 @@
   --zebra: rgba(0,0,0,0.031);
   --accent2: #E8606F;
   --accent3: #7FC08E;
+  --card: var(--panel);
   --radius: 18px;
   --line-width: 1.5px;
   --hazard: 4px;
@@ -259,6 +269,7 @@
   --zebra: rgba(245,163,58,0.078);
   --accent2: #7C8DF2;
   --accent3: #F28DB2;
+  --card: var(--panel);
   --radius: 6px;
   --line-width: 1.5px;
   --hazard: 4px;
@@ -283,6 +294,7 @@
   --zebra: rgba(28,38,16,0.063);
   --accent2: #3C5568;
   --accent3: #6B4A33;
+  --card: var(--panel);
   --radius: 8px;
   --line-width: 1px;
   --hazard: 0px;
@@ -307,14 +319,40 @@
   --zebra: rgba(255,255,255,0.059);
   --accent2: #F2C46B;
   --accent3: #86D9C4;
+  --card: rgba(44,67,70,0.78);
   --radius: 10px;
-  --line-width: 1px;
+  --line-width: 1.5px;
   --hazard: 0px;
   --shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent), 0 0 14px color-mix(in srgb, var(--accent) 35%, transparent);
   --icon-radius: 24%;
   --display: system-ui, "Noto Sans JP", sans-serif;
   --mono: system-ui, "Noto Sans JP", sans-serif;
   color-scheme: dark;
+}
+[data-theta-skin="note"] {
+  --bg: #F1EEFA;
+  --panel: #FFFFFF;
+  --raised: #EEF0FB;
+  --fg: #1F2340;
+  --muted: #454A68;
+  --faint: #62678A;
+  --line: #1F2340;
+  --accent: #A9B8F0;
+  --on-accent: #1F2340;
+  --widget: #A8E6C1;
+  --launch: #F6B8C8;
+  --zebra: rgba(31,35,64,0.051);
+  --accent2: #F7DC8A;
+  --accent3: #F6B8C8;
+  --card: var(--panel);
+  --radius: 14px;
+  --line-width: 1.5px;
+  --hazard: 0px;
+  --shadow: none;
+  --icon-radius: 24%;
+  --display: system-ui, "Noto Sans JP", sans-serif;
+  --mono: system-ui, "Noto Sans JP", sans-serif;
+  color-scheme: light;
 }
 
 /* 背景の模様。地を塗る要素に .theta-backdrop を付ける */
@@ -338,7 +376,11 @@
 [data-theta-skin="dusk"] .theta-backdrop, .theta-backdrop[data-theta-skin="dusk"] {
   background-image: repeating-linear-gradient(to right, rgba(255,255,255,.04) 0 1px, transparent 1px 40px),
     repeating-linear-gradient(to bottom, rgba(255,255,255,.04) 0 1px, transparent 1px 40px),
-    linear-gradient(to bottom right, #B8705F, #6A5B5C, #2F4547, #213638);
+    linear-gradient(to bottom right, #D8957F, #9C8078, #4E6766, #263D3F);
+}
+[data-theta-skin="note"] .theta-backdrop, .theta-backdrop[data-theta-skin="note"] {
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--fg) 13%, transparent) 1.3px, transparent 1.6px);
+  background-size: 18px 18px;
 }
 /* ボタン・台の影（POP・WINDOW は右下にずらした影、BRAUN・SOFT は浮き出し、DUSK は accent 色で光る縁） */
 .theta-pop-shadow { box-shadow: var(--shadow); }
