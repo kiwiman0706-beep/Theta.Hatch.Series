@@ -1,6 +1,6 @@
 # Theta Mensetsu Hatch（mensetsu）の移行メモ
 
-- 更新：2026-11-25（1.0.4）
+- 更新：2026-11-25（1.0.5）
 - スレッド：https://claude.ai/code/session_01UZcNkbW2pixSpi59267B3r
 - 状態：実機確認待ち（1.0.0 を Releases に公開、2026-11-24。Android・Windows・Mac。1.0.1 で読み込んだ人の顔写真をまとめて切り出せるように）
 
