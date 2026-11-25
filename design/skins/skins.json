@@ -16,7 +16,8 @@
       "window",
       "lcd",
       "dusk",
-      "note"
+      "note",
+      "gazee"
     ],
     "default": "system",
     "system": "端末がダークなら dark、ライトなら light"
@@ -375,12 +376,40 @@
       "font": "sans",
       "shadow": "none",
       "iconShape": "round"
+    },
+    "gazee": {
+      "label": "GAZEE（90 年代のデスクトップ）",
+      "summary": "青い机の地に、灰色の立体的な窓（左上が明るく右下が暗い縁）。窓の見出しは左上の黄色い札。四角に近い角、ゴシック",
+      "color": {
+        "bg": "#8FB0D6",
+        "panel": "#E9E9E9",
+        "raised": "#D9D9D9",
+        "fg": "#1A1A1A",
+        "muted": "#444444",
+        "faint": "#555555",
+        "line": "#555555",
+        "accent": "#FFCB00",
+        "onAccent": "#1A1A1A",
+        "widget": "#3F7FD0",
+        "launch": "#E0584F",
+        "zebra": "#0F000000",
+        "accent2": "#3F7FD0",
+        "accent3": "#4FA55A"
+      },
+      "pop": true,
+      "backdrop": "",
+      "hazard": 0,
+      "style": "gazee",
+      "radius": 3,
+      "font": "sans",
+      "shadow": "none",
+      "iconShape": "square"
     }
   },
   "shape": {
     "hud": "角は丸めない（0dp）。ボタン・入力欄だけ左上を 8dp 斜めに落とす（Chamfer）。線は 1dp",
     "pop": "角は 10dp（ボタン・入力欄は 8dp）。線は 1.5dp。ボタンに右下 3dp の fg 色の影",
-    "fields": "style：作り（hud・pop・term・braun・soft・window・lcd・note。枠・時計・見出しの形の種類）／radius：角丸 dp／font：hud＝Oswald＋Share Tech Mono・sans＝端末のゴシック・mono＝全部 Share Tech Mono／shadow：none・hard（右下 3dp の fg 色の影）・soft（ぼかした浮き出し）・glow（accent 色で縁がぼんやり光る＋細い縁）／iconShape：square・round（角丸 24%）・circle"
+    "fields": "style：作り（hud・pop・term・braun・soft・window・lcd・note・gazee。枠・時計・見出しの形の種類）／radius：角丸 dp／font：hud＝Oswald＋Share Tech Mono・sans＝端末のゴシック・mono＝全部 Share Tech Mono／shadow：none・hard（右下 3dp の fg 色の影）・soft（ぼかした浮き出し）・glow（accent 色で縁がぼんやり光る＋細い縁）／iconShape：square・round（角丸 24%）・circle"
   },
   "font": {
     "display": "Oswald（Light・Regular・SemiBold）— 見出し・時計・大きな数字。POP は端末のゴシック",

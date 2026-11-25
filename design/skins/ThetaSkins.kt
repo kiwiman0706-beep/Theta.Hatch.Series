@@ -27,7 +27,7 @@ data class Palette(
     val backdrop: String = "",
     /** 見出しの上の警告の帯の太さ。 */
     val hazard: Dp = 4.dp,
-    /** 作り：hud・pop・term・braun・soft・window・lcd・note（枠・時計・見出しの形の種類）。 */
+    /** 作り：hud・pop・term・braun・soft・window・lcd・note・gazee（枠・時計・見出しの形の種類）。 */
     val style: String = "hud",
     /** 角丸の大きさ。 */
     val radius: Dp = 0.dp,
@@ -362,7 +362,33 @@ val NotePalette = Palette(
     iconShape = "round",
 )
 
-/** 設定 ui.skin の値（system・dark・light・pop・alert・scifi・term・braun・soft・window・lcd・dusk・note）から配色を決める。 */
+/** GAZEE（90 年代のデスクトップ）：青い机の地に、灰色の立体的な窓（左上が明るく右下が暗い縁）。窓の見出しは左上の黄色い札。四角に近い角、ゴシック */
+val GazeePalette = Palette(
+    bg = Color(0xFF8FB0D6),
+    panel = Color(0xFFE9E9E9),
+    raised = Color(0xFFD9D9D9),
+    fg = Color(0xFF1A1A1A),
+    muted = Color(0xFF444444),
+    faint = Color(0xFF555555),
+    line = Color(0xFF555555),
+    accent = Color(0xFFFFCB00),
+    onAccent = Color(0xFF1A1A1A),
+    widget = Color(0xFF3F7FD0),
+    launch = Color(0xFFE0584F),
+    zebra = Color(0x0F000000),
+    accent2 = Color(0xFF3F7FD0),
+    accent3 = Color(0xFF4FA55A),
+    pop = true,
+    backdrop = "",
+    hazard = 0.dp,
+    style = "gazee",
+    radius = 3.dp,
+    font = "sans",
+    shadow = "none",
+    iconShape = "square",
+)
+
+/** 設定 ui.skin の値（system・dark・light・pop・alert・scifi・term・braun・soft・window・lcd・dusk・note・gazee）から配色を決める。 */
 fun paletteFor(skin: String, systemDark: Boolean): Palette = when (skin) {
     "dark" -> DarkPalette
     "light" -> LightPalette
@@ -376,5 +402,6 @@ fun paletteFor(skin: String, systemDark: Boolean): Palette = when (skin) {
     "lcd" -> LcdPalette
     "dusk" -> DuskPalette
     "note" -> NotePalette
+    "gazee" -> GazeePalette
     else -> if (systemDark) DarkPalette else LightPalette
 }

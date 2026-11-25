@@ -29,7 +29,7 @@
 <body>
 <div class="grid" id="grid"></div>
 <script>
-  const skins = { dark: "ダーク", light: "ライト", pop: "POP（カラフル）", alert: "ALERT（警報画面）", scifi: "SCI-FI（操作卓）", term: "TERMINAL（緑の端末）", braun: "BRAUN（白い家電）", soft: "SOFT（浮き出し）", window: "WINDOW（昔のパソコン）", lcd: "LCD（液晶ゲーム機）", dusk: "DUSK（夕暮れのガラス）", note: "NOTE（手帳）" };
+  const skins = { dark: "ダーク", light: "ライト", pop: "POP（カラフル）", alert: "ALERT（警報画面）", scifi: "SCI-FI（操作卓）", term: "TERMINAL（緑の端末）", braun: "BRAUN（白い家電）", soft: "SOFT（浮き出し）", window: "WINDOW（昔のパソコン）", lcd: "LCD（液晶ゲーム機）", dusk: "DUSK（夕暮れのガラス）", note: "NOTE（手帳）", gazee: "GAZEE（90 年代のデスクトップ）" };
   const grid = document.getElementById("grid");
   for (const [id, name] of Object.entries(skins)) {
     grid.insertAdjacentHTML("beforeend", `

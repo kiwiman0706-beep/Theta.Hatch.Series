@@ -13,7 +13,7 @@ COLOR_KEYS = ["bg", "panel", "raised", "fg", "muted", "faint", "line", "accent",
               "widget", "launch", "zebra", "accent2", "accent3"]
 KT_NAMES = {"dark": "DarkPalette", "light": "LightPalette", "pop": "PopPalette",
             "alert": "AlertPalette", "scifi": "SciFiPalette", "term": "TermPalette", "braun": "BraunPalette",
-            "soft": "SoftPalette", "window": "WindowPalette", "lcd": "LcdPalette", "dusk": "DuskPalette", "note": "NotePalette"}
+            "soft": "SoftPalette", "window": "WindowPalette", "lcd": "LcdPalette", "dusk": "DuskPalette", "note": "NotePalette", "gazee": "GazeePalette"}
 GOTHIC = 'system-ui, "Noto Sans JP", sans-serif'
 OSWALD = '"Oswald", "Noto Sans JP", sans-serif'
 TECH = '"Share Tech Mono", ui-monospace, "Noto Sans JP", monospace'
@@ -137,7 +137,7 @@ def make_kt(data):
         "    val backdrop: String = \"\",",
         "    /** 見出しの上の警告の帯の太さ。 */",
         "    val hazard: Dp = 4.dp,",
-        "    /** 作り：hud・pop・term・braun・soft・window・lcd・note（枠・時計・見出しの形の種類）。 */",
+        "    /** 作り：hud・pop・term・braun・soft・window・lcd・note・gazee（枠・時計・見出しの形の種類）。 */",
         "    val style: String = \"hud\",",
         "    /** 角丸の大きさ。 */",
         "    val radius: Dp = 0.dp,",

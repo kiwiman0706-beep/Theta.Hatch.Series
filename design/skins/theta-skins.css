@@ -1,5 +1,5 @@
 /* 生成ファイル：tools/gen_skins.py で design/skins/skins.json から作る。手で直さない。
-   <html data-theta-skin="dark|light|pop|alert|scifi|term|braun|soft|window|lcd|dusk|note|system">（html 以外の要素に付けてもその中だけ切り替わる）。無い・system は端末のダーク／ライトに合わせる。
+   <html data-theta-skin="dark|light|pop|alert|scifi|term|braun|soft|window|lcd|dusk|note|gazee|system">（html 以外の要素に付けてもその中だけ切り替わる）。無い・system は端末のダーク／ライトに合わせる。
    書体：<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
    （アプリに同梱するときは design/hud-kit/compose/res/font/ の ttf とライセンスを使う） */
 :root {
@@ -350,6 +350,31 @@
   --hazard: 0px;
   --shadow: none;
   --icon-radius: 24%;
+  --display: system-ui, "Noto Sans JP", sans-serif;
+  --mono: system-ui, "Noto Sans JP", sans-serif;
+  color-scheme: light;
+}
+[data-theta-skin="gazee"] {
+  --bg: #8FB0D6;
+  --panel: #E9E9E9;
+  --raised: #D9D9D9;
+  --fg: #1A1A1A;
+  --muted: #444444;
+  --faint: #555555;
+  --line: #555555;
+  --accent: #FFCB00;
+  --on-accent: #1A1A1A;
+  --widget: #3F7FD0;
+  --launch: #E0584F;
+  --zebra: rgba(0,0,0,0.059);
+  --accent2: #3F7FD0;
+  --accent3: #4FA55A;
+  --card: var(--panel);
+  --radius: 3px;
+  --line-width: 1.5px;
+  --hazard: 0px;
+  --shadow: none;
+  --icon-radius: 0;
   --display: system-ui, "Noto Sans JP", sans-serif;
   --mono: system-ui, "Noto Sans JP", sans-serif;
   color-scheme: light;
