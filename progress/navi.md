@@ -1,8 +1,8 @@
 # Theta Navi Hatch（navi）の移行メモ
 
-- 更新：2026-11-24
+- 更新：2026-11-25
 - スレッド：https://claude.ai/code/session_012DXkc1s7r9pPQgcG7FqRha
-- 状態：実機確認待ち（v0.3.0 を Releases に公開。catalog に登録済み）
+- 状態：実機確認中（P0 第1回 2026-11-25。v0.3.1 を公開。Android Auto の一覧に出すため Play 内部テストを準備中）
 
 ## 今と目標
 
@@ -41,6 +41,17 @@
 
 ## 実機で確かめること
 
-- [ ] 0.3.0 が 0.2.1 と並んで入る／新しいキー制限で地図が出る
-- [ ] Android Auto の一覧に出る経路（Play 内部共有か、AA の開発者設定「提供元不明」か）
-- [ ] ハブからの更新（Home が navi を catalog で知ってから）
+結果の詳細は Theta.Navi.Hatch の `docs/p0/RESULT_20261125.md`（単体テスト・実機SDK・DHU・実車を分けて記録）。
+
+- [x] 0.3.0 が入る：iPlay60 Pro（Android 15・Android Auto 18.0）に SHA256SUMS と共通鍵の署名を確かめて導入できた（2026-11-25）。0.2.1 はこの端末に無く「並んで入る」は未確認
+- [ ] 新しいキー制限で地図が出る：キー入力後に Navigation SDK の準備完了（navigator_ready）までは成功。タブレットの実地図の目視は未確認
+- [x] Android Auto の一覧に出る経路を決めた：AA の開発者設定「提供元不明のアプリ」は**だめ**（AA 18 の CAR.VALIDATOR が adb で入れた Car App Library アプリを拒否。メディアアプリは出る）→ **Play Console の内部テスト**で入れる（利用者が開発者アカウントを作る。内部アプリ共有は署名が変わるので使わない）
+- [ ] Play 内部テストから入れて AA の一覧に出る（0.3.1 の AAB。アプリ署名鍵に共通鍵を登録して SHA-1 を変えない）
+- [ ] 車とタブレットの二画面・ジョグダイヤル・車両位置の診断（実車、利用者が停車中に）
+- [ ] ハブからの更新（Home が navi を catalog で知ってから。Play から入れた後はインストール元が Play になる点に注意）
+
+## メモ（P0 で分かったこと）
+
+- 0.3.1 から release は debuggable でない（Play が受け付けないため）。ADB の診断は `cmd export` で回収
+- Release に Play 用の AAB も置く（APK は 1 つのまま。§6.1 に合う）
+- ワイヤレスデバッグは Wi-Fi 接続中でないと ON にできない。テザリングで pair → `adb tcpip 5555` にすれば Tailscale 越しに使える（再起動で切れる）
