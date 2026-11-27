@@ -4,7 +4,7 @@
 
 - 更新：2026-11-15
 - スレッド：https://claude.ai/code/session_012DXkbyha4qRNRU1wCiPjQm
-- 状態：実機確認待ち（0.9.0 を Releases に出した。NAS のえいが（mpv）・おんがく・しゃしん・ほんを内蔵、絵の並び・さいきん ついか・さがす。試作のデザインのクロスバー・レスキュー。実機はローカルの Claude に依頼予定：docs/PROMPT_LOCAL_INSTALL.md）
+- 状態：実機確認待ち（0.10.0 を Releases に出した。NAS のえいが（mpv）・おんがく・しゃしん・ほんを内蔵、さがす。Gemini に聞く（Google 検索・マップ）。試作のデザインのクロスバー・レスキュー。実機はローカルの Claude に依頼予定：docs/PROMPT_LOCAL_INSTALL.md）
 
 ## 今と目標
 
@@ -63,7 +63,7 @@
 - [x] update：更新をハブに頼む形に（ハブはハブ機能）
 - [x] settings：共通設定をハブから受け取る（ハブは配る側）
 - [x] rename：改名後の名前に合わせて URL・リンクを直した
-- [x] release：新しい版を Releases に出した（v0.9.0）
+- [x] release：新しい版を Releases に出した（v0.10.0）
 
 ## 実機で確かめること
 
